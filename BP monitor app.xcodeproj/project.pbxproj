@@ -15,6 +15,8 @@
 		179F743A28698F2200CE83ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 179F743828698F2200CE83ED /* LaunchScreen.storyboard */; };
 		179F744528698F2300CE83ED /* BP_monitor_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F744428698F2300CE83ED /* BP_monitor_appTests.swift */; };
 		179F745028698F2300CE83ED /* BP_monitor_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F744F28698F2300CE83ED /* BP_monitor_appUITests.swift */; };
+		179F745E2869B1E200CE83ED /* ReadingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F745D2869B1E200CE83ED /* ReadingsController.swift */; };
+		179F74602869B24800CE83ED /* ConnectedDevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F745F2869B24800CE83ED /* ConnectedDevicesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		179F744B28698F2300CE83ED /* BP monitor appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BP monitor appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		179F744F28698F2300CE83ED /* BP_monitor_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BP_monitor_appUITests.swift; sourceTree = "<group>"; };
 		179F745128698F2300CE83ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		179F745D2869B1E200CE83ED /* ReadingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingsController.swift; sourceTree = "<group>"; };
+		179F745F2869B24800CE83ED /* ConnectedDevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedDevicesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				179F743828698F2200CE83ED /* LaunchScreen.storyboard */,
 				179F743B28698F2200CE83ED /* Info.plist */,
 				179F743328698F0400CE83ED /* BP_monitor_app.xcdatamodeld */,
+				179F745D2869B1E200CE83ED /* ReadingsController.swift */,
+				179F745F2869B24800CE83ED /* ConnectedDevicesViewController.swift */,
 			);
 			path = "BP monitor app";
 			sourceTree = "<group>";
@@ -259,9 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				179F745E2869B1E200CE83ED /* ReadingsController.swift in Sources */,
 				179F742F28698F0300CE83ED /* ViewController.swift in Sources */,
 				179F743528698F0400CE83ED /* BP_monitor_app.xcdatamodeld in Sources */,
 				179F742D28698F0300CE83ED /* AppDelegate.swift in Sources */,
+				179F74602869B24800CE83ED /* ConnectedDevicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
