@@ -1,0 +1,602 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		179F742D28698F0300CE83ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F742C28698F0300CE83ED /* AppDelegate.swift */; };
+		179F742F28698F0300CE83ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F742E28698F0300CE83ED /* ViewController.swift */; };
+		179F743228698F0400CE83ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 179F743028698F0400CE83ED /* Main.storyboard */; };
+		179F743528698F0400CE83ED /* BP_monitor_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 179F743328698F0400CE83ED /* BP_monitor_app.xcdatamodeld */; };
+		179F743728698F2200CE83ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 179F743628698F2200CE83ED /* Assets.xcassets */; };
+		179F743A28698F2200CE83ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 179F743828698F2200CE83ED /* LaunchScreen.storyboard */; };
+		179F744528698F2300CE83ED /* BP_monitor_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F744428698F2300CE83ED /* BP_monitor_appTests.swift */; };
+		179F745028698F2300CE83ED /* BP_monitor_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F744F28698F2300CE83ED /* BP_monitor_appUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		179F744128698F2300CE83ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 179F742128698F0300CE83ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 179F742828698F0300CE83ED;
+			remoteInfo = "BP monitor app";
+		};
+		179F744C28698F2300CE83ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 179F742128698F0300CE83ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 179F742828698F0300CE83ED;
+			remoteInfo = "BP monitor app";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		179F742928698F0300CE83ED /* BP monitor app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BP monitor app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		179F742C28698F0300CE83ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		179F742E28698F0300CE83ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		179F743128698F0400CE83ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		179F743428698F0400CE83ED /* BP_monitor_app.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BP_monitor_app.xcdatamodel; sourceTree = "<group>"; };
+		179F743628698F2200CE83ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		179F743928698F2200CE83ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		179F743B28698F2200CE83ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		179F744028698F2300CE83ED /* BP monitor appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BP monitor appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		179F744428698F2300CE83ED /* BP_monitor_appTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BP_monitor_appTests.swift; sourceTree = "<group>"; };
+		179F744628698F2300CE83ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		179F744B28698F2300CE83ED /* BP monitor appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BP monitor appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		179F744F28698F2300CE83ED /* BP_monitor_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BP_monitor_appUITests.swift; sourceTree = "<group>"; };
+		179F745128698F2300CE83ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		179F742628698F0300CE83ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		179F743D28698F2300CE83ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		179F744828698F2300CE83ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		179F742028698F0300CE83ED = {
+			isa = PBXGroup;
+			children = (
+				179F742B28698F0300CE83ED /* BP monitor app */,
+				179F744328698F2300CE83ED /* BP monitor appTests */,
+				179F744E28698F2300CE83ED /* BP monitor appUITests */,
+				179F742A28698F0300CE83ED /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		179F742A28698F0300CE83ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				179F742928698F0300CE83ED /* BP monitor app.app */,
+				179F744028698F2300CE83ED /* BP monitor appTests.xctest */,
+				179F744B28698F2300CE83ED /* BP monitor appUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		179F742B28698F0300CE83ED /* BP monitor app */ = {
+			isa = PBXGroup;
+			children = (
+				179F742C28698F0300CE83ED /* AppDelegate.swift */,
+				179F742E28698F0300CE83ED /* ViewController.swift */,
+				179F743028698F0400CE83ED /* Main.storyboard */,
+				179F743628698F2200CE83ED /* Assets.xcassets */,
+				179F743828698F2200CE83ED /* LaunchScreen.storyboard */,
+				179F743B28698F2200CE83ED /* Info.plist */,
+				179F743328698F0400CE83ED /* BP_monitor_app.xcdatamodeld */,
+			);
+			path = "BP monitor app";
+			sourceTree = "<group>";
+		};
+		179F744328698F2300CE83ED /* BP monitor appTests */ = {
+			isa = PBXGroup;
+			children = (
+				179F744428698F2300CE83ED /* BP_monitor_appTests.swift */,
+				179F744628698F2300CE83ED /* Info.plist */,
+			);
+			path = "BP monitor appTests";
+			sourceTree = "<group>";
+		};
+		179F744E28698F2300CE83ED /* BP monitor appUITests */ = {
+			isa = PBXGroup;
+			children = (
+				179F744F28698F2300CE83ED /* BP_monitor_appUITests.swift */,
+				179F745128698F2300CE83ED /* Info.plist */,
+			);
+			path = "BP monitor appUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		179F742828698F0300CE83ED /* BP monitor app */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 179F745428698F2300CE83ED /* Build configuration list for PBXNativeTarget "BP monitor app" */;
+			buildPhases = (
+				179F742528698F0300CE83ED /* Sources */,
+				179F742628698F0300CE83ED /* Frameworks */,
+				179F742728698F0300CE83ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BP monitor app";
+			productName = "BP monitor app";
+			productReference = 179F742928698F0300CE83ED /* BP monitor app.app */;
+			productType = "com.apple.product-type.application";
+		};
+		179F743F28698F2300CE83ED /* BP monitor appTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 179F745728698F2300CE83ED /* Build configuration list for PBXNativeTarget "BP monitor appTests" */;
+			buildPhases = (
+				179F743C28698F2300CE83ED /* Sources */,
+				179F743D28698F2300CE83ED /* Frameworks */,
+				179F743E28698F2300CE83ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				179F744228698F2300CE83ED /* PBXTargetDependency */,
+			);
+			name = "BP monitor appTests";
+			productName = "BP monitor appTests";
+			productReference = 179F744028698F2300CE83ED /* BP monitor appTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		179F744A28698F2300CE83ED /* BP monitor appUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 179F745A28698F2300CE83ED /* Build configuration list for PBXNativeTarget "BP monitor appUITests" */;
+			buildPhases = (
+				179F744728698F2300CE83ED /* Sources */,
+				179F744828698F2300CE83ED /* Frameworks */,
+				179F744928698F2300CE83ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				179F744D28698F2300CE83ED /* PBXTargetDependency */,
+			);
+			name = "BP monitor appUITests";
+			productName = "BP monitor appUITests";
+			productReference = 179F744B28698F2300CE83ED /* BP monitor appUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		179F742128698F0300CE83ED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = fueb;
+				TargetAttributes = {
+					179F742828698F0300CE83ED = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					179F743F28698F2300CE83ED = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 179F742828698F0300CE83ED;
+					};
+					179F744A28698F2300CE83ED = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 179F742828698F0300CE83ED;
+					};
+				};
+			};
+			buildConfigurationList = 179F742428698F0300CE83ED /* Build configuration list for PBXProject "BP monitor app" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 179F742028698F0300CE83ED;
+			productRefGroup = 179F742A28698F0300CE83ED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				179F742828698F0300CE83ED /* BP monitor app */,
+				179F743F28698F2300CE83ED /* BP monitor appTests */,
+				179F744A28698F2300CE83ED /* BP monitor appUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		179F742728698F0300CE83ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				179F743A28698F2200CE83ED /* LaunchScreen.storyboard in Resources */,
+				179F743728698F2200CE83ED /* Assets.xcassets in Resources */,
+				179F743228698F0400CE83ED /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		179F743E28698F2300CE83ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		179F744928698F2300CE83ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		179F742528698F0300CE83ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				179F742F28698F0300CE83ED /* ViewController.swift in Sources */,
+				179F743528698F0400CE83ED /* BP_monitor_app.xcdatamodeld in Sources */,
+				179F742D28698F0300CE83ED /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		179F743C28698F2300CE83ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				179F744528698F2300CE83ED /* BP_monitor_appTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		179F744728698F2300CE83ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				179F745028698F2300CE83ED /* BP_monitor_appUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		179F744228698F2300CE83ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 179F742828698F0300CE83ED /* BP monitor app */;
+			targetProxy = 179F744128698F2300CE83ED /* PBXContainerItemProxy */;
+		};
+		179F744D28698F2300CE83ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 179F742828698F0300CE83ED /* BP monitor app */;
+			targetProxy = 179F744C28698F2300CE83ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		179F743028698F0400CE83ED /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				179F743128698F0400CE83ED /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		179F743828698F2200CE83ED /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				179F743928698F2200CE83ED /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		179F745228698F2300CE83ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		179F745328698F2300CE83ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		179F745528698F2300CE83ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "BP monitor app/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fueb.BP-monitor-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		179F745628698F2300CE83ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "BP monitor app/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fueb.BP-monitor-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		179F745828698F2300CE83ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "BP monitor appTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fueb.BP-monitor-appTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BP monitor app.app/BP monitor app";
+			};
+			name = Debug;
+		};
+		179F745928698F2300CE83ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "BP monitor appTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fueb.BP-monitor-appTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BP monitor app.app/BP monitor app";
+			};
+			name = Release;
+		};
+		179F745B28698F2300CE83ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "BP monitor appUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fueb.BP-monitor-appUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "BP monitor app";
+			};
+			name = Debug;
+		};
+		179F745C28698F2300CE83ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "BP monitor appUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fueb.BP-monitor-appUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "BP monitor app";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		179F742428698F0300CE83ED /* Build configuration list for PBXProject "BP monitor app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				179F745228698F2300CE83ED /* Debug */,
+				179F745328698F2300CE83ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		179F745428698F2300CE83ED /* Build configuration list for PBXNativeTarget "BP monitor app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				179F745528698F2300CE83ED /* Debug */,
+				179F745628698F2300CE83ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		179F745728698F2300CE83ED /* Build configuration list for PBXNativeTarget "BP monitor appTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				179F745828698F2300CE83ED /* Debug */,
+				179F745928698F2300CE83ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		179F745A28698F2300CE83ED /* Build configuration list for PBXNativeTarget "BP monitor appUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				179F745B28698F2300CE83ED /* Debug */,
+				179F745C28698F2300CE83ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		179F743328698F0400CE83ED /* BP_monitor_app.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				179F743428698F0400CE83ED /* BP_monitor_app.xcdatamodel */,
+			);
+			currentVersion = 179F743428698F0400CE83ED /* BP_monitor_app.xcdatamodel */;
+			path = BP_monitor_app.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 179F742128698F0300CE83ED /* Project object */;
+}
