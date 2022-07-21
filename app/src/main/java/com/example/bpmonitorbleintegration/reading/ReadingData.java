@@ -796,7 +796,7 @@ public class ReadingData extends AppCompatActivity {
 
                             Constants.ack = decoder.computeCheckSum(Constants.ack);
 //                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
+                        Log.i(TAG, "ack sent " + Constants.ack);
                             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
 
                            // Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
