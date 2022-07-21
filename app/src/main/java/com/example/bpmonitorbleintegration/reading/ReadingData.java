@@ -841,7 +841,7 @@ public class ReadingData extends AppCompatActivity {
             @Override
             public void run() {
                 statusText.setText(status);
-
+               // Log.d(TAG, "run: ");
                 if (status.equals("Disconnected")){
                     new AlertDialog.Builder(ReadingData.this)
                             .setTitle(getApplicationContext().getResources().getString(R.string.message))
