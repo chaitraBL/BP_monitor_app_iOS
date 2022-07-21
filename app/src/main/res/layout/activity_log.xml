@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".logs.LogActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:weightSum="0.9"
+            android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:id="@+id/start_date_layout">
+
+                        <TextView
+                            android:id="@+id/txt_start_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/start_date"
+                            android:paddingStart="5dp"
+                            tools:ignore="RelativeOverlap,RtlSymmetry" />
+                        <Button
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:paddingStart="5dp"
+                            android:background="@drawable/ic_baseline_calendar_today_24"
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/btn_start_date"
+                            tools:ignore="RtlSymmetry" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:paddingStart="5dp"
+                    android:id="@+id/end_date_layout"
+                    tools:ignore="RtlHardcoded,RtlSymmetry">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/end_date"
+                            android:paddingStart="5dp"
+                            android:id="@+id/txt_end_date"
+                            tools:ignore="RtlSymmetry" />
+                        <Button
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:paddingStart="5dp"
+                            android:background="@drawable/ic_baseline_calendar_today_24"
+                            android:id="@+id/btn_end_date"
+                            android:layout_alignParentEnd="true"
+                            tools:ignore="RtlSymmetry" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:layout_gravity="center">
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:text="@string/apply"
+                            android:gravity="center"
+                            android:layout_margin="10dp"
+                            android:textSize="12sp"
+                            android:id="@+id/btn_filter_logs"
+                            android:textAllCaps="false"/>
+<!--                        android:background="@drawable/graph_selection_txt_bg"-->
+                </RelativeLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.20"
+                    android:text="@string/date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/log_text_size1"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.20"
+                    android:text="@string/time"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/log_text_size1"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    tools:ignore="RtlHardcoded,RtlSymmetry" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.20"
+                    android:text="@string/sys"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/log_text_size1"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    tools:ignore="RtlHardcoded,RtlSymmetry" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.20"
+                    android:text="@string/dya"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/log_text_size1"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.20"
+                    android:text="@string/rate"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/log_text_size1"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="510dp"
+            android:id="@+id/list_layout"
+            android:layout_marginTop="5dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/txt_no_data_found"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="@string/no_data_found"
+                    android:visibility="invisible"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/log_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp">
+
+<!--                        android:background="@drawable/bg_transparent1"-->
+                        <!--                #ECEFF1-->
+                </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginTop="5dp">-->
+
+<!--                <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--                    android:id="@+id/log_bottomNavigationView"-->
+<!--                    style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:background="@color/white"-->
+<!--                    app:itemIconTint="@drawable/navigation_item_color"-->
+<!--                    app:itemTextColor="@drawable/navigation_item_color"-->
+<!--                    app:menu="@menu/bottom_nav_menu" />-->
+
+<!--        </RelativeLayout>-->
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toTopOf="@id/list_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/bottom_view"
+            android:background="@color/progress_back_color">
+
+        </View>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white"
+            app:menu="@menu/bottom_nav_menu"
+            app:itemIconTint="@drawable/navigation_item_color"
+            app:itemTextColor="@drawable/navigation_item_color"
+            android:id="@+id/log_bottomNavigationView">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/disable_bluetooth"
+        android:icon="@drawable/ic_baseline_bluetooth_disabled_24"
+        android:title="@string/disable_bluetooth"
+        app:showAsAction="ifRoom"/>
+
+<!--    <item android:id="@+id/reset"-->
+<!--        android:icon="@mipmap/reset"-->
+<!--        android:title="@string/reset"-->
+<!--        app:showAsAction="always"/>-->
+
+</menu>

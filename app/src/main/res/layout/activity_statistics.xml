@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".charts.Statistics">
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="0.9"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/graph_selection_layout">
+<!--        android:background="@color/cardview_shadow_end_color"-->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="@string/time"
+            style="@android:style/ButtonBar"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:fontFamily="@font/arial"
+            android:id="@+id/new_week_label"
+            android:clickable="true"
+            android:background="#FFA500"
+            android:textColor="?android:textColorPrimary"
+            android:focusable="true" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            style="@android:style/ButtonBar"
+            android:fontFamily="@font/arial"
+            android:text="@string/date"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:id="@+id/new_month_label"
+            android:textColor="?android:textColorPrimary"
+            android:background="@null"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:text="@string/all"
+            style="@android:style/ButtonBar"
+            android:textAllCaps="false"
+            android:fontFamily="@font/arial"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:id="@+id/new_year_label"
+            android:textColor="?android:textColorPrimary"
+            android:background="@null"/>
+
+    </LinearLayout>
+<!--    </LinearLayout>-->
+
+    <com.github.mikephil.charting.charts.CandleStickChart
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/candleStick"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/new_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8">
+    </androidx.viewpager.widget.ViewPager>
+
+    <com.github.mikephil.charting.charts.CandleStickChart
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/candleStick1"
+        android:layout_marginBottom="50dp" />
+
+</LinearLayout>
