@@ -126,6 +126,7 @@
                 android:text="@string/stop"
                 android:textSize="12sp"
                 android:textStyle="bold"
+                android:enabled="false"
                 android:visibility="gone" />
             <!--                android:backgroundTint="#C58917"/>-->
             <!--                android:background="@drawable/filled_bg_circle" />-->

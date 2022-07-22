@@ -320,6 +320,7 @@ public class BLEService extends Service implements DecodeListener {
 //            }
 
        //     Log.i(TAG, "length before switch " + data[6]);
+            //  java.lang.NullPointerException: Attempt to read from null array - need to resolve
             int length = data[6];
             int[] value = new int[30];
 

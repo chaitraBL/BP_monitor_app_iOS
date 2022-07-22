@@ -121,8 +121,8 @@ public class ReadingData extends AppCompatActivity {
             }
         }
 
-        stopBtn.setEnabled(false);
-        stopBtn.setVisibility(View.INVISIBLE);
+      //  stopBtn.setEnabled(false);
+      //  stopBtn.setVisibility(View.INVISIBLE);
 
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -308,6 +308,7 @@ public class ReadingData extends AppCompatActivity {
                                             mCountDownTimer.cancel();
 //                                    Log.i(TAG, "run: ack in cancel condition " + Constants.is_ackReceived);
                                             dialog1.dismiss();
+                                            Constants.is_ackReceived = false;
 //
                                         }
 //
@@ -325,15 +326,16 @@ public class ReadingData extends AppCompatActivity {
                             @Override
                             public void run() {
                                 // If ack not received
-                                if (Constants.is_ackReceived == false) {
+                                if (mTimerRunning == true) {
+                                    if (Constants.is_ackReceived == false) {
 //                                                Log.i(TAG, "Start again");
-                                    dialog1.show();
-                                    Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
+                                        dialog1.show();
+                                        Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
 ////          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
-                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
-                                    start();
+                                        mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
+                                        start();
+                                    }
                                 }
-                                Constants.is_ackReceived = false;
                             }
                         });
                     }
@@ -368,6 +370,7 @@ public class ReadingData extends AppCompatActivity {
 //                            Log.i(TAG, "run: ack in condition " + Constants.is_ackReceived);
 //
                             dialog1.dismiss();
+                            Constants.is_ackReceived = false;
                         }
 //
                     }
@@ -380,12 +383,14 @@ public class ReadingData extends AppCompatActivity {
                     @Override
                     public void run() {
                         // If ack not received
-                        if (Constants.is_ackReceived == false) {
-                            dialog1.show();
-                            Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
+                        if (mTimerRunning == true) {
+                            if (Constants.is_ackReceived == false) {
+                                dialog1.show();
+                                Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
 ////          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
-                            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
-                            start();
+                                mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
+                                start();
+                            }
                         }
 //
                     }
@@ -615,6 +620,7 @@ public class ReadingData extends AppCompatActivity {
 //////                                    Log.i(TAG, "timer in readings " + (int) mTimeLeftInMillis);
 //                                }
 //                                Constants.is_readingStarted = false;
+                                Constants.is_ackReceived = false;
                             }
 
                             if ((Constants.is_resultReceived == true) || (Constants.is_readingStarted == true)) {
@@ -647,6 +653,7 @@ public class ReadingData extends AppCompatActivity {
 //                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
 //                        Log.i(TAG, "ack sent " + Constants.ack);
                                                                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
+                                                                    Constants.is_irregularHB = false;
                                                                 }
                                                             }).show();
 
@@ -662,6 +669,7 @@ public class ReadingData extends AppCompatActivity {
                                                                 public void onClick(DialogInterface dialog, int which) {
                                                                     Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
                                                                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+                                                                    Constants.is_batteryReceivedAtReading = false;
                                                                 }
                                                             }).show();
                                                 }
@@ -686,11 +694,14 @@ public class ReadingData extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (Constants.is_ackReceived == false){
-                                mTimerRunning = false;
-                                mCountDownTimer.cancel();
-                                Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+                            if (mTimerRunning == true) {
+                                if (Constants.is_ackReceived == false){
+                                    mTimerRunning = false;
+                                    mCountDownTimer.cancel();
+                                    Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+                                }
                             }
+
                         }
                     });
                 }
@@ -796,7 +807,7 @@ public class ReadingData extends AppCompatActivity {
 
                             Constants.ack = decoder.computeCheckSum(Constants.ack);
 //                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-                        Log.i(TAG, "ack sent " + Constants.ack);
+//                        Log.i(TAG, "ack sent " + Constants.ack);
                             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
 
                            // Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
