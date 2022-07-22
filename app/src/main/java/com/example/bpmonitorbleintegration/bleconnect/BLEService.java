@@ -359,7 +359,7 @@ public class BLEService extends Service implements DecodeListener {
 //                        Constants.is_resultReceived = false;
                         int cuffValue = value[8] * 256 + value[9];
                         int pulseValue = value[10] * 256 + value[11];
-                        Log.d(TAG, "broadcastUpdate: raw readings " + cuffValue + " / " + pulseValue);
+                        //Log.d(TAG, "broadcastUpdate: raw readings " + cuffValue + " / " + pulseValue);
 //                        Toast.makeText(getApplicationContext(), "cuff and pulse value" + cuffValue + " / " + pulseValue, Toast.LENGTH_SHORT).show();
                         intent.putExtra(Constants.EXTRA_DATA, cuffValue + " / " + pulseValue);
 //                        intent.putExtra(Constants.EXTRA_DATA, cuffValue);
@@ -373,7 +373,7 @@ public class BLEService extends Service implements DecodeListener {
                         int systolic = value[8] * 256 + value[9];
                         int dystolic = value[10] * 256 + value[11];
                         int heartRateValue = value[12];
-                        Log.d(TAG, "broadcastUpdate: raw readings " + systolic + " / " + dystolic + " / " + heartRateValue);
+                       // Log.d(TAG, "broadcastUpdate: raw readings " + systolic + " / " + dystolic + " / " + heartRateValue);
                         intent.putExtra(Constants.EXTRA_DATA, systolic + " / " + dystolic + " / " + heartRateValue);
 
 //                        int rangeValue = value[13];
@@ -466,7 +466,7 @@ public class BLEService extends Service implements DecodeListener {
                     case Constants.ACK_COMMANDID:
                         Constants.is_ackReceived = true;
                         int ack = value[8];
-                        Log.i(TAG, "ack in bleservice " + ack);
+                     //   Log.i(TAG, "ack in bleservice " + ack);
 
 //
                         break;
