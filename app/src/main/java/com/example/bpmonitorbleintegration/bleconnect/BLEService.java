@@ -325,7 +325,7 @@ public class BLEService extends Service implements DecodeListener {
             int[] value = new int[30];
 
             for (int i = 0; i <= length; ++i) {
-           //    Log.i("Decoder", "values " + i + " " + data[i]);
+           //    Log.i("Decoder", "values " + i + " " + data[i])
                 value[i] = (int) (data[i] & 0xff);
              //  Log.i("Decoder", "new values " + value[i]);
             }
