@@ -13,9 +13,6 @@ public class Constants {
             "android-er.ACTION_DATA_AVAILABLE";
     public final static String EXTRA_DATA =
             "android-er.EXTRA_DATA";
-    public final static String EXTRA_DATA1 =
-            "android-er.EXTRA_DATA";
-    public static final String COUNTDOWN_BR = "your_package_name.countdown_br";
 
     public static final int STATE_DISCONNECTED = 0;
     public static final int STATE_CONNECTING = 1;
