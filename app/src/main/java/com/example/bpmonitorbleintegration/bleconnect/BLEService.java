@@ -340,9 +340,9 @@ public class BLEService extends Service implements DecodeListener {
                         Constants.checkSumError = decoder.replaceArrayVal(Constants.checkSumError, Constants.deviceId);
 //                        Log.i(TAG, "new start value " + Constants.startValue);
                         break;
+
                     case Constants.RAW_COMMANDID:
                         Constants.is_readingStarted = true;
-
 //                        Constants.is_resultReceived = false;
                         int cuffValue = value[8] * 256 + value[9];
                         int pulseValue = value[10] * 256 + value[11];
@@ -356,7 +356,6 @@ public class BLEService extends Service implements DecodeListener {
 
                     case Constants.RESULT_COMMANDID:
                         Constants.is_resultReceived = true;
-
                         Constants.is_finalResult = true;
 //                        Constants.is_readingStarted = true;
                         int systolic = value[8] * 256 + value[9];
@@ -373,7 +372,6 @@ public class BLEService extends Service implements DecodeListener {
 //                        Log.i(TAG, "ack " + Arrays.toString(Constants.ack));
 //                        Log.i(TAG, "ack sent " + Constants.ack);
                         writeCharacteristics(characteristic, Constants.ack);
-
                         break;
 
                     case Constants.ERROR_COMMANDID:
@@ -393,6 +391,7 @@ public class BLEService extends Service implements DecodeListener {
 //                        Log.i(TAG, "ack sent " + Constants.ack);
                                 writeCharacteristics(characteristic, Constants.ack);
                                 break;
+
                             case 2:
                                 Constants.is_errorReceived = true;
                                 msg = getString(R.string.hand_movement);
@@ -403,13 +402,14 @@ public class BLEService extends Service implements DecodeListener {
 //                        Log.i(TAG, "ack sent " + Constants.ack);
                                 writeCharacteristics(characteristic, Constants.ack);
                                 break;
+
                             case 3:
                                 Constants.is_irregularHB = true;
                                 msg = getString(R.string.irregular_heartbeat);
                                 errorMessage = msg + "\n" + getString(R.string.try_again);
                                 intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
-
                                 break;
+
                             case 4:
                                 Constants.is_errorReceived = true;
                                 msg = getString(R.string.cuff_over_pressured);
@@ -420,28 +420,30 @@ public class BLEService extends Service implements DecodeListener {
 //                        Log.i(TAG, "ack sent " + Constants.ack);
                                 writeCharacteristics(characteristic, Constants.ack);
                                 break;
+
                             case 5:
                                 Constants.is_batteryReceivedAtReading = true;
                                 msg = getString(R.string.low_battery);
                                 errorMessage = msg + "\n" + getString(R.string.try_again);
                                 intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
-                                Constants.ack = decoder.computeCheckSum(Constants.ack);
+                                //Constants.ack = decoder.computeCheckSum(Constants.ack);
 //                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
 //                        Log.i(TAG, "ack sent " + Constants.ack);
-                                writeCharacteristics(characteristic, Constants.ack);
+                              //  writeCharacteristics(characteristic, Constants.ack);
                                 break;
+
                             case 6:
                                 Constants.is_cuffReplaced = true;
                                 msg = getString(R.string.cuff_replacement);
-                                errorMessage = msg ;
+//                                errorMessage = msg ;
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
                                 break;
+
                             case 7:
                                 Constants.is_irregularHB = true;
                                 msg = getString(R.string.Heartbeat_vary);
                                 errorMessage = msg;
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
-
                                 break;
 
                             case 8:
@@ -449,10 +451,12 @@ public class BLEService extends Service implements DecodeListener {
                                 msg = getString(R.string.battery_limit_exceeds);
                                 errorMessage = msg;
                                 intent.putExtra(Constants.EXTRA_DATA,msg);
+                                break;
+
                             case 17:
                                 Constants.is_batteryReceivedAtReading = true;
-                                msg = getString(R.string.low_battery);
-                                errorMessage = msg + "\n" + "Please change battery";
+//                                msg = getString(R.string.low_battery);
+//                                errorMessage = msg + "\n" + "Please change battery";
 //                                intent.putExtra(Constants.EXTRA_DATA, msg);
 //                                Log.i(TAG, "broadcastUpdate: intent value in broadcast" + intent.getStringExtra(Constants.EXTRA_DATA));
                             default:
@@ -469,7 +473,6 @@ public class BLEService extends Service implements DecodeListener {
                         int ack = value[8];
                      //   Log.i(TAG, "ack in bleservice " + ack);
 
-//
                         break;
 
                     case Constants.BATTERY_COMMANDID:
