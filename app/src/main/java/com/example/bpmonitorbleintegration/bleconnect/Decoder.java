@@ -132,13 +132,15 @@ public class Decoder
         }
 //            Log.i("Decoder", "checkSumVerified " + checkSumVerified);
 
-        if (checkSum == checkSumVerified)
-        {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return checkSum == checkSumVerified;
+
+//        if (checkSum == checkSumVerified)
+//        {
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
     }
 
     //Checksum computation for the sending values to BLE device.

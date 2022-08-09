@@ -305,16 +305,20 @@ public class BLEService extends Service implements DecodeListener {
 ////                intent.putExtra(Constants.EXTRA_DATA, new String(data) + "\n" +stringBuilder.toString());
 //            }
 
-       //     Log.i(TAG, "length before switch " + data[6]);
-            //  java.lang.NullPointerException: Attempt to read from null array - need to resolve
+//            if (data[0] == 123 || data[0] == 91 || data[0] == 40) {
+//
+//            }
+//            Log.i(TAG, "length before switch " + data[6]);
             int length = data[6];
+//            Log.d(TAG, "broadcastUpdate: length " + length);
+
             int[] value = new int[30];
 
             Arrays.fill(value, (byte) 0);
             for (int i = 0; i <= length; ++i) {
            //    Log.i("Decoder", "values " + i + " " + data[i])
                 value[i] = (int) (data[i] & 0xff);
-             //  Log.i("Decoder", "new values " + value[i]);
+//               Log.i("Decoder", "new values " + value[i]);
             }
 //            Log.i("Decoder", "Command id " + (value[5]));
 
@@ -323,7 +327,7 @@ public class BLEService extends Service implements DecodeListener {
 
            // Log.i("Decoder", "checksum " + checkSumVal);
             decoder.add1(value, action);
-            if (checkSumVal == true) {
+            if (checkSumVal) {
                // Log.d(TAG, "broadcastUpdate: Checksum verified ");
                 //Command Id wise receiving data.
                 switch (value[5]) {
@@ -342,7 +346,7 @@ public class BLEService extends Service implements DecodeListener {
                         break;
 
                     case Constants.RAW_COMMANDID:
-                        Constants.is_readingStarted = true;
+//                        Constants.is_readingStarted = true;
 //                        Constants.is_resultReceived = false;
                         int cuffValue = value[8] * 256 + value[9];
                         int pulseValue = value[10] * 256 + value[11];
@@ -355,7 +359,7 @@ public class BLEService extends Service implements DecodeListener {
                         break;
 
                     case Constants.RESULT_COMMANDID:
-                        Constants.is_resultReceived = true;
+//                        Constants.is_resultReceived = true;
                         Constants.is_finalResult = true;
 //                        Constants.is_readingStarted = true;
                         int systolic = value[8] * 256 + value[9];
@@ -375,8 +379,7 @@ public class BLEService extends Service implements DecodeListener {
                         break;
 
                     case Constants.ERROR_COMMANDID:
-                        Constants.is_resultReceived = true;
-
+//                        Constants.is_resultReceived = true;
 //                        Constants.is_readingStarted = true;
                         int error = value[8];
 //                        Log.d(TAG, "broadcastUpdate: error msg " + error);
@@ -435,6 +438,7 @@ public class BLEService extends Service implements DecodeListener {
                             case 6:
                                 Constants.is_cuffReplaced = true;
                                 msg = getString(R.string.cuff_replacement);
+                                Log.d(TAG, "broadcastUpdate: cuff replaced ");
 //                                errorMessage = msg ;
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
                                 break;
