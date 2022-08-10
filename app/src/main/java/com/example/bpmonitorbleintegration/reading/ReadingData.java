@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
+import android.util.Range;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -311,7 +312,7 @@ public class ReadingData extends AppCompatActivity {
                                         if (!Constants.is_ackReceived) {
                                             dialog1.show();
                                             Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
-////          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
+//          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
                                             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
                                             start();
                                         }
@@ -340,7 +341,6 @@ public class ReadingData extends AppCompatActivity {
         else {
             Log.d(TAG, "alertDialogForReset: Already alert showing ");
         }
-
     }
 
     // To check the ack after the reset command sent
@@ -353,7 +353,6 @@ public class ReadingData extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
                         if (Constants.is_ackReceived) {
                             mTimerRunning = false;
                             mCountDownTimer.cancel();
@@ -622,10 +621,13 @@ public class ReadingData extends AppCompatActivity {
                                 else {
 //                                        progressText.setText(data);
                                     progressText.setText(mBluetoothLeService.finalResult);
+
+                                    String status = changeStatus(mBluetoothLeService.systalic, mBluetoothLeService.dystolic);
                                     systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
                                     diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
                                     heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
-                                    mapText.setText(String.valueOf(mBluetoothLeService.range));
+                                    mapText.setText(status);
+//                                    mapText.setText(String.valueOf(mBluetoothLeService.range));
                                 }
                             }
                         }
@@ -830,6 +832,30 @@ public class ReadingData extends AppCompatActivity {
             // Battery status with timer
             startTimer();
         }
+    }
+
+    // Status according to sys/dia ranges.
+    private String changeStatus(int systolic, int diastolic) {
+        String msg = null;
+        if ((systolic < 80) || (diastolic < 60)) {
+            msg = getString(R.string.low_bp);
+        }
+        else if ((systolic <= 120) && (diastolic <= 80)) {
+            msg = getString(R.string.normal_bp);
+        }
+        else if ((systolic <= 139) || (diastolic <= 89)) {
+            msg = getString(R.string.high_normal_bp);
+        }
+        else if ((systolic <= 159) || (diastolic <= 99)) {
+            msg = getString(R.string.hypertension_stage_1);
+        }
+        else if ((systolic <= 179) || (diastolic <= 109)) {
+            msg = getString(R.string.hypertension_stage_2);
+        }
+        else {
+            msg = getString(R.string.high_bp_crisis);
+        }
+        return msg;
     }
 
     // To receive battery status
