@@ -199,14 +199,16 @@ public class ReadingData extends AppCompatActivity {
                             });
                         }
                     }.start();
-                    if (Constants.is_finalResult) {
-                        systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
-                        diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
-                        heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
-                        mapText.setText(String.valueOf(mBluetoothLeService.range));
+//                    if (Constants.is_finalResult) {
+//                        Toast.makeText(getApplicationContext(),"onClick: sys " + mBluetoothLeService.systalic + " Dia " + mBluetoothLeService.dystolic + " HR " + mBluetoothLeService.rate + " map " + mBluetoothLeService.range,Toast.LENGTH_SHORT).show();
+//                        Log.d(TAG, "onClick: sys " + mBluetoothLeService.systalic + " Dia " + mBluetoothLeService.dystolic + " HR " + mBluetoothLeService.rate + " map " + mBluetoothLeService.range);
+//                        systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
+//                        diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
+//                        heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+//                        mapText.setText(String.valueOf(mBluetoothLeService.range));
 //                        localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, ReadingData.this);
-                        Constants.is_finalResult = false;
-                    }
+//                        Constants.is_finalResult = false;
+//                    }
                 }
             }
         });
@@ -707,6 +709,10 @@ public class ReadingData extends AppCompatActivity {
                                 else {
 //                                        progressText.setText(data);
                                     progressText.setText(mBluetoothLeService.finalResult);
+                                    systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
+                        diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
+                        heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+                        mapText.setText(String.valueOf(mBluetoothLeService.range));
                                 }
                             }
                         }
@@ -723,6 +729,7 @@ public class ReadingData extends AppCompatActivity {
                     }
                     else {
                         mCountDownTimer.cancel();
+//
                         Constants.is_finalResult = false;
                     }
                 }

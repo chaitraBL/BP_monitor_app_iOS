@@ -708,25 +708,25 @@ public class BLEService extends Service implements DecodeListener {
 
     @Override
     public void systolic(int value) {
-//        Log.i(TAG, "Systa " + value);
+        Log.i(TAG, "Systa " + value);
         systalic = value;
     }
 
     @Override
     public void diastolic(int value) {
-//        Log.i(TAG, "Diasta " + value);
+        Log.i(TAG, "Diasta " + value);
         dystolic = value;
     }
 
     @Override
     public void heartRate(int value) {
-//        Log.i(TAG, "heart " + value);
+        Log.i(TAG, "heart " + value);
         rate = value;
     }
 
     @Override
     public void range(int value) {
-//        Log.i(TAG, "range " + value);
+        Log.i(TAG, "range " + value);
         range = value;
     }
 
