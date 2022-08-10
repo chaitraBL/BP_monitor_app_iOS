@@ -23,7 +23,10 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -564,7 +567,7 @@ public class ReadingData extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // To display raw value & final result.
+                            // To display raw value.
                             mTimeLeftInMillis -= 1;
 
                             if (mTimeLeftInMillis > 0) {
@@ -579,8 +582,9 @@ public class ReadingData extends AppCompatActivity {
                                         stopBtn.setEnabled(true);
 //                             progressText.setText(mBluetoothLeService.rawReadings);
                                         progressText.setText(data);
-                                        Constants.is_readingStarted = false;
+
                                     }
+                                    Constants.is_readingStarted = false;
                                 }
                             }
                             else  if (mTimeLeftInMillis == 0) {
@@ -716,7 +720,7 @@ public class ReadingData extends AppCompatActivity {
                                     progressText.setText("---");
                                 }
                                 if ((dialog == null) || !dialog.isShowing()) {
-                                    new AlertDialog.Builder(ReadingData.this)
+                                    dialog = new AlertDialog.Builder(ReadingData.this)
                                             .setTitle(getApplicationContext().getResources().getString(R.string.message))
 //                                                           .setMessage(data)
                                             .setMessage(mBluetoothLeService.errorMessage)
@@ -768,7 +772,7 @@ public class ReadingData extends AppCompatActivity {
                                 mTimerRunning = false;
                                 mCountDownTimer.cancel();
                                 if ((dialog == null) || !dialog.isShowing()) {
-                                    new AlertDialog.Builder(ReadingData.this)
+                                    dialog = new AlertDialog.Builder(ReadingData.this)
                                             .setTitle(getApplicationContext().getResources().getString(R.string.message))
 //                                                           .setMessage(data)
                                             .setMessage(mBluetoothLeService.errorMessage)
@@ -930,17 +934,20 @@ public class ReadingData extends AppCompatActivity {
         else  {
             batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
             if ((dialog == null) || !dialog.isShowing()) {
-                new AlertDialog.Builder(ReadingData.this)
-                        .setTitle(getApplicationContext().getResources().getString(R.string.message))
-                        .setMessage(getApplicationContext().getResources().getString(R.string.battery_limit_exceeds))
-                        .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                builder1 = new AlertDialog.Builder(ReadingData.this);
+                builder1.setTitle(getApplicationContext().getResources().getString(R.string.message));
+                builder1.setMessage(getApplicationContext().getResources().getString(R.string.battery_limit_exceeds));
+                builder1.setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Constants.ack = decoder.computeCheckSum(Constants.ack);
                                 mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
 //                                dialog.dismiss();
                             }
-                        }).show();
+                        });
+                dialog = builder1.create();
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
             }
         }
     }

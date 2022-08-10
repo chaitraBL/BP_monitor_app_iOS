@@ -15,6 +15,7 @@
     <color name="sky_blue">#87CEEB</color>
     <color name="light_gray">#dfdddd</color>
     <color name="progress_back_color">#dfdddd</color>
+    <color name="dark_orange">#C58917</color>
     <!--    <Color name="platinum_100">#FFAEADAD</Color>-->
 
     <array name="colors_hex_code">
