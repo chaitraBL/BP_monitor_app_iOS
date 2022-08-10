@@ -306,22 +306,12 @@ public class ReadingData extends AppCompatActivity {
                                 @Override
                                 public void run() {
 
-//                                mCountDownTimer = new CountDownTimer(20, 10) {
-//                                    public void onTick(long millisUntilFinished) {
-//                                    }
-//
-//                                    public void onFinish() {
-//                                        Log.i(TAG, "run: ack in cancel alert " + Constants.is_ackReceived);
                                     if (Constants.is_ackReceived) {
                                         mTimerRunning = false;
                                         mCountDownTimer.cancel();
 //                                    Log.i(TAG, "run: ack in cancel condition " + Constants.is_ackReceived);
-                                        dialog1.dismiss();
+//                                        dialog1.dismiss();
                                     }
-
-//                                    }
-//                                };
-//                                mCountDownTimer.start();
                                 }
                             });
                         }
@@ -383,7 +373,7 @@ public class ReadingData extends AppCompatActivity {
                             mTimerRunning = false;
                             mCountDownTimer.cancel();
 //                            Log.i(TAG, "run: ack in condition " + Constants.is_ackReceived);
-                            dialog1.dismiss();
+//                            dialog1.dismiss();
 //                            Constants.is_ackReceived = false;
                         }
                     }
@@ -572,59 +562,6 @@ public class ReadingData extends AppCompatActivity {
     private  void displayData(String data) {
         if (data != null) {
 
-//           Log.i(TAG, "received data before " + data);
-//            mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 500) {
-//                @Override
-//                public void onTick(long millisUntilFinished) {
-//                    mTimeLeftInMillis = millisUntilFinished;
-
-                    //   mTimerRunning = true;
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            progress.setVisibility(View.GONE);
-//
-//                            // To display raw value & final result.
-//                            if (Constants.is_ackReceived)
-//                            {
-////                                mTimerRunning = false;
-////                                mCountDownTimer.cancel();
-//
-//                                startBtn.setEnabled(false);
-//                                startBtn.setVisibility(View.INVISIBLE);
-//                                stopBtn.setVisibility(View.VISIBLE);
-//                                stopBtn.setEnabled(true);
-//
-////                                Log.i(TAG, "received data before " + data);
-//
-////                                progressText.setText(mBluetoothLeService.rawReadings);
-//                                progressText.setText(data);
-//                                return;
-
-//                                if (Constants.is_finalResult) {
-//                                    if ((mBluetoothLeService.systalic < 30) || (mBluetoothLeService.systalic > 200)){
-//                                        Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.systolic_error), Toast.LENGTH_SHORT).show();
-//                                    }
-//                                    else if ((mBluetoothLeService.dystolic < 40) || (mBluetoothLeService.dystolic > 120)) {
-//                                        Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.diastolic_error), Toast.LENGTH_SHORT).show();
-//                                    }
-//                                    else {
-////                                        progressText.setText(data);
-//                                        progressText.setText(mBluetoothLeService.finalResult);
-//                                    }
-//                                }
-//                            }
-//                            else {
-////                                    (!Constants.is_ackReceived){
-////                                    mTimerRunning = false;
-////                                mCountDownTimer.cancel();
-//                                Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-//                                startBtn.setEnabled(true);
-//                                startBtn.setVisibility(View.VISIBLE);
-//                                stopBtn.setVisibility(View.INVISIBLE);
-//                                stopBtn.setEnabled(false);
-//                            }
-
             // To display raw result
             //Declare the timer
             Timer t = new Timer();
@@ -710,9 +647,9 @@ public class ReadingData extends AppCompatActivity {
 //                                        progressText.setText(data);
                                     progressText.setText(mBluetoothLeService.finalResult);
                                     systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
-                        diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
-                        heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
-                        mapText.setText(String.valueOf(mBluetoothLeService.range));
+                                    diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
+                                    heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+                                    mapText.setText(String.valueOf(mBluetoothLeService.range));
                                 }
                             }
                         }
@@ -805,7 +742,7 @@ public class ReadingData extends AppCompatActivity {
                                                     stopBtn.setVisibility(View.INVISIBLE);
                                                     stopBtn.setEnabled(false);
                                                     progressText.setText("---");
-                                                    dialog.dismiss();
+//                                                    dialog.dismiss();
                                                 }
                                             })
                                             .setCancelable(false)
@@ -857,7 +794,7 @@ public class ReadingData extends AppCompatActivity {
                                                     stopBtn.setVisibility(View.INVISIBLE);
                                                     stopBtn.setEnabled(false);
                                                     progressText.setText("---");
-                                                    dialog.dismiss();
+//                                                    dialog.dismiss();
                                                 }
                                             }).setCancelable(false)
                                             .show();
@@ -912,42 +849,9 @@ public class ReadingData extends AppCompatActivity {
                     }
                 }
             }.start();
-//                        }
-//                    });
-//                }
-
-//                @Override
-//                public void onFinish() {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            if (mTimerRunning) {
-//                                else {
-////                                    (!Constants.is_ackReceived){
-////                                    mTimerRunning = false;
-//                                    mCountDownTimer.cancel();
-//                                    Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-//                                    startBtn.setEnabled(true);
-//                                    startBtn.setVisibility(View.VISIBLE);
-//                                    stopBtn.setVisibility(View.INVISIBLE);
-//                                    stopBtn.setEnabled(false);
-//                                }
-//                            }
-//                            else
-//                            {
-//                                Log.d(TAG, "run: timer off");
-//                                Constants.is_ackReceived = false;
-////                                Constants.is_finalResult = false;
-//                            }
-//                        }
-//                    });
-//                }
-//            }.start();
         }
         else {
-            //  Toast.makeText(getApplicationContext(), "Battery 2",Toast.LENGTH_SHORT).show();
             startTimer();
-//            showBattery();
         }
     }
 
@@ -996,7 +900,6 @@ public class ReadingData extends AppCompatActivity {
     public void showBattery(){
         progress.setVisibility(View.GONE);
         if (mBluetoothLeService.batteryLevel == Constants.HIGH_BATTERY) {
-          //  Toast.makeText(getApplicationContext(), "High battery",Toast.LENGTH_SHORT).show();
             batteryText.setBackgroundColor(Color.parseColor("#008000"));
             Constants.ack = decoder.computeCheckSum(Constants.ack);
 //                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
@@ -1004,7 +907,6 @@ public class ReadingData extends AppCompatActivity {
             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
         }
         else if (mBluetoothLeService.batteryLevel == Constants.MID_BATTERY){
-        //    Toast.makeText(getApplicationContext(), "Mid battery",Toast.LENGTH_SHORT).show();
             batteryText.setBackgroundColor(Color.parseColor("#FFA500"));
             Constants.ack = decoder.computeCheckSum(Constants.ack);
 //                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
@@ -1032,8 +934,7 @@ public class ReadingData extends AppCompatActivity {
 //                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
 //                        Log.i(TAG, "ack sent " + Constants.ack);
                                 mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
-//                            Constants.is_batterValueReceived = false;
-                                dialog.dismiss();
+//                                dialog.dismiss();
                             }
                         }).show();
             }
