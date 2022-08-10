@@ -84,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
 
+        //To change status bar color
+        getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.blue_200));
+        View decorView = getWindow().getDecorView(); //set status background black
+        decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); //set status text  light
+
         // Check if BLE is supported on the device.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this,

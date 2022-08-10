@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,6 +70,11 @@ public class LogActivity extends AppCompatActivity implements BottomNavigationVi
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_log);
+
+        //To change status bar color
+        getWindow().setStatusBarColor(ContextCompat.getColor(LogActivity.this, R.color.blue_200));
+        View decorView = getWindow().getDecorView(); //set status background black
+        decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); //set status text  light
 
         ActionBar actioBar = getSupportActionBar();
         Objects.requireNonNull(actioBar).setTitle(R.string.logs);

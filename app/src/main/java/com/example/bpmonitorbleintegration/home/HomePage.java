@@ -26,6 +26,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -109,12 +111,19 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     RelativeLayout layout;
     List<String> newDateList = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_home_page);
+
+        //To change status bar color
+        getWindow().setStatusBarColor(ContextCompat.getColor(HomePage.this, R.color.blue_200));
+        View decorView = getWindow().getDecorView(); //set status background black
+        decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); //set status text  light
+
 //        Activity.reCreate();
         nameText = findViewById(R.id.profile_name);
         addressText = findViewById(R.id.profile_address);

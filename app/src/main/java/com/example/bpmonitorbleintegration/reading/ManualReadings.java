@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.bpmonitorbleintegration.R;
 import com.example.bpmonitorbleintegration.bleconnect.Decoder;
 import com.example.bpmonitorbleintegration.database.RoomDB;
+import com.example.bpmonitorbleintegration.home.HomePage;
 
 import java.util.Objects;
 
@@ -35,6 +37,11 @@ public class ManualReadings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_manual_readings);
+
+        //To change status bar color
+        getWindow().setStatusBarColor(ContextCompat.getColor(ManualReadings.this, R.color.blue_200));
+        View decorView = getWindow().getDecorView(); //set status background black
+        decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); //set status text  light
 
         systolic = findViewById(R.id.manual_systa);
         diastolic = findViewById(R.id.manual_diasta);
