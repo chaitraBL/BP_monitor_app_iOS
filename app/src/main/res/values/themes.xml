@@ -28,7 +28,8 @@
 <!--        <item tools:targetApi="m" name="android:windowLightStatusBar"> true </item>-->
         <item name="android:statusBarColor">@color/blue_200</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:navigationBarColor">#151B54</item>
+        <item name="android:navigationBarColor">@color/blue_200</item>
+<!--        <item name="android:navigationBarColor">#151B54</item>-->
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/colorAccent</item>
     </style>
