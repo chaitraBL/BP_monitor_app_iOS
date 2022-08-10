@@ -320,7 +320,7 @@ public class BLEService extends Service implements DecodeListener {
                 value[i] = (int) (data[i] & 0xff);
 //               Log.i("Decoder", "new values " + value[i]);
             }
-//            Log.i("Decoder", "Command id " + (value[5]));
+            Log.i("Decoder", "Command id " + (value[5]));
 
             // Check for checksum
             boolean checkSumVal = decoder.checkSumValidation(value, characteristic);
@@ -346,22 +346,15 @@ public class BLEService extends Service implements DecodeListener {
                         break;
 
                     case Constants.RAW_COMMANDID:
-//                        Constants.is_readingStarted = true;
-//                        Constants.is_resultReceived = false;
+                        Constants.is_readingStarted = true;
                         int cuffValue = value[8] * 256 + value[9];
                         int pulseValue = value[10] * 256 + value[11];
                         rawReadings = cuffValue + " / " + pulseValue;
-//                        Log.d(TAG, "broadcastUpdate: raw readings " + rawReadings);
-//                        Toast.makeText(getApplicationContext(), "cuff and pulse value" + cuffValue + " / " + pulseValue, Toast.LENGTH_SHORT).show();
                         intent.putExtra(Constants.EXTRA_DATA, cuffValue + " / " + pulseValue);
-//                        Log.d(TAG, "broadcastUpdate: intent reading " + intent.putExtra(Constants.EXTRA_DATA, cuffValue + " / " + pulseValue));
-//                        intent.putExtra(Constants.EXTRA_DATA, cuffValue);
                         break;
 
                     case Constants.RESULT_COMMANDID:
-//                        Constants.is_resultReceived = true;
                         Constants.is_finalResult = true;
-//                        Constants.is_readingStarted = true;
                         int systolic = value[8] * 256 + value[9];
                         int dystolic = value[10] * 256 + value[11];
                         int heartRateValue = value[12];
@@ -379,8 +372,6 @@ public class BLEService extends Service implements DecodeListener {
                         break;
 
                     case Constants.ERROR_COMMANDID:
-//                        Constants.is_resultReceived = true;
-//                        Constants.is_readingStarted = true;
                         int error = value[8];
 //                        Log.d(TAG, "broadcastUpdate: error msg " + error);
                         switch (error) {
