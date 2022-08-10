@@ -201,19 +201,16 @@ public class BLEService extends Service implements DecodeListener {
             super.onServicesDiscovered(gatt, status);
 
             if (status == BluetoothGatt.GATT_SUCCESS) {
-
                 broadcastUpdate(Constants.ACTION_GATT_SERVICES_DISCOVERED);
                List<BluetoothGattService> gattServices = mBluetoothGatt.getServices();
 
                 for (BluetoothGattService gattService : gattServices) {
                    String serviceUUID = gattService.getUuid().toString();
-
                     if(serviceUUID.equalsIgnoreCase(BLEGattAttributes.CLIENT_SERVICE_CONFIG))
                     {
                         List<BluetoothGattCharacteristic> gattCharacteristics = gattService.getCharacteristics();
                         for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics)
                         {
-
                             if(gattCharacteristic.getUuid().toString().equalsIgnoreCase(BLEGattAttributes.CLIENT_CHARACTERISTIC_CONFIG))
                             {
                                 onCharacteristicRead(gatt,gattCharacteristic,status);
