@@ -354,7 +354,7 @@ private  void endDateCalendar() {
     private static List<Date> getDates(String dateString1, String dateString2)
     {
         ArrayList<Date> dates = new ArrayList<Date>();
-        DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+        @SuppressLint("SimpleDateFormat") DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
 
         Date date1 = null;
         Date date2 = null;
@@ -391,8 +391,9 @@ private  void endDateCalendar() {
             this.readingList = taskList;
         }
 
+        @NonNull
         @Override
-        public ReadingsAdapter.ReadingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ReadingsAdapter.ReadingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_tasks, parent, false);
             return new ReadingsAdapter.ReadingViewHolder(view);
         }

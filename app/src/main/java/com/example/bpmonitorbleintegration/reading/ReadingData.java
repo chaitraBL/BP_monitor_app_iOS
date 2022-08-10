@@ -115,14 +115,11 @@ public class ReadingData extends AppCompatActivity {
                 mBluetoothLeService.disconnect();
                 mBluetoothLeService.stopSelf();
                 boolean result = mBluetoothLeService.connect(deviceAddress);
-                if (result == false) {
+                if (!result) {
                     finish();
                 }
             }
         }
-
-      //  stopBtn.setEnabled(false);
-      //  stopBtn.setVisibility(View.INVISIBLE);
 
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,17 +130,14 @@ public class ReadingData extends AppCompatActivity {
 //                            Log.i(TAG, "Force stop value after checksum " + Arrays.toString(Constants.startValue) + " " + Constants.startValue);
                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
 
+                    // Checking whether received Ack or not
                     mCountDownTimer = new CountDownTimer(startTime, 10) {
                         @Override
                         public void onTick(long l) {
-                     //       mTimerRunning = true;
-                            counter++;
-//                                            Log.i(TAG, "counter Started " + startTime);
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-//                                                                            Log.i(TAG, "run ontick: ack " + Constants.is_ackReceived);
-//                                                                            Toast.makeText(getApplicationContext(), "ontick ack " + Constants.is_ackReceived, Toast.LENGTH_SHORT).show();
                                     mCountDownTimer = new CountDownTimer(30, 10) {
                                         @Override
                                         public void onTick(long l) {
@@ -218,19 +212,10 @@ public class ReadingData extends AppCompatActivity {
             public void onClick(View view) {
                 Constants.is_buttonStarted = true;
                 Constants.is_cuffReplaced = false;
-//                Constants.is_ackReceived = false;
-//                Constants.is_batteryReceivedAtReading = false;
-//                Constants.is_irregularHB = false;
              //
                 if (mNotifyCharacteristic != null) {
-//                    Log.i(TAG, "Start value " + Arrays.toString(Constants.startValue) + " " + Constants.startValue);
                     Constants.startValue = decoder.computeCheckSum(Constants.startValue);
-//                    Log.i(TAG, "Start value after checksum " + Arrays.toString(Constants.startValue) + " " + Constants.startValue);
                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.startValue);
-//                    startBtn.setEnabled(false);
-//                    startBtn.setVisibility(View.INVISIBLE);
-//                    stopBtn.setVisibility(View.VISIBLE);
-//                    stopBtn.setEnabled(true);
                 }
 
                 systolicText.setText("");
@@ -372,9 +357,7 @@ public class ReadingData extends AppCompatActivity {
                         if (Constants.is_ackReceived) {
                             mTimerRunning = false;
                             mCountDownTimer.cancel();
-//                            Log.i(TAG, "run: ack in condition " + Constants.is_ackReceived);
 //                            dialog1.dismiss();
-//                            Constants.is_ackReceived = false;
                         }
                     }
                 });
@@ -412,7 +395,7 @@ public class ReadingData extends AppCompatActivity {
         super.onResume();
         // Connect to the device through BLE.
         registerReceiver(broadCastReceiver, GattUpdateIntentFilter());
-//        dialog1.dismiss();
+
         if (mBluetoothLeService != null) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 mBluetoothLeService.close();
@@ -431,8 +414,6 @@ public class ReadingData extends AppCompatActivity {
         super.onPause();
         //Disconnect through services.
         unregisterReceiver(broadCastReceiver);
-//        dialog1.dismiss();
-//        dialog.dismiss();
     }
 
     @Override
@@ -449,7 +430,6 @@ public class ReadingData extends AppCompatActivity {
         super.onStop();
         // Unbind service connection.
         unbindService(mServiceConnection);
-//        dialog1.dismiss();
     }
 
     //Menu item.
@@ -562,7 +542,7 @@ public class ReadingData extends AppCompatActivity {
     private  void displayData(String data) {
         if (data != null) {
 
-            // To display raw result
+            // To display raw result after receiving ack.
             //Declare the timer
             Timer t = new Timer();
 //Set the schedule function and rate
@@ -580,8 +560,6 @@ public class ReadingData extends AppCompatActivity {
 
                             if (mTimeLeftInMillis > 0) {
                                 if (Constants.is_ackReceived) {
-//                        mTimerRunning = false;
-//                        mCountDownTimer.cancel();
                                     t.cancel();
 
                                     if (Constants.is_readingStarted) {
@@ -594,8 +572,6 @@ public class ReadingData extends AppCompatActivity {
                                         progressText.setText(data);
                                         Constants.is_readingStarted = false;
                                     }
-//                             progressText.setText(mBluetoothLeService.rawReadings);
-//                                    progressText.setText(data);
                                 }
                             }
                             else  if (mTimeLeftInMillis == 0) {
@@ -672,7 +648,7 @@ public class ReadingData extends AppCompatActivity {
                 }
             }.start();
 
-            // To display final result
+            // To display Error messages.
             mCountDownTimer = new CountDownTimer(50, 10) {
                 @Override
                 public void onTick(long l) {
@@ -851,6 +827,7 @@ public class ReadingData extends AppCompatActivity {
             }.start();
         }
         else {
+            // Battery status with timer
             startTimer();
         }
     }
@@ -881,7 +858,6 @@ public class ReadingData extends AppCompatActivity {
                     public void run() {
                         if (mTimerRunning) {
                             if (!Constants.is_batterValueReceived) {
-//                                mTimerRunning = false;
                                 mCountDownTimer.cancel();
                                 Toast.makeText(ReadingData.this, getApplicationContext().getResources().getString(R.string.please_connect_again), Toast.LENGTH_SHORT).show();
                             }
@@ -902,23 +878,17 @@ public class ReadingData extends AppCompatActivity {
         if (mBluetoothLeService.batteryLevel == Constants.HIGH_BATTERY) {
             batteryText.setBackgroundColor(Color.parseColor("#008000"));
             Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
         }
         else if (mBluetoothLeService.batteryLevel == Constants.MID_BATTERY){
             batteryText.setBackgroundColor(Color.parseColor("#FFA500"));
             Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
         }
         else if (mBluetoothLeService.batteryLevel == Constants.LOW_BATTERY) {
             batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
             Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.battery_low),Toast.LENGTH_SHORT).show();
             Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
         }
         else  {
@@ -931,8 +901,6 @@ public class ReadingData extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
                                 mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
 //                                dialog.dismiss();
                             }
@@ -968,7 +936,7 @@ public class ReadingData extends AppCompatActivity {
         }
     };
 
-    //Updating connection status through text field, if disconnected status navigating to mainActivity through alert dialog.
+    //Updating connection status through text field. if disconnected, status navigating to mainActivity through alert dialog.
     private void updateConnectionState(final String status) {
         runOnUiThread(new Runnable() {
             @Override

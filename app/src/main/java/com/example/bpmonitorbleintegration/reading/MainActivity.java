@@ -51,7 +51,6 @@ import java.util.List;
 import java.util.Objects;
 
 
-@TargetApi(21)
 public class MainActivity extends AppCompatActivity {
 
     List<BluetoothDevice> listBluetoothDevice;
@@ -114,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
 //        actioBar.setHomeAsUpIndicator(R.drawable.ic_baseline_keyboard_arrow_left_24);
         actioBar.setDisplayHomeAsUpEnabled(true);
         actioBar.setDisplayShowHomeEnabled(true);
-
 
         bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -191,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu_file, menu);
         return super.onCreateOptionsMenu(menu);
-
     }
 
     @SuppressLint("NonConstantResourceId")

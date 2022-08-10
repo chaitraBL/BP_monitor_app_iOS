@@ -305,9 +305,6 @@ public class BLEService extends Service implements DecodeListener {
 ////                intent.putExtra(Constants.EXTRA_DATA, new String(data) + "\n" +stringBuilder.toString());
 //            }
 
-//            if (data[0] == 123 || data[0] == 91 || data[0] == 40) {
-//
-//            }
 //            Log.i(TAG, "length before switch " + data[6]);
             int length = data[6];
 //            Log.d(TAG, "broadcastUpdate: length " + length);
@@ -320,7 +317,7 @@ public class BLEService extends Service implements DecodeListener {
                 value[i] = (int) (data[i] & 0xff);
 //               Log.i("Decoder", "new values " + value[i]);
             }
-            Log.i("Decoder", "Command id " + (value[5]));
+//            Log.i("Decoder", "Command id " + (value[5]));
 
             // Check for checksum
             boolean checkSumVal = decoder.checkSumValidation(value, characteristic);
@@ -332,8 +329,6 @@ public class BLEService extends Service implements DecodeListener {
                 //Command Id wise receiving data.
                 switch (value[5]) {
                     case Constants.DEVICE_COMMANDID:
-                       // Log.i(TAG, "Device id " + Arrays.toString(value));
-//                        Log.i(TAG, "broadcastUpdate: device " + value[1] + value[2] + value[3] + value[4]);
                         Constants.deviceId = new byte[]{(byte) value[1], (byte) value[2], (byte) value[3], (byte) value[4]};
 //                        Log.i(TAG, "broadcastUpdate: device byte " + (byte) value[1] + (byte) value[2] + (byte) value[3] + (byte) value[4]);
                         Constants.startValue = decoder.replaceArrayVal(Constants.startValue, Constants.deviceId);
@@ -362,12 +357,8 @@ public class BLEService extends Service implements DecodeListener {
                         finalResult = systolic + " / " + dystolic + " / " + heartRateValue;
                        // Log.d(TAG, "broadcastUpdate: raw readings " + systolic + " / " + dystolic + " / " + heartRateValue);
                         intent.putExtra(Constants.EXTRA_DATA, systolic + " / " + dystolic + " / " + heartRateValue);
-
 //                        int rangeValue = value[13];
-
                         Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "ack " + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
                         writeCharacteristics(characteristic, Constants.ack);
                         break;
 
@@ -381,8 +372,6 @@ public class BLEService extends Service implements DecodeListener {
                                 errorMessage = msg + "\n" + getString(R.string.try_again);
                                 intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
                                 Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
                                 writeCharacteristics(characteristic, Constants.ack);
                                 break;
 
@@ -392,8 +381,6 @@ public class BLEService extends Service implements DecodeListener {
                                 errorMessage = msg + "\n" + getString(R.string.try_again);
                                 intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
                                 Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
                                 writeCharacteristics(characteristic, Constants.ack);
                                 break;
 
@@ -410,8 +397,6 @@ public class BLEService extends Service implements DecodeListener {
                                 intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
                                 errorMessage = msg + "\n" + getString(R.string.try_again);
                                 Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
                                 writeCharacteristics(characteristic, Constants.ack);
                                 break;
 
@@ -420,10 +405,6 @@ public class BLEService extends Service implements DecodeListener {
                                 msg = getString(R.string.low_battery);
                                 errorMessage = msg + "\n" + getString(R.string.try_again);
                                 intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
-                                //Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
-                              //  writeCharacteristics(characteristic, Constants.ack);
                                 break;
 
                             case 6:
@@ -450,53 +431,30 @@ public class BLEService extends Service implements DecodeListener {
 
                             case 17:
                                 Constants.is_batteryReceivedAtReading = true;
-//                                msg = getString(R.string.low_battery);
-//                                errorMessage = msg + "\n" + "Please change battery";
-//                                intent.putExtra(Constants.EXTRA_DATA, msg);
-//                                Log.i(TAG, "broadcastUpdate: intent value in broadcast" + intent.getStringExtra(Constants.EXTRA_DATA));
+                                break;
+
                             default:
                                 msg = " ";
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
-//                                intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + "Try again");
                                 break;
                         }
-
                         break;
 
                     case Constants.ACK_COMMANDID:
                         Constants.is_ackReceived = true;
                         int ack = value[8];
-                     //   Log.i(TAG, "ack in bleservice " + ack);
-
+                     //   Log.i(TAG, "ack in bleservice " + ack)
                         break;
 
                     case Constants.BATTERY_COMMANDID:
                         Constants.is_batterValueReceived = true;
-
                         int batteryLevel = value[8];
-
-
-                        //Log.i(TAG, "Battery level " + batteryLevel);
-//                        intent.putExtra(Constants.EXTRA_DATA, batteryLevel);
-                       /* if (batteryLevel == Constants.HIGH_EXCEEDED) {
-                            android.util.Log.d(TAG, "broadcastUpdate: Battery limit exceeded");
-                        } else {
-                            Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        Log.i(TAG, "error" + Arrays.toString(Constants.ack));
-//                        Log.i(TAG, "ack sent " + Constants.ack);
-                            writeCharacteristics(characteristic, Constants.ack);
-                        }*/
-
                         break;
                 }
-
             } else {
                 Constants.checkSumError = decoder.computeCheckSum(Constants.checkSumError);
-//                Log.i(TAG, "check sum error " + Arrays.toString(Constants.checkSumError));
-//                Log.i(TAG, "ack sent " + Constants.ack);
                 writeCharacteristics(characteristic, Constants.checkSumError);
             }
-//            Arrays.fill(value, (byte) 0);
         }
         sendBroadcast(intent);
     }
@@ -708,25 +666,25 @@ public class BLEService extends Service implements DecodeListener {
 
     @Override
     public void systolic(int value) {
-        Log.i(TAG, "Systa " + value);
+//        Log.i(TAG, "Systa " + value);
         systalic = value;
     }
 
     @Override
     public void diastolic(int value) {
-        Log.i(TAG, "Diasta " + value);
+//        Log.i(TAG, "Diasta " + value);
         dystolic = value;
     }
 
     @Override
     public void heartRate(int value) {
-        Log.i(TAG, "heart " + value);
+//        Log.i(TAG, "heart " + value);
         rate = value;
     }
 
     @Override
     public void range(int value) {
-        Log.i(TAG, "range " + value);
+//        Log.i(TAG, "range " + value);
         range = value;
     }
 

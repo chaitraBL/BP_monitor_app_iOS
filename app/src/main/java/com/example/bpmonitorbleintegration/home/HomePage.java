@@ -907,7 +907,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         }
     }
 
-
     // Combined chart with candle stick & line chart.
     public void plotForSelectedDate(List<BloodPressureDB> task) {
         timeList.clear();
@@ -1001,7 +1000,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     }
 
     // Combined chart with candle stick & line chart.
-    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public void plotCombinedChart(List<BloodPressureDB> task) {
         timeList.clear();
         combinedChart.clear();
@@ -1281,6 +1279,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             markerText = findViewById(R.id.tvContent);
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void refreshContent(Entry e, Highlight highlight) {
             super.refreshContent(e, highlight);
