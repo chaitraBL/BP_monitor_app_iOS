@@ -1,6 +1,7 @@
 package com.example.bpmonitorbleintegration.logs;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -65,6 +67,7 @@ public class LogActivity extends AppCompatActivity implements BottomNavigationVi
     Button selectBtn,startBtn,endBtn;
     DatePickerDialog picker;
     TextView no_data_found,startDate,endDate;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
