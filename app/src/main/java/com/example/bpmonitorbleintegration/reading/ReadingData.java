@@ -70,7 +70,7 @@ public class ReadingData extends AppCompatActivity {
 
     public int counter = 0;
     private CountDownTimer mCountDownTimer;
-    private long mTimeLeftInMillis = 2000;
+    private long mTimeLeftInMillis = 1000;
     private final long startTime = 50;
     private boolean mTimerRunning;
     private final String TAG = ReadingData.class.getName();
@@ -207,16 +207,18 @@ public class ReadingData extends AppCompatActivity {
                             });
                         }
                     }.start();
-//                    if (Constants.is_finalResult) {
+                    if (Constants.is_finalResult) {
 //                        Toast.makeText(getApplicationContext(),"onClick: sys " + mBluetoothLeService.systalic + " Dia " + mBluetoothLeService.dystolic + " HR " + mBluetoothLeService.rate + " map " + mBluetoothLeService.range,Toast.LENGTH_SHORT).show();
 //                        Log.d(TAG, "onClick: sys " + mBluetoothLeService.systalic + " Dia " + mBluetoothLeService.dystolic + " HR " + mBluetoothLeService.rate + " map " + mBluetoothLeService.range);
-//                        systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
-//                        diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
-//                        heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+                        systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
+                        diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
+                        heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+                        String status = changeStatus(mBluetoothLeService.systalic,mBluetoothLeService.dystolic);
+                        mapText.setText(status);
 //                        mapText.setText(String.valueOf(mBluetoothLeService.range));
 //                        localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, ReadingData.this);
-//                        Constants.is_finalResult = false;
-//                    }
+                        Constants.is_finalResult = false;
+                    }
                 }
             }
         });
@@ -257,7 +259,8 @@ public class ReadingData extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),getApplication().getResources().getString(R.string.check_value), Toast.LENGTH_SHORT).show();
                     progress.setVisibility(View.GONE);
                 } else {
-                    localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), Integer.parseInt(mapText.getText().toString()), ReadingData.this);
+                    localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, ReadingData.this);
+//                    localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, ReadingData.this); Integer.parseInt(mapText.getText().toString())
                     systolicText.setText("");
                     diastolicText.setText("");
                     heartRateText.setText("");
@@ -552,298 +555,229 @@ public class ReadingData extends AppCompatActivity {
 
     // To Display data on text field and popups
     private  void displayData(String data) {
+//        Toast.makeText(getApplicationContext(), "received data before" + data, Toast.LENGTH_SHORT).show();
         if (data != null) {
-
-            // To display raw result after receiving ack.
-            //Declare the timer
-            Timer t = new Timer();
-//Set the schedule function and rate
-            t.scheduleAtFixedRate(new TimerTask() {
-
+            mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
                 @Override
-                public void run() {
-                    //Called each time when 1000 milliseconds (1 second) (the period parameter)
+                public void onTick(long millisUntilFinished) {
+                    mTimeLeftInMillis = millisUntilFinished;
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // To display raw value.
-                            mTimeLeftInMillis -= 1;
+                            progress.setVisibility(View.GONE);
 
-                            if (mTimeLeftInMillis > 0) {
-                                if (Constants.is_ackReceived) {
-                                    t.cancel();
+                            if (Constants.is_ackReceived)
+                            {
+                                mCountDownTimer.cancel();
+                                mTimerRunning = false;
+                                startBtn.setEnabled(false);
+                                startBtn.setVisibility(View.INVISIBLE);
+                                stopBtn.setVisibility(View.VISIBLE);
+                                stopBtn.setEnabled(true);
 
-                                    if (Constants.is_readingStarted) {
+                                // To display raw readings
+//                                if (Constants.is_readingStarted) {
+                                    progressText.setText(data);
+//                                    Constants.is_readingStarted = false;
+//                                }
 
-                                        startBtn.setEnabled(false);
-                                        startBtn.setVisibility(View.INVISIBLE);
-                                        stopBtn.setVisibility(View.VISIBLE);
-                                        stopBtn.setEnabled(true);
-//                             progressText.setText(mBluetoothLeService.rawReadings);
-                                        progressText.setText(data);
+                                //To display error msgs.
+                                if (Constants.is_errorReceived) {
+                                    progressText.setText(data);
+                                    Constants.is_errorReceived = false;
+                                }
 
+                                // To display final results.
+                                if (Constants.is_finalResult) {
+                                    if ((mBluetoothLeService.systalic < 30) || (mBluetoothLeService.systalic > 200)){
+                                        Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.systolic_error), Toast.LENGTH_SHORT).show();
                                     }
-                                    Constants.is_readingStarted = false;
+                                    else if ((mBluetoothLeService.dystolic < 40) || (mBluetoothLeService.dystolic > 120)) {
+                                        Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.diastolic_error), Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        progressText.setText(data);
+                                    }
                                 }
                             }
-                            else  if (mTimeLeftInMillis == 0) {
-                                 if (!Constants.is_ackReceived){
-                                     t.cancel();
+
+                            // To display battery status popup while receiving the data
+                            mCountDownTimer = new CountDownTimer(50, 10) {
+                                @Override
+                                public void onTick(long l) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //  If battery low popup alert messages.
+                                            if (Constants.is_batteryReceivedAtReading) {
+                                                mTimerRunning = false;
+                                                mCountDownTimer.cancel();
+                                                progressText.setText("---");
+                                                //                                                            .setMessage(data)
+                                                if (mBluetoothLeService.errorMessage.equals(getString(R.string.battery_limit_exceeds))) {
+                                                    batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
+                                                    progressText.setText("---");
+                                                }
+                                                else {
+                                                    batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
+                                                    progressText.setText("---");
+                                                }
+                                                if ((dialog == null) || !dialog.isShowing()) {
+                                                    dialog = new AlertDialog.Builder(ReadingData.this)
+                                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
+                                                            .setMessage(data)
+//                                            .setMessage(mBluetoothLeService.errorMessage)
+                                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+                                                                    startBtn.setEnabled(true);
+                                                                    startBtn.setVisibility(View.VISIBLE);
+                                                                    stopBtn.setVisibility(View.INVISIBLE);
+                                                                    stopBtn.setEnabled(false);
+                                                                    progressText.setText("---");
+//                                                    dialog.dismiss();
+                                                                }
+                                                            })
+                                                            .setCancelable(false)
+                                                            .show();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    if (mTimerRunning) {
+                                        if (!Constants.is_batteryReceivedAtReading) {
+                                            mCountDownTimer.cancel();
+                                            Log.d(TAG, "onFinish: Not able to find");
+                                        }
+                                    }
+                                    else {
+                                        mCountDownTimer.cancel();
+                                        Constants.is_batteryReceivedAtReading = false;
+                                    }
+                                }
+                            }.start();
+
+                            // To display irregular heartbeat popup.
+                            mCountDownTimer = new CountDownTimer(50, 10) {
+                                @Override
+                                public void onTick(long l) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // Irregular heart beat alert popup
+                                            if (Constants.is_irregularHB) {
+                                                mTimerRunning = false;
+                                                mCountDownTimer.cancel();
+                                                progressText.setText("---");
+                                                if ((dialog == null) || !dialog.isShowing()) {
+                                                    dialog = new AlertDialog.Builder(ReadingData.this)
+                                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
+//                                                           .setMessage(data)
+                                                            .setMessage(mBluetoothLeService.errorMessage)
+                                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+                                                                    startBtn.setEnabled(true);
+                                                                    startBtn.setVisibility(View.VISIBLE);
+                                                                    stopBtn.setVisibility(View.INVISIBLE);
+                                                                    stopBtn.setEnabled(false);
+                                                                    progressText.setText("---");
+//                                                    dialog.dismiss();
+                                                                }
+                                                            }).setCancelable(false)
+                                                            .show();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                                @Override
+                                public void onFinish() {
+                                    if (mTimerRunning) {
+                                        if (!Constants.is_irregularHB) {
+                                            mCountDownTimer.cancel();
+                                            Log.d(TAG, "onFinish: not found");
+                                        }
+                                    }
+                                    else {
+                                        mCountDownTimer.cancel();
+                                        Constants.is_irregularHB = false;
+                                    }
+                                }
+                            }.start();
+
+//                            if ((Constants.is_resultReceived) || (Constants.is_readingStarted)) {
+                            // To display cuff replacement message popup
+                            mCountDownTimer = new CountDownTimer(50, 10) {
+                                @Override
+                                public void onTick(long l) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (Constants.is_cuffReplaced) {
+                                                mTimerRunning = false;
+                                                mCountDownTimer.cancel();
+                                                progressText.setText("---");
+                                                alertDialogForReset();
+                                            }
+                                        }
+                                    });
+                                }
+                                @Override
+                                public void onFinish() {
+
+                                    if (mTimerRunning) {
+                                        if (!Constants.is_cuffReplaced) {
+                                            mCountDownTimer.cancel();
+                                            Log.d(TAG, "onFinish: not able to find");
+                                        }
+                                    }
+                                    else {
+                                        mCountDownTimer.cancel();
+                                        Constants.is_cuffReplaced = false;
+                                    }
+                                }
+                            }.start();
+//                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onFinish() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mTimerRunning) {
+                                if (!Constants.is_ackReceived){
+                                    mCountDownTimer.cancel();
                                     Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
                                     startBtn.setEnabled(true);
                                     startBtn.setVisibility(View.VISIBLE);
                                     stopBtn.setVisibility(View.INVISIBLE);
                                     stopBtn.setEnabled(false);
                                 }
-                                 if (!Constants.is_readingStarted) {
-                                     t.cancel();
-                                     Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-                                     startBtn.setEnabled(true);
-                                     startBtn.setVisibility(View.VISIBLE);
-                                     stopBtn.setVisibility(View.INVISIBLE);
-                                     stopBtn.setEnabled(false);
-                                 }
                             }
-
-                        }
-                    });
-
-                }
-                },
-//Set how long before to start calling the TimerTask (in milliseconds)
-                    1,
-//Set the amount of time between each execution (in milliseconds)
-                    1000);
-
-            // To display final result
-            mCountDownTimer = new CountDownTimer(50, 10) {
-                @Override
-                public void onTick(long l) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (Constants.is_finalResult) {
-                                mTimerRunning = false;
+                            else {
                                 mCountDownTimer.cancel();
-                                if ((mBluetoothLeService.systalic < 30) || (mBluetoothLeService.systalic > 200)){
-                                    Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.systolic_error), Toast.LENGTH_SHORT).show();
-                                }
-                                else if ((mBluetoothLeService.dystolic < 40) || (mBluetoothLeService.dystolic > 120)) {
-                                    Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.diastolic_error), Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-//                                        progressText.setText(data);
-                                    progressText.setText(mBluetoothLeService.finalResult);
-
-                                    String status = changeStatus(mBluetoothLeService.systalic, mBluetoothLeService.dystolic);
-                                    systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
-                                    diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
-                                    heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
-                                    mapText.setText(status);
-//                                    mapText.setText(String.valueOf(mBluetoothLeService.range));
-                                }
+                                Constants.is_ackReceived = false;
                             }
+
                         }
                     });
-                }
-
-                @Override
-                public void onFinish() {
-                    if (mTimerRunning) {
-                        if (!Constants.is_finalResult) {
-                            mCountDownTimer.cancel();
-                            Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else {
-                        mCountDownTimer.cancel();
-//
-                        Constants.is_finalResult = false;
-                    }
-                }
-            }.start();
-
-            // To display Error messages.
-            mCountDownTimer = new CountDownTimer(50, 10) {
-                @Override
-                public void onTick(long l) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (Constants.is_errorReceived) {
-                                mTimerRunning = false;
-                                mCountDownTimer.cancel();
-
-                                        progressText.setText(data);
-//                                    progressText.setText(mBluetoothLeService.finalResult);
-
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onFinish() {
-                    if (mTimerRunning) {
-                        if (!Constants.is_errorReceived) {
-                            mCountDownTimer.cancel();
-                            Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else {
-                        mCountDownTimer.cancel();
-                        Constants.is_errorReceived = false;
-                    }
-                }
-            }.start();
-
-            // To display battery status popup while receiving the data
-            mCountDownTimer = new CountDownTimer(50, 10) {
-                @Override
-                public void onTick(long l) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //  If battery low popup alert messages.
-                            if (Constants.is_batteryReceivedAtReading) {
-                                mTimerRunning = false;
-                                mCountDownTimer.cancel();
-                                progressText.setText("---");
-                                //                                                            .setMessage(data)
-                                if (mBluetoothLeService.errorMessage.equals(getString(R.string.battery_limit_exceeds))) {
-                                    batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
-                                    progressText.setText("---");
-                                }
-                                else {
-                                    batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
-                                    progressText.setText("---");
-                                }
-                                if ((dialog == null) || !dialog.isShowing()) {
-                                    dialog = new AlertDialog.Builder(ReadingData.this)
-                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
-//                                                           .setMessage(data)
-                                            .setMessage(mBluetoothLeService.errorMessage)
-                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-                                                    startBtn.setEnabled(true);
-                                                    startBtn.setVisibility(View.VISIBLE);
-                                                    stopBtn.setVisibility(View.INVISIBLE);
-                                                    stopBtn.setEnabled(false);
-                                                    progressText.setText("---");
-//                                                    dialog.dismiss();
-                                                }
-                                            })
-                                            .setCancelable(false)
-                                            .show();
-                                }
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onFinish() {
-                    if (mTimerRunning) {
-                        if (!Constants.is_batteryReceivedAtReading) {
-                            mCountDownTimer.cancel();
-                            Log.d(TAG, "onFinish: Not able to find");
-                        }
-                    }
-                    else {
-                        mCountDownTimer.cancel();
-                        Constants.is_batteryReceivedAtReading = false;
-                    }
-                }
-            }.start();
-
-            // To display irregular heartbeat popup.
-            mCountDownTimer = new CountDownTimer(50, 10) {
-                @Override
-                public void onTick(long l) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Irregular heart beat alert popup
-                            if (Constants.is_irregularHB) {
-                                mTimerRunning = false;
-                                mCountDownTimer.cancel();
-                                if ((dialog == null) || !dialog.isShowing()) {
-                                    dialog = new AlertDialog.Builder(ReadingData.this)
-                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
-//                                                           .setMessage(data)
-                                            .setMessage(mBluetoothLeService.errorMessage)
-                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-                                                    startBtn.setEnabled(true);
-                                                    startBtn.setVisibility(View.VISIBLE);
-                                                    stopBtn.setVisibility(View.INVISIBLE);
-                                                    stopBtn.setEnabled(false);
-                                                    progressText.setText("---");
-//                                                    dialog.dismiss();
-                                                }
-                                            }).setCancelable(false)
-                                            .show();
-                                }
-                            }
-                        }
-                    });
-                }
-                @Override
-                public void onFinish() {
-                    if (mTimerRunning) {
-                        if (!Constants.is_irregularHB) {
-                            mCountDownTimer.cancel();
-                            Log.d(TAG, "onFinish: not found");
-                        }
-                    }
-                    else {
-                        mCountDownTimer.cancel();
-                        Constants.is_irregularHB = false;
-                    }
-                }
-            }.start();
-
-            // To display cuff replacement message popup
-            mCountDownTimer = new CountDownTimer(50, 10) {
-                @Override
-                public void onTick(long l) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (Constants.is_cuffReplaced) {
-                                mTimerRunning = false;
-                                mCountDownTimer.cancel();
-                                progressText.setText("---");
-                                alertDialogForReset();
-                            }
-                        }
-                    });
-                }
-                @Override
-                public void onFinish() {
-
-                    if (mTimerRunning) {
-                        if (!Constants.is_cuffReplaced) {
-                            mCountDownTimer.cancel();
-                            Log.d(TAG, "onFinish: not able to find");
-                        }
-                    }
-                    else {
-                        mCountDownTimer.cancel();
-                        Constants.is_cuffReplaced = false;
-                    }
                 }
             }.start();
         }
         else {
-            // Battery status with timer
             startTimer();
         }
     }
@@ -917,21 +851,21 @@ public class ReadingData extends AppCompatActivity {
         progress.setVisibility(View.GONE);
         if (mBluetoothLeService.batteryLevel == Constants.HIGH_BATTERY) {
             batteryText.setBackgroundColor(Color.parseColor("#008000"));
-            Constants.ack = decoder.computeCheckSum(Constants.ack);
-            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
+//            Constants.ack = decoder.computeCheckSum(Constants.ack);
+//            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
         }
         else if (mBluetoothLeService.batteryLevel == Constants.MID_BATTERY){
             batteryText.setBackgroundColor(Color.parseColor("#FFA500"));
-            Constants.ack = decoder.computeCheckSum(Constants.ack);
-            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
+//            Constants.ack = decoder.computeCheckSum(Constants.ack);
+//            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
         }
         else if (mBluetoothLeService.batteryLevel == Constants.LOW_BATTERY) {
             batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
             Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.battery_low),Toast.LENGTH_SHORT).show();
-            Constants.ack = decoder.computeCheckSum(Constants.ack);
-            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
+//            Constants.ack = decoder.computeCheckSum(Constants.ack);
+//            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
         }
-        else  {
+        else if (mBluetoothLeService.batteryLevel == Constants.HIGH_EXCEEDED) {
             batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
             if ((dialog == null) || !dialog.isShowing()) {
                 builder1 = new AlertDialog.Builder(ReadingData.this);
@@ -940,8 +874,8 @@ public class ReadingData extends AppCompatActivity {
                 builder1.setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Constants.ack = decoder.computeCheckSum(Constants.ack);
-                                mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
+//                                Constants.ack = decoder.computeCheckSum(Constants.ack);
+//                                mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
 //                                dialog.dismiss();
                             }
                         });
@@ -1009,260 +943,300 @@ public class ReadingData extends AppCompatActivity {
     }
 }
 
-// Inside displaydata() timer need to add.
- // if ((Constants.is_resultReceived == true) || (Constants.is_readingStarted == true)) {
-//                                mCountDownTimer = new CountDownTimer(startTime, 10) {
-//                                    @Override
-//                                    public void onTick(long l) {
-//                                        runOnUiThread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-////                                                Log.i(TAG, "run: cuff replaced before condion in displayDate " + Constants.is_cuffReplaced);
-//                                                if (Constants.is_cuffReplaced) {
-//                                                    mTimerRunning = false;
-//                                                    mCountDownTimer.cancel();
-//                                                    progressText.setText("---");
-////                                                    Log.i(TAG, "run: cuff replaced before alert start " + Constants.is_cuffReplaced);
-//                                                    alertDialogForReset();
-//                                                }
+//Latest
+//    private  void displayData1(String data) {
+//        if (data != null) {
 //
-//                                                // Irregular heart beat alert popup
-//                                                if (Constants.is_irregularHB) {
-//                                                    mTimerRunning = false;
-//                                                    mCountDownTimer.cancel();
-//                                                    new AlertDialog.Builder(ReadingData.this)
-//                                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
-////                                                            .setMessage(data)
-//                                                            .setMessage(mBluetoothLeService.errorMessage)
-//                                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(DialogInterface dialog, int which) {
-//                                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-//                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-//                                                                }
-//                                                            }).setCancelable(false)
-//                                                            .show();
-//                                                }
+//            // To display raw result after receiving ack.
+//            //Declare the timer
+//            Timer t = new Timer();
+////Set the schedule function and rate
+//            t.scheduleAtFixedRate(new TimerTask() {
 //
-//                                                //  If battery low popup alert messages.
-//                                                if (Constants.is_batteryReceivedAtReading) {
-//                                                    mTimerRunning = false;
-//                                                    mCountDownTimer.cancel();
-//                                                    //                                                            .setMessage(data)
-//                                                    if (mBluetoothLeService.errorMessage.equals(getString(R.string.battery_limit_exceeds))) {
-//                                                        batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
-//                                                    }
-//                                                    else {
-//                                                        batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
-//                                                    }
-//                                                    new AlertDialog.Builder(ReadingData.this)
-//                                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
-////                                                            .setMessage(data)
-//                                                            .setMessage(mBluetoothLeService.errorMessage)
-//                                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(DialogInterface dialog, int which) {
-//                                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-//                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-//                                                                    startBtn.setEnabled(true);
-//                                                                    startBtn.setVisibility(View.VISIBLE);
-//                                                                    stopBtn.setVisibility(View.INVISIBLE);
-//                                                                    stopBtn.setEnabled(false);
-//                                                                    progressText.setText("---");
-//                                                                }
-//                                                            })
-//                                                            .setCancelable(false)
-//                                                            .show();
-//                                                }
-//                                            }
-//                                        });
-//                                    }
+//                                      @Override
+//                                      public void run() {
+//                                          //Called each time when 1000 milliseconds (1 second) (the period parameter)
 //
-//                                    @Override
-//                                    public void onFinish() {
+//                                          runOnUiThread(new Runnable() {
+//                                              @Override
+//                                              public void run() {
+//                                                  // To display raw value.
+//                                                  mTimeLeftInMillis -= 1;
 //
-//                                        if (mTimerRunning) {
-////                                            if ((Constants.is_resultReceived == false) || (Constants.is_readingStarted == false)) {
-//////                                            Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.please_start_again), Toast.LENGTH_SHORT).show();
-////                                            }
-//                                        }
-//                                        else {
-////                                            Constants.is_errorReceived = false;
-//                                            Constants.is_readingStarted = false;
-//                                            Constants.is_resultReceived = false;
-//                                        }
-//                                    }
-//                                }.start();
-//                            }
-
-//  mCountDownTimer = new CountDownTimer(100, 10) {
-//@Override
-//public void onTick(long l) {
-//        runOnUiThread(new Runnable() {
-//@Override
-//public void run() {
-//        progress.setVisibility(View.GONE);
+//                                                  if (mTimeLeftInMillis > 0) {
+//                                                      if (Constants.is_ackReceived) {
+//                                                          t.cancel();
 //
-//        // To display raw value & final result.
-//        if (Constants.is_ackReceived) {
-//        mTimerRunning = false;
-//        mCountDownTimer.cancel();
+//                                                          if (Constants.is_readingStarted) {
 //
-//        startBtn.setEnabled(false);
-//        startBtn.setVisibility(View.INVISIBLE);
-//        stopBtn.setVisibility(View.VISIBLE);
-//        stopBtn.setEnabled(true);
+//                                                              startBtn.setEnabled(false);
+//                                                              startBtn.setVisibility(View.INVISIBLE);
+//                                                              stopBtn.setVisibility(View.VISIBLE);
+//                                                              stopBtn.setEnabled(true);
+////                             progressText.setText(mBluetoothLeService.rawReadings);
+//                                                              progressText.setText(data);
+//                                                              Constants.is_readingStarted = false;
+//                                                          }
 //
-////                                Log.i(TAG, "received data before " + data);
+//                                                      }
+//                                                  }
+//                                                  else  if (mTimeLeftInMillis == 0) {
+//                                                      if (!Constants.is_ackReceived){
+//                                                          t.cancel();
+//                                                          Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+//                                                          startBtn.setEnabled(true);
+//                                                          startBtn.setVisibility(View.VISIBLE);
+//                                                          stopBtn.setVisibility(View.INVISIBLE);
+//                                                          stopBtn.setEnabled(false);
+//                                                      }
+//                                                      if (!Constants.is_readingStarted) {
+//                                                          t.cancel();
+//                                                          Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+//                                                          startBtn.setEnabled(true);
+//                                                          startBtn.setVisibility(View.VISIBLE);
+//                                                          stopBtn.setVisibility(View.INVISIBLE);
+//                                                          stopBtn.setEnabled(false);
+//                                                      }
+//                                                  }
 //
-////                                progressText.setText(mBluetoothLeService.rawReadings);
-//        progressText.setText(data);
+//                                              }
+//                                          });
 //
-////                                if (Constants.is_errorReceived) {
-////                                    mTimerRunning = false;
-////                                    mCountDownTimer.cancel();
-////
-//////                                        progressText.setText(data);
-////                                    progressText.setText(mBluetoothLeService.errorMessage);
-////
-////                                }
-//        }
+//                                      }
+//                                  },
+////Set how long before to start calling the TimerTask (in milliseconds)
+//                    0,
+////Set the amount of time between each execution (in milliseconds)
+//                    1000);
 //
-//        if (Constants.is_finalResult) {
-//        mTimerRunning = false;
-//        mCountDownTimer.cancel();
-//        if ((mBluetoothLeService.systalic < 30) || (mBluetoothLeService.systalic > 200)){
-//        Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.systolic_error), Toast.LENGTH_SHORT).show();
-//
-//        }
-//        else if ((mBluetoothLeService.dystolic < 40) || (mBluetoothLeService.dystolic > 120)) {
-//        Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.diastolic_error), Toast.LENGTH_SHORT).show();
-//
-//        }
-//        else {
+//            // To display final result
+//            mCountDownTimer = new CountDownTimer(50, 10) {
+//                @Override
+//                public void onTick(long l) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (Constants.is_finalResult) {
+//                                mTimerRunning = false;
+//                                mCountDownTimer.cancel();
+//                                if ((mBluetoothLeService.systalic < 30) || (mBluetoothLeService.systalic > 200)){
+//                                    Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.systolic_error), Toast.LENGTH_SHORT).show();
+//                                }
+//                                else if ((mBluetoothLeService.dystolic < 40) || (mBluetoothLeService.dystolic > 120)) {
+//                                    Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.diastolic_error), Toast.LENGTH_SHORT).show();
+//                                }
+//                                else {
 ////                                        progressText.setText(data);
-//        progressText.setText(mBluetoothLeService.finalResult);
+//                                    progressText.setText(mBluetoothLeService.finalResult);
 //
-//        }
-//        }
+//                                    String status = changeStatus(mBluetoothLeService.systalic, mBluetoothLeService.dystolic);
+//                                    systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
+//                                    diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
+//                                    heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+//                                    mapText.setText(status);
+////                                    mapText.setText(String.valueOf(mBluetoothLeService.range));
+//                                }
+//                            }
+//                        }
+//                    });
+//                }
 //
-//        //  If battery low popup alert messages.
-//        if (Constants.is_batteryReceivedAtReading) {
-//        mTimerRunning = false;
-//        mCountDownTimer.cancel();
+//                @Override
+//                public void onFinish() {
+//                    if (mTimerRunning) {
+//                        if (!Constants.is_finalResult) {
+//                            mCountDownTimer.cancel();
+//                            Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    else {
+//                        mCountDownTimer.cancel();
+////
+//                        Constants.is_finalResult = false;
+//                    }
+//                }
+//            }.start();
 //
-//        //                                                            .setMessage(data)
-//        if (mBluetoothLeService.errorMessage.equals(getString(R.string.battery_limit_exceeds))) {
-//        batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
-//        progressText.setText("---");
+//            // To display Error messages.
+//            mCountDownTimer = new CountDownTimer(50, 10) {
+//                @Override
+//                public void onTick(long l) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (Constants.is_errorReceived) {
+//                                mTimerRunning = false;
+//                                mCountDownTimer.cancel();
+//
+//                                progressText.setText(data);
+////                                    progressText.setText(mBluetoothLeService.finalResult);
+//
+//                            }
+//                        }
+//                    });
+//                }
+//
+//                @Override
+//                public void onFinish() {
+//                    if (mTimerRunning) {
+//                        if (!Constants.is_errorReceived) {
+//                            mCountDownTimer.cancel();
+//                            Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    else {
+//                        mCountDownTimer.cancel();
+//                        Constants.is_errorReceived = false;
+//                    }
+//                }
+//            }.start();
+//
+//            // To display battery status popup while receiving the data
+//            mCountDownTimer = new CountDownTimer(50, 10) {
+//                @Override
+//                public void onTick(long l) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            //  If battery low popup alert messages.
+//                            if (Constants.is_batteryReceivedAtReading) {
+//                                mTimerRunning = false;
+//                                mCountDownTimer.cancel();
+//                                progressText.setText("---");
+//                                //                                                            .setMessage(data)
+//                                if (mBluetoothLeService.errorMessage.equals(getString(R.string.battery_limit_exceeds))) {
+//                                    batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
+//                                    progressText.setText("---");
+//                                }
+//                                else {
+//                                    batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
+//                                    progressText.setText("---");
+//                                }
+//                                if ((dialog == null) || !dialog.isShowing()) {
+//                                    dialog = new AlertDialog.Builder(ReadingData.this)
+//                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
+//                                            .setMessage(data)
+////                                            .setMessage(mBluetoothLeService.errorMessage)
+//                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+//                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+//                                                    startBtn.setEnabled(true);
+//                                                    startBtn.setVisibility(View.VISIBLE);
+//                                                    stopBtn.setVisibility(View.INVISIBLE);
+//                                                    stopBtn.setEnabled(false);
+//                                                    progressText.setText("---");
+////                                                    dialog.dismiss();
+//                                                }
+//                                            })
+//                                            .setCancelable(false)
+//                                            .show();
+//                                }
+//                            }
+//                        }
+//                    });
+//                }
+//
+//                @Override
+//                public void onFinish() {
+//                    if (mTimerRunning) {
+//                        if (!Constants.is_batteryReceivedAtReading) {
+//                            mCountDownTimer.cancel();
+//                            Log.d(TAG, "onFinish: Not able to find");
+//                        }
+//                    }
+//                    else {
+//                        mCountDownTimer.cancel();
+//                        Constants.is_batteryReceivedAtReading = false;
+//                    }
+//                }
+//            }.start();
+//
+//            // To display irregular heartbeat popup.
+//            mCountDownTimer = new CountDownTimer(50, 10) {
+//                @Override
+//                public void onTick(long l) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            // Irregular heart beat alert popup
+//                            if (Constants.is_irregularHB) {
+//                                mTimerRunning = false;
+//                                mCountDownTimer.cancel();
+//                                if ((dialog == null) || !dialog.isShowing()) {
+//                                    dialog = new AlertDialog.Builder(ReadingData.this)
+//                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
+////                                                           .setMessage(data)
+//                                            .setMessage(mBluetoothLeService.errorMessage)
+//                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+//                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+//                                                    startBtn.setEnabled(true);
+//                                                    startBtn.setVisibility(View.VISIBLE);
+//                                                    stopBtn.setVisibility(View.INVISIBLE);
+//                                                    stopBtn.setEnabled(false);
+//                                                    progressText.setText("---");
+////                                                    dialog.dismiss();
+//                                                }
+//                                            }).setCancelable(false)
+//                                            .show();
+//                                }
+//                            }
+//                        }
+//                    });
+//                }
+//                @Override
+//                public void onFinish() {
+//                    if (mTimerRunning) {
+//                        if (!Constants.is_irregularHB) {
+//                            mCountDownTimer.cancel();
+//                            Log.d(TAG, "onFinish: not found");
+//                        }
+//                    }
+//                    else {
+//                        mCountDownTimer.cancel();
+//                        Constants.is_irregularHB = false;
+//                    }
+//                }
+//            }.start();
+//
+//            // To display cuff replacement message popup
+//            mCountDownTimer = new CountDownTimer(50, 10) {
+//                @Override
+//                public void onTick(long l) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (Constants.is_cuffReplaced) {
+//                                mTimerRunning = false;
+//                                mCountDownTimer.cancel();
+//                                progressText.setText("---");
+//                                alertDialogForReset();
+//                            }
+//                        }
+//                    });
+//                }
+//                @Override
+//                public void onFinish() {
+//
+//                    if (mTimerRunning) {
+//                        if (!Constants.is_cuffReplaced) {
+//                            mCountDownTimer.cancel();
+//                            Log.d(TAG, "onFinish: not able to find");
+//                        }
+//                    }
+//                    else {
+//                        mCountDownTimer.cancel();
+//                        Constants.is_cuffReplaced = false;
+//                    }
+//                }
+//            }.start();
 //        }
 //        else {
-//        batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
-//        progressText.setText("---");
+//            // Battery status with timer
+//            startTimer();
 //        }
-//        new AlertDialog.Builder(ReadingData.this)
-//        .setTitle(getApplicationContext().getResources().getString(R.string.message))
-////                                                           .setMessage(data)
-//        .setMessage(mBluetoothLeService.errorMessage)
-//        .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-//@Override
-//public void onClick(DialogInterface dialog, int which) {
-//        Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-//        mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-//        startBtn.setEnabled(true);
-//        startBtn.setVisibility(View.VISIBLE);
-//        stopBtn.setVisibility(View.INVISIBLE);
-//        stopBtn.setEnabled(false);
-//        progressText.setText("---");
-//        }
-//        })
-//        .setCancelable(false)
-//        .show();
-//        }
-//
-//        // Irregular heart beat alert popup
-//        if (Constants.is_irregularHB) {
-//        mTimerRunning = false;
-//        mCountDownTimer.cancel();
-//        new AlertDialog.Builder(ReadingData.this)
-//        .setTitle(getApplicationContext().getResources().getString(R.string.message))
-////                                                           .setMessage(data)
-//        .setMessage(mBluetoothLeService.errorMessage)
-//        .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-//@Override
-//public void onClick(DialogInterface dialog, int which) {
-//        Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-//        mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-//        startBtn.setEnabled(true);
-//        startBtn.setVisibility(View.VISIBLE);
-//        stopBtn.setVisibility(View.INVISIBLE);
-//        stopBtn.setEnabled(false);
-//        progressText.setText("---");
-//        }
-//        }).setCancelable(false)
-//        .show();
-//        }
-//
-//        if (Constants.is_cuffReplaced) {
-//        mTimerRunning = false;
-//        mCountDownTimer.cancel();
-//        progressText.setText("---");
-////                                                   Log.i(TAG, "run: cuff replaced before alert start " + Constants.is_cuffReplaced);
-//        alertDialogForReset();
-//        }
-//        }
-//        });
-//        }
-//
-//@Override
-//public void onFinish() {
-//
-//        if (mTimerRunning) {
-//        if (!Constants.is_ackReceived){
-////                                    mTimerRunning = false;
-////                                mCountDownTimer.cancel();
-//        Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-//        startBtn.setEnabled(true);
-//        startBtn.setVisibility(View.VISIBLE);
-//        stopBtn.setVisibility(View.INVISIBLE);
-//        stopBtn.setEnabled(false);
-//        }
-//
-//        if (!Constants.is_finalResult) {
-//        mCountDownTimer.cancel();
-//        Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-//        }
-//
-//        if (!Constants.is_batteryReceivedAtReading) {
-//        mCountDownTimer.cancel();
-//        Log.d(TAG, "onFinish: Not able to find");
-//        }
-//
-//        if (!Constants.is_irregularHB) {
-//        mCountDownTimer.cancel();
-//        Log.d(TAG, "onFinish: not found");
-//        }
-//
-//        if (!Constants.is_cuffReplaced) {
-//        mCountDownTimer.cancel();
-//        Log.d(TAG, "onFinish: not able to find");
-////                                           Toast.makeText(ReadingData.this, "Not able to find message", Toast.LENGTH_SHORT).show();
-//        }
-////                        else {
-////                            if (!Constants.is_errorReceived) {
-////                                mCountDownTimer.cancel();
-////                                Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-////                            }
-////                        }
-//        }
-//        else {
-//        mCountDownTimer.cancel();
-//        Constants.is_ackReceived = false;
-//        Constants.is_finalResult = false;
-//        Constants.is_batteryReceivedAtReading = false;
-//        Constants.is_irregularHB = false;
-//        Constants.is_cuffReplaced = false;
-////                        Constants.is_errorReceived = false;
-//        }
-//        }
-//        }.start();
+//    }

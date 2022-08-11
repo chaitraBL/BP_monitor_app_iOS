@@ -314,6 +314,7 @@ public class BLEService extends Service implements DecodeListener {
                 value[i] = (int) (data[i] & 0xff);
 //               Log.i("Decoder", "new values " + value[i]);
             }
+//            Log.d(TAG, "broadcastUpdate: values " + value);
 //            Log.i("Decoder", "Command id " + (value[5]));
 
             // Check for checksum
@@ -338,7 +339,8 @@ public class BLEService extends Service implements DecodeListener {
                         break;
 
                     case Constants.RAW_COMMANDID:
-                        Constants.is_readingStarted = true;
+//                        Constants.is_readingStarted = true;
+//                        Log.d(TAG, "broadcastUpdate: raw readings " + value);
                         int cuffValue = value[8] * 256 + value[9];
                         int pulseValue = value[10] * 256 + value[11];
                         rawReadings = cuffValue + " / " + pulseValue;
@@ -347,6 +349,7 @@ public class BLEService extends Service implements DecodeListener {
 
                     case Constants.RESULT_COMMANDID:
                         Constants.is_finalResult = true;
+//                        Log.d(TAG, "broadcastUpdate: final " + value);
                         int systolic = value[8] * 256 + value[9];
                         int dystolic = value[10] * 256 + value[11];
                         int heartRateValue = value[12];
@@ -407,7 +410,7 @@ public class BLEService extends Service implements DecodeListener {
                             case 6:
                                 Constants.is_cuffReplaced = true;
                                 msg = getString(R.string.cuff_replacement);
-                                Log.d(TAG, "broadcastUpdate: cuff replaced ");
+//                                Log.d(TAG, "broadcastUpdate: cuff replaced ");
 //                                errorMessage = msg ;
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
                                 break;
@@ -440,12 +443,16 @@ public class BLEService extends Service implements DecodeListener {
                     case Constants.ACK_COMMANDID:
                         Constants.is_ackReceived = true;
                         int ack = value[8];
-                     //   Log.i(TAG, "ack in bleservice " + ack)
+//                        Log.i(TAG, "ack in bleservice " + ack);
                         break;
 
                     case Constants.BATTERY_COMMANDID:
                         Constants.is_batterValueReceived = true;
-                        int batteryLevel = value[8];
+
+                        batteryLevel = value[8];
+                        Constants.ack = decoder.computeCheckSum(Constants.ack);
+                        writeCharacteristics(characteristic, Constants.ack);
+//                        Log.d(TAG, "broadcastUpdate: battery " + batteryLevel);
                         break;
                 }
             } else {
@@ -491,8 +498,9 @@ public class BLEService extends Service implements DecodeListener {
             return;
         }
 
+//        Log.d(TAG, "writeCharacteristics: write value " + Arrays.toString(value));
         characteristics.setValue(value);
-
+//        Log.d(TAG, "writeCharacteristics: write char " + characteristics);
         mBluetoothGatt.writeCharacteristic(characteristics);
     }
 
@@ -702,7 +710,7 @@ public class BLEService extends Service implements DecodeListener {
 
     @Override
     public void batteryMsg(int value) {
-        batteryLevel = value;
+//        batteryLevel = value;
      //   Toast.makeText(getApplicationContext(), "battery4",Toast.LENGTH_SHORT).show();
 //        Log.i(TAG, "Battery level " + batteryLevel);
     }
