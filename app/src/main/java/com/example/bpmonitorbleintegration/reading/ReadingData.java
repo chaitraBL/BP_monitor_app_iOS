@@ -219,8 +219,6 @@ public class ReadingData extends AppCompatActivity {
                         }
                     }.start();
                     if (Constants.is_finalResult) {
-//                        Toast.makeText(getApplicationContext(),"onClick: sys " + mBluetoothLeService.systalic + " Dia " + mBluetoothLeService.dystolic + " HR " + mBluetoothLeService.rate + " map " + mBluetoothLeService.range,Toast.LENGTH_SHORT).show();
-//                        Log.d(TAG, "onClick: sys " + mBluetoothLeService.systalic + " Dia " + mBluetoothLeService.dystolic + " HR " + mBluetoothLeService.rate + " map " + mBluetoothLeService.range);
                         systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
                         diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
                         heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
@@ -372,9 +370,9 @@ public class ReadingData extends AppCompatActivity {
             //To show alert dialog
             dialog1.show();
         }
-        else {
-            Log.d(TAG, "alertDialogForReset: Already alert showing ");
-        }
+//        else {
+//            Log.d(TAG, "alertDialogForReset: Already alert showing ");
+//        }
     }
 
     // To check the ack after the reset command sent
