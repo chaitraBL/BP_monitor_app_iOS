@@ -41,7 +41,7 @@ public class Constants {
     public static final int HIGH_BATTERY = 51;
     public static final int MID_BATTERY = 34;
     public static final int LOW_BATTERY = 17;
-    public static final int HIGH_EXCEEDED = 120;
+    public static final int HIGH_EXCEEDED = 170; // 120
     public static boolean is_batterValueReceived = false;
     public static boolean is_batteryReceivedAtReading = false;
     public static boolean is_ackReceived = false;

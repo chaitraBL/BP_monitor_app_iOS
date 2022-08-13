@@ -70,7 +70,7 @@ public class ReadingData extends AppCompatActivity {
 
     public int counter = 0;
     private CountDownTimer mCountDownTimer;
-    private long mTimeLeftInMillis = 1000;
+    private long mTimeLeftInMillis = 2000;
     private final long startTime = 50;
     private boolean mTimerRunning;
     private final String TAG = ReadingData.class.getName();
@@ -152,36 +152,47 @@ public class ReadingData extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mCountDownTimer = new CountDownTimer(30, 10) {
-                                        @Override
-                                        public void onTick(long l) {
-                                     //       mTimerRunning = true;
-                                            counter++;
-//                                            Log.i(TAG, "counter Started " + startTime);
-                                        }
 
-                                        @Override
-                                        public void onFinish() {
-//                                            Log.i(TAG, "Stopped");
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-//                                                    Log.i(TAG, "run: cuff replaced before condition " + Constants.is_cuffReplaced);
-                                                    if (Constants.is_ackReceived) {
-                                                        mTimerRunning = false;
-                                                        mCountDownTimer.cancel();
-                                                        progressText.setText("---");
+                                    if (Constants.is_ackReceived) {
+                                        mTimerRunning = false;
+                                        mCountDownTimer.cancel();
+                                        progressText.setText("---");
 
-                                                        startBtn.setEnabled(true);
-                                                        startBtn.setVisibility(View.VISIBLE);
-                                                        stopBtn.setVisibility(View.INVISIBLE);
-                                                        stopBtn.setEnabled(false);
-                                                    }
-
-                                                }
-                                            });
-                                        }
-                                    }.start();
+                                        startBtn.setEnabled(true);
+                                        startBtn.setVisibility(View.VISIBLE);
+                                        stopBtn.setVisibility(View.INVISIBLE);
+                                        stopBtn.setEnabled(false);
+                                    }
+//                                    mCountDownTimer = new CountDownTimer(30, 10) {
+//                                        @Override
+//                                        public void onTick(long l) {
+//                                     //       mTimerRunning = true;
+//                                            counter++;
+////                                            Log.i(TAG, "counter Started " + startTime);
+//                                        }
+//
+//                                        @Override
+//                                        public void onFinish() {
+////                                            Log.i(TAG, "Stopped");
+//                                            runOnUiThread(new Runnable() {
+//                                                @Override
+//                                                public void run() {
+////                                                    Log.i(TAG, "run: cuff replaced before condition " + Constants.is_cuffReplaced);
+//                                                    if (Constants.is_ackReceived) {
+//                                                        mTimerRunning = false;
+//                                                        mCountDownTimer.cancel();
+//                                                        progressText.setText("---");
+//
+//                                                        startBtn.setEnabled(true);
+//                                                        startBtn.setVisibility(View.VISIBLE);
+//                                                        stopBtn.setVisibility(View.INVISIBLE);
+//                                                        stopBtn.setEnabled(false);
+//                                                    }
+//
+//                                                }
+//                                            });
+//                                        }
+//                                    }.start();
                                 }
                             });
                         }
@@ -193,7 +204,7 @@ public class ReadingData extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     if (mTimerRunning) {
-                                        if ((!Constants.is_ackReceived)) {
+                                        if (!Constants.is_ackReceived) {
 //                                                Log.i(TAG, "Start again");
                                             Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
                                             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
@@ -226,8 +237,10 @@ public class ReadingData extends AppCompatActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.is_buttonStarted = true;
+//                Constants.is_buttonStarted = true;
                 Constants.is_cuffReplaced = false;
+                Constants.is_ackReceived = false;
+                Constants.is_readingStarted = false;
              //
                 if (mNotifyCharacteristic != null) {
                     Constants.startValue = decoder.computeCheckSum(Constants.startValue);
@@ -311,6 +324,11 @@ public class ReadingData extends AppCompatActivity {
                                     if (Constants.is_ackReceived) {
                                         mTimerRunning = false;
                                         mCountDownTimer.cancel();
+                                        progressText.setText("---");
+                                        startBtn.setEnabled(true);
+                                        startBtn.setVisibility(View.VISIBLE);
+                                        stopBtn.setVisibility(View.INVISIBLE);
+                                        stopBtn.setEnabled(false);
 //                                    Log.i(TAG, "run: ack in cancel condition " + Constants.is_ackReceived);
 //                                        dialog1.dismiss();
                                     }
@@ -372,6 +390,11 @@ public class ReadingData extends AppCompatActivity {
                         if (Constants.is_ackReceived) {
                             mTimerRunning = false;
                             mCountDownTimer.cancel();
+                            progressText.setText("---");
+                            startBtn.setEnabled(true);
+                            startBtn.setVisibility(View.VISIBLE);
+                            stopBtn.setVisibility(View.INVISIBLE);
+                            stopBtn.setEnabled(false);
 //                            dialog1.dismiss();
                         }
                     }
@@ -557,7 +580,34 @@ public class ReadingData extends AppCompatActivity {
     private  void displayData(String data) {
 //        Toast.makeText(getApplicationContext(), "received data before" + data, Toast.LENGTH_SHORT).show();
         if (data != null) {
-            mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+
+            if (Constants.is_ackReceived)
+            {
+                startBtn.setEnabled(false);
+                startBtn.setVisibility(View.INVISIBLE);
+                stopBtn.setVisibility(View.VISIBLE);
+                stopBtn.setEnabled(true);
+
+//                mCountDownTimer.cancel();
+                mTimerRunning = false;
+
+
+                // To display raw readings
+                if (Constants.is_readingStarted) {
+//                                    progressText.setText(data);
+                progressText.setText(mBluetoothLeService.rawReadings);
+//                Constants.is_readingStarted = false;
+                }
+//                Constants.is_ackReceived = false;
+            }
+//            else {
+//                Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+//                startBtn.setEnabled(true);
+//                startBtn.setVisibility(View.VISIBLE);
+//                stopBtn.setVisibility(View.INVISIBLE);
+//                stopBtn.setEnabled(false);
+//            }
+            mCountDownTimer = new CountDownTimer(500, 100) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     mTimeLeftInMillis = millisUntilFinished;
@@ -565,20 +615,23 @@ public class ReadingData extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            progress.setVisibility(View.GONE);
+//                            progress.setVisibility(View.GONE);
+//
+//                            if (Constants.is_ackReceived)
+//                            {
+////                                startBtn.setEnabled(false);
+//                                startBtn.setVisibility(View.INVISIBLE);
+//                                stopBtn.setVisibility(View.VISIBLE);
+//                                stopBtn.setEnabled(true);
 
-                            if (Constants.is_ackReceived)
-                            {
                                 mCountDownTimer.cancel();
                                 mTimerRunning = false;
-                                startBtn.setEnabled(false);
-                                startBtn.setVisibility(View.INVISIBLE);
-                                stopBtn.setVisibility(View.VISIBLE);
-                                stopBtn.setEnabled(true);
+
 
                                 // To display raw readings
 //                                if (Constants.is_readingStarted) {
-                                    progressText.setText(data);
+//                                    progressText.setText(data);
+//                                progressText.setText(mBluetoothLeService.rawReadings);
 //                                    Constants.is_readingStarted = false;
 //                                }
 
@@ -600,7 +653,7 @@ public class ReadingData extends AppCompatActivity {
                                         progressText.setText(data);
                                     }
                                 }
-                            }
+//                            }
 
                             // To display battery status popup while receiving the data
                             mCountDownTimer = new CountDownTimer(50, 10) {
@@ -769,7 +822,7 @@ public class ReadingData extends AppCompatActivity {
                             }
                             else {
                                 mCountDownTimer.cancel();
-                                Constants.is_ackReceived = false;
+//                                Constants.is_ackReceived = false;
                             }
 
                         }
@@ -894,7 +947,7 @@ public class ReadingData extends AppCompatActivity {
 
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
-//                finish();
+                finish();
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 mBluetoothLeService.close();
@@ -910,6 +963,10 @@ public class ReadingData extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             mBluetoothLeService = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Intent intent = new Intent(ReadingData.this, MainActivity.class);
+                startActivity(intent);
+            }
         }
     };
 
