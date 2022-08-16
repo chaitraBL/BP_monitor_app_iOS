@@ -415,7 +415,7 @@ public class BLEService extends Service implements DecodeListener {
                             case 6:
                                 Constants.is_cuffReplaced = true;
                                 msg = getString(R.string.cuff_replacement);
-//                                Log.d(TAG, "broadcastUpdate: cuff replaced ");
+                                Log.d(TAG, "broadcastUpdate: cuff replaced ");
 //                                errorMessage = msg ;
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
                                 break;
@@ -448,7 +448,7 @@ public class BLEService extends Service implements DecodeListener {
                     case Constants.ACK_COMMANDID:
                         Constants.is_ackReceived = true;
                         int ack = value[8];
-//                        Log.i(TAG, "ack in bleservice " + ack);
+                        Log.i(TAG, "ack in bleservice " + ack);
                         break;
 
                     case Constants.BATTERY_COMMANDID:
