@@ -320,10 +320,6 @@ public class ReadingData extends AppCompatActivity {
             mapText.setText(status);
             statusText1.setText(String.valueOf(mBluetoothLeService.range));
             Constants.is_finalResult = false;
-//            startBtn.setEnabled(true);
-//            startBtn.setVisibility(View.VISIBLE);
-//            stopBtn.setVisibility(View.INVISIBLE);
-//            stopBtn.setEnabled(false);
 
             if ((dialog == null) || !dialog.isShowing()) {
                 dialog = new AlertDialog.Builder(ReadingData.this)
