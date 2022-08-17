@@ -704,7 +704,7 @@ public class ReadingData extends AppCompatActivity {
                                                                         public void run() {
                                                                             // If ack not received
 //                                                                            if (mTimerRunning) {
-                                                                                if (!Constants.is_ackReceived) {
+                                                                                if (Constants.is_ackReceived == false) {
                                                                                     dialog1.show();
                                                                                     Log.d(TAG, "run: ack not received while reset");
                                                                                     Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
@@ -774,7 +774,7 @@ public class ReadingData extends AppCompatActivity {
                                                                         public void run() {
                                                                             // If ack not received
 //                                                                            if (mTimerRunning) {
-                                                                                if (!Constants.is_ackReceived) {
+                                                                                if (Constants.is_ackReceived == false) {
                                                                                     dialog1.show();
                                                                                     Log.d(TAG, "run: ack not received while non reset");
                                                                                     Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
