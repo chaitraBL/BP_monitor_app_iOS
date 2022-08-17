@@ -128,4 +128,5 @@
     <string name="check_value">Please check the values in textfield</string>
     <string name="empty_val">---</string>
     <string name="space" />
+    <string name="save_final_reading">Do you want to save final readings before disconnect</string>
 </resources>
