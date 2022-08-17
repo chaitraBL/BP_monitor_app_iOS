@@ -310,6 +310,7 @@ public class ReadingData extends AppCompatActivity {
         super.onPause();
         //Disconnect through services.
         unregisterReceiver(broadCastReceiver);
+        progressText.setText("---");
         //Navigating to next activity on tap of ok button - On app minimize need to disconnect from services & BLE.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Intent intent1 = new Intent(ReadingData.this, MainActivity.class);
@@ -669,16 +670,17 @@ public class ReadingData extends AppCompatActivity {
                                                     // On click ok button reset command will be sent
                                                     builder1.setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                                                         @Override
+
                                                         public void onClick(DialogInterface dialogInterface, int which) {
                                                             Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
 //          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
                                                             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
 
-                                                            mCountDownTimer = new CountDownTimer(50, 10) {
+                                                            mCountDownTimer = new CountDownTimer(100, 10) {
                                                                 @Override
                                                                 public void onTick(long l) {
                                                                     // mTimerRunning = true;
-//                                                                    counter++;
+                                                                    counter++;
                                                                     runOnUiThread(new Runnable() {
                                                                         @Override
                                                                         public void run() {
@@ -703,7 +705,7 @@ public class ReadingData extends AppCompatActivity {
                                                                         @Override
                                                                         public void run() {
                                                                             // If ack not received
-//                                                                            if (mTimerRunning) {
+                                                                            if (mTimerRunning) {
                                                                                 if (Constants.is_ackReceived == false) {
                                                                                     dialog1.show();
                                                                                     Log.d(TAG, "run: ack not received while reset");
@@ -712,26 +714,26 @@ public class ReadingData extends AppCompatActivity {
                                                                                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
                                                                                     start();
                                                                                 }
-//                                                                            }
-//                                                                            else
-//                                                                            {
-//                                                                                mCountDownTimer.cancel();
-//                                                                                Log.d(TAG, "run: timer off");
-//                                                                                Constants.is_ackReceived = false;
-//                                                                                progressText.setText("---");
-//                                                                                startBtn.setEnabled(true);
-//                                                                                startBtn.setVisibility(View.VISIBLE);
-//                                                                                stopBtn.setVisibility(View.INVISIBLE);
-//                                                                                stopBtn.setEnabled(false);
-//                                                                                dialog1.dismiss();
-//                                                                            }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                mCountDownTimer.cancel();
+                                                                                Log.d(TAG, "run: timer off");
+                                                                                Constants.is_ackReceived = false;
+                                                                                progressText.setText("---");
+                                                                                startBtn.setEnabled(true);
+                                                                                startBtn.setVisibility(View.VISIBLE);
+                                                                                stopBtn.setVisibility(View.INVISIBLE);
+                                                                                stopBtn.setEnabled(false);
+                                                                                dialog1.dismiss();
+                                                                            }
                                                                         }
                                                                     });
                                                                 }
                                                             }.start();
                                                         }
                                                     });
-                                                    // On click ok button no-reset command will be sent
+                                                    // On click cancel button no-reset command will be sent
                                                     builder1.setNegativeButton(getApplicationContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -742,10 +744,10 @@ public class ReadingData extends AppCompatActivity {
 //                Log.i(TAG, "run: ack in ok before timer " + Constants.is_ackReceived);
 
                                                             // To check the ack after the reset command sent
-                                                            mCountDownTimer = new CountDownTimer(50, 10) {
+                                                            mCountDownTimer = new CountDownTimer(100, 10) {
                                                                 @Override
                                                                 public void onTick(long l) {
-//                                                                    counter++;
+                                                                    counter++;
 //                                                Log.i(TAG, "counter Started " + startTime);
                                                                     runOnUiThread(new Runnable() {
                                                                         @Override
@@ -773,7 +775,7 @@ public class ReadingData extends AppCompatActivity {
                                                                         @Override
                                                                         public void run() {
                                                                             // If ack not received
-//                                                                            if (mTimerRunning) {
+                                                                            if (mTimerRunning) {
                                                                                 if (Constants.is_ackReceived == false) {
                                                                                     dialog1.show();
                                                                                     Log.d(TAG, "run: ack not received while non reset");
@@ -782,19 +784,19 @@ public class ReadingData extends AppCompatActivity {
                                                                                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
                                                                                     start();
                                                                                 }
-//                                                                            }
-//                                                                            else
-//                                                                            {
-//                                                                                mCountDownTimer.cancel();
-//                                                                                Log.d(TAG, "run: timer off");
-//                                                                                Constants.is_ackReceived = false;
-//                                                                                progressText.setText("---");
-//                                                                                startBtn.setEnabled(true);
-//                                                                                startBtn.setVisibility(View.VISIBLE);
-//                                                                                stopBtn.setVisibility(View.INVISIBLE);
-//                                                                                stopBtn.setEnabled(false);
-//                                                                                dialog1.dismiss();
-//                                                                            }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                mCountDownTimer.cancel();
+                                                                                Log.d(TAG, "run: timer off");
+                                                                                Constants.is_ackReceived = false;
+                                                                                progressText.setText("---");
+                                                                                startBtn.setEnabled(true);
+                                                                                startBtn.setVisibility(View.VISIBLE);
+                                                                                stopBtn.setVisibility(View.INVISIBLE);
+                                                                                stopBtn.setEnabled(false);
+                                                                                dialog1.dismiss();
+                                                                            }
                                                                         }
                                                                     });
                                                                 }
@@ -814,6 +816,7 @@ public class ReadingData extends AppCompatActivity {
                                         }
                                     });
                                 }
+
                                 @Override
                                 public void onFinish() {
 

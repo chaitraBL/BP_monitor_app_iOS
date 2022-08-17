@@ -3,9 +3,11 @@
 <item>
         <shape android:shape="oval" >
 
-            <solid android:color="#C58917"/>
+            <solid android:color="@color/blue_200"/>
 
         </shape>
 
     </item>
 </selector>
+
+<!--#C58917-->

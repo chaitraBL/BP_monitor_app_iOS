@@ -26,9 +26,14 @@ public class Decoder
 //        final Intent intent = new Intent(action);
             // As per the command id data will be retrieved.
             switch (value[5]) {
+                case Constants.DEVICE_COMMANDID:
+                    int final_devid = Integer.valueOf(String.valueOf(value[1]) + String.valueOf(value[2]) + String.valueOf(value[3]) + String.valueOf(value[4]));
+                    decodeListener.deviceId(final_devid);
+                    break;
+
                 case Constants.RAW_COMMANDID:
-                    Constants.is_readingStarted = true;
-                    Constants.is_resultReceived = false;
+//                    Constants.is_readingStarted = true;
+//                    Constants.is_resultReceived = false;
                     //Method 1: conversion of cuff and pulse pressure value.
                     int cuffValue = value[8] * 256 + value[9];
                     int pulseValue = value[10] * 256 + value[11];
@@ -38,10 +43,7 @@ public class Decoder
                     // Accessing device id.
 //                    int dev_id1 = Integer.parseInt(Integer.toHexString(ByteBuffer.wrap(new byte[]{0x00,0x00,bytes[1],bytes[2]}).getInt()));
 //                    int dev_id2 = Integer.parseInt(Integer.toHexString(ByteBuffer.wrap(new byte[]{0x00,0x00,bytes[3],bytes[4]}).getInt()));
-                    int final_devid = Integer.valueOf(String.valueOf(value[1]) + String.valueOf(value[2]) + String.valueOf(value[3]) + String.valueOf(value[4]));
 
-                    buffer += String.valueOf(final_devid);
-                    decodeListener.deviceId(final_devid);
 
                     break;
 
@@ -49,8 +51,8 @@ public class Decoder
                     //Method 2: conversion of systolic and dystiolic value for byte[].
 //                    decodeListener.systolic(ByteBuffer.wrap(new byte[]{0x00,0x00,bytes[8],bytes[9]}).getInt());
 //                    decodeListener.diastolic(ByteBuffer.wrap(new byte[]{0x00,0x00,bytes[10],bytes[11]}).getInt());
-                    Constants.is_resultReceived = true;
-                    Constants.is_readingStarted = true;
+//                    Constants.is_resultReceived = true;
+//                    Constants.is_readingStarted = true;
                     int systolic = value[8] * 256 + value[9];
 //
                     decodeListener.systolic(systolic);
@@ -68,22 +70,19 @@ public class Decoder
 
                     int error = value[8];
                     decodeListener.errorMsg(error);
-                    if (error == 6) {
-                        Constants.is_cuffReplaced = true;
-                    }
 
-                    Constants.is_resultReceived = true;
+//                    Constants.is_resultReceived = true;
                     break;
 
                 case Constants.ACK_COMMANDID:
-                    Constants.is_ackReceived = true;
+//                    Constants.is_ackReceived = true;
                     int ack = value[8];
 //                    Log.i("Decoder", "ack in decoder " + ack);
                     decodeListener.ackMsg(ack);
                     break;
 
                 case Constants.BATTERY_COMMANDID:
-                    Constants.is_batterValueReceived = true;
+//                    Constants.is_batterValueReceived = true;
                     int batteryVal = value[8];
                   //  Toast.makeText(con, "Inside show battery",Toast.LENGTH_SHORT).show();
 //                    Log.i("Decoder", "Battery level " + batteryVal);

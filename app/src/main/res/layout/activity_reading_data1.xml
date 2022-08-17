@@ -97,10 +97,11 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
+            android:background="@drawable/filled_bg_circle"
             android:gravity="center">
 
             <!--                android:backgroundTint="#C58917"/>-->
@@ -111,7 +112,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/filled_bg_circle"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/arial"
                 android:text="@string/start"
                 android:textSize="12sp"
@@ -121,7 +122,7 @@
                 android:id="@+id/stop_reading"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/filled_bg_circle"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/arial"
                 android:text="@string/stop"
                 android:textSize="12sp"
