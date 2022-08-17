@@ -514,26 +514,15 @@ public class ReadingData extends AppCompatActivity {
                 startBtn.setVisibility(View.INVISIBLE);
                 stopBtn.setVisibility(View.VISIBLE);
                 stopBtn.setEnabled(true);
-
-//                mCountDownTimer.cancel();
                 mTimerRunning = false;
-
 
                 // To display raw readings
                 if (Constants.is_readingStarted == true) {
                     progressText.setText(data);
 //                progressText.setText(mBluetoothLeService.rawReadings);
-//                Constants.is_readingStarted = false;
                 }
-//                Constants.is_ackReceived = false;
             }
-//            else {
-//                Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
-//                startBtn.setEnabled(true);
-//                startBtn.setVisibility(View.VISIBLE);
-//                stopBtn.setVisibility(View.INVISIBLE);
-//                stopBtn.setEnabled(false);
-//            }
+
             mCountDownTimer = new CountDownTimer(500, 100) {
                 @Override
                 public void onTick(long millisUntilFinished) {
