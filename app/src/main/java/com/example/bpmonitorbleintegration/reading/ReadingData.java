@@ -310,6 +310,7 @@ public class ReadingData extends AppCompatActivity {
         super.onPause();
         //Disconnect through services.
         unregisterReceiver(broadCastReceiver);
+//        On app minimize or sleep mode need to disconnect from services & BLE.
         progressText.setText("---");
         if (Constants.is_finalResult == true) {
             systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
@@ -318,8 +319,6 @@ public class ReadingData extends AppCompatActivity {
             String status = changeStatus(mBluetoothLeService.systalic,mBluetoothLeService.dystolic);
             mapText.setText(status);
             statusText1.setText(String.valueOf(mBluetoothLeService.range));
-//                        mapText.setText(String.valueOf(mBluetoothLeService.range));
-//                        localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, ReadingData.this);
             Constants.is_finalResult = false;
 //            startBtn.setEnabled(true);
 //            startBtn.setVisibility(View.VISIBLE);
@@ -330,7 +329,7 @@ public class ReadingData extends AppCompatActivity {
                 dialog = new AlertDialog.Builder(ReadingData.this)
                         .setTitle(getApplicationContext().getResources().getString(R.string.message))
                         .setMessage(R.string.save_final_reading)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @SuppressLint("MissingPermission")
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -342,7 +341,7 @@ public class ReadingData extends AppCompatActivity {
                                 }
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialog.dismiss();
@@ -353,16 +352,6 @@ public class ReadingData extends AppCompatActivity {
                                 }
                             }
                         }).show();
-            }
-        }
-        else if (Constants.is_readingStarted == true) {
-//            Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-////                            Log.i(TAG, "Force stop value after checksum " + Arrays.toString(Constants.startValue) + " " + Constants.startValue);
-//            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-            //Navigating to next activity on tap of ok button - On app minimize need to disconnect from services & BLE.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Intent intent1 = new Intent(ReadingData.this, MainActivity.class);
-                startActivity(intent1);
             }
         }
         else {

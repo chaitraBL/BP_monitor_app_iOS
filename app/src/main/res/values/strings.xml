@@ -129,4 +129,6 @@
     <string name="empty_val">---</string>
     <string name="space" />
     <string name="save_final_reading">Do you want to save final readings before disconnect</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
