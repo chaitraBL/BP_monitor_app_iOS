@@ -131,9 +131,9 @@ public class ReadingData extends AppCompatActivity {
         registerReceiver(broadCastReceiver, GattUpdateIntentFilter());
         if (mBluetoothLeService != null) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                mBluetoothLeService.close();
-                mBluetoothLeService.disconnect();
-                mBluetoothLeService.stopSelf();
+//                mBluetoothLeService.close();
+//                mBluetoothLeService.disconnect();
+//                mBluetoothLeService.stopSelf();
                 boolean result = mBluetoothLeService.connect(deviceAddress);
                 if (!result) {
                     finish();
