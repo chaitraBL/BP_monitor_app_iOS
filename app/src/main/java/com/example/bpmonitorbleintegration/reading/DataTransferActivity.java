@@ -792,17 +792,17 @@ public class DataTransferActivity extends AppCompatActivity{
     // Change color on basis of battery level.
     public void showBattery(){
 //        Log.i(TAG, "Battery level " + mBluetoothLeService.batteryLevel);
-        progress.setVisibility(View.GONE);
-        if (mBluetoothLeService.batteryLevel == Constants.HIGH_BATTERY) {
-            batteryLevel.setBackgroundColor(Color.parseColor("#008000"));
-        }
-        else if (mBluetoothLeService.batteryLevel == Constants.MID_BATTERY){
-            batteryLevel.setBackgroundColor(Color.parseColor("#FFA500"));
-        }
-        else if (mBluetoothLeService.batteryLevel == Constants.LOW_BATTERY) {
-            batteryLevel.setBackgroundColor(Color.parseColor("#FF0000"));
-            Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.low_battery),Toast.LENGTH_SHORT).show();
-        }
+//        progress.setVisibility(View.GONE);
+//        if (mBluetoothLeService.batteryLevel == Constants.HIGH_BATTERY) {
+//            batteryLevel.setBackgroundColor(Color.parseColor("#008000"));
+//        }
+//        else if (mBluetoothLeService.batteryLevel == Constants.MID_BATTERY){
+//            batteryLevel.setBackgroundColor(Color.parseColor("#FFA500"));
+//        }
+//        else if (mBluetoothLeService.batteryLevel == Constants.LOW_BATTERY) {
+//            batteryLevel.setBackgroundColor(Color.parseColor("#FF0000"));
+//            Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.low_battery),Toast.LENGTH_SHORT).show();
+//        }
 //        Constants.is_batterValueReceived = false;
     }
 

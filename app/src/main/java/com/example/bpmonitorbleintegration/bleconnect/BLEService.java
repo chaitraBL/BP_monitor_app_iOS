@@ -217,6 +217,15 @@ public class BLEService extends Service implements DecodeListener {
                         for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
                             if (gattCharacteristic.getUuid().toString().equalsIgnoreCase(BLEGattAttributes.CLIENT_CHARACTERISTIC_CONFIG)) {
                                 onCharacteristicRead(gatt, gattCharacteristic, status);
+                                try {
+                                    // To refresh BluetoothGatt gatt service
+                                    final Method refresh = gatt.getClass().getMethod("refresh");
+                                    if (refresh != null) {
+                                        refresh.invoke(gatt);
+                                    }
+                                } catch (Exception e) {
+                                    // Log it
+                                }
                                 return;
                             }
                         }
@@ -224,15 +233,6 @@ public class BLEService extends Service implements DecodeListener {
                 }
                 new ConnectionThread().start();
 
-                try {
-                    // To refresh BluetoothGatt gatt service
-                    final Method refresh = gatt.getClass().getMethod("refresh");
-                    if (refresh != null) {
-                        refresh.invoke(gatt);
-                    }
-                } catch (Exception e) {
-                    // Log it
-                }
             }
         }
 
@@ -242,7 +242,7 @@ public class BLEService extends Service implements DecodeListener {
             //  Toast.makeText(BLEService.this, "read status " + status, Toast.LENGTH_SHORT).show();
 
             if (status == BluetoothGatt.GATT_SUCCESS) {
-                //  Toast.makeText(BLEService.this, "onCharacteristicRead" + Constants.ACTION_DATA_AVAILABLE, Toast.LENGTH_SHORT).show();
+//                  Toast.makeText(BLEService.this, "onCharacteristicRead" + characteristic, Toast.LENGTH_SHORT).show();
                 broadcastUpdate(Constants.ACTION_DATA_AVAILABLE, characteristic);
                 readCharacteristic(characteristic);
             }
@@ -309,16 +309,17 @@ public class BLEService extends Service implements DecodeListener {
             int length = data[6];
 //            Log.d(TAG, "broadcastUpdate: length " + length);
 
-            int[] value = new int[30];
+            int[] value = new int[20];
 
             Arrays.fill(value, (byte) 0);
 
+//            Log.d(TAG, "broadcastUpdate: value cleared " + Arrays.toString(value));
             for (int i = 0; i <= length; ++i) {
                 //    Log.i("Decoder", "values " + i + " " + data[i])
                 value[i] = (int) (data[i] & 0xff);
 //               Log.i("Decoder", "new values " + value[i]);
             }
-//            Log.d(TAG, "broadcastUpdate: values " + value);
+//            Log.d(TAG, "broadcastUpdate: char " + characteristic + " value " + Arrays.toString(value));
 //            Log.i("Decoder", "Command id " + (value[5]));
 
             // Check for checksum
@@ -455,8 +456,9 @@ public class BLEService extends Service implements DecodeListener {
                         Constants.is_batterValueReceived = true;
 
                         batteryLevel = value[8];
-                        Constants.ack = decoder.computeCheckSum(Constants.ack);
-                        writeCharacteristics(characteristic, Constants.ack);
+                        intent.putExtra(Constants.EXTRA_DATA, batteryLevel);
+//                        Constants.ack = decoder.computeCheckSum(Constants.ack);
+//                        writeCharacteristics(characteristic, Constants.ack);
 //                        Log.d(TAG, "broadcastUpdate: battery " + batteryLevel);
                         break;
                 }
@@ -464,6 +466,7 @@ public class BLEService extends Service implements DecodeListener {
                 Constants.checkSumError = decoder.computeCheckSum(Constants.checkSumError);
                 writeCharacteristics(characteristic, Constants.checkSumError);
             }
+
 //            Arrays.fill(data,(byte) 0);
         }
         sendBroadcast(intent);
@@ -506,7 +509,7 @@ public class BLEService extends Service implements DecodeListener {
 
         Log.d(TAG, "writeCharacteristics: write value " + Arrays.toString(value));
         characteristics.setValue(value);
-//        Log.d(TAG, "writeCharacteristics: write char " + characteristics);
+        Log.d(TAG, "writeCharacteristics: write char " + characteristics);
         mBluetoothGatt.writeCharacteristic(characteristics);
     }
 
