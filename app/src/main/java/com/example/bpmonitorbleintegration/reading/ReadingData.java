@@ -1077,7 +1077,7 @@ public class ReadingData extends AppCompatActivity {
                     }
                 }.start();
             }
-            else {
+            else if ((Constants.is_buttonStarted == false) || (Constants.is_stopButton == false)){
                 Toast.makeText(ReadingData.this, "Please click the button again", Toast.LENGTH_SHORT).show();
             }
         }
