@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     HashMap<String, String> filterDevices;
 
+    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,20 @@ public class MainActivity extends AppCompatActivity {
                     getApplicationContext().getResources().getString(R.string.bluetooth_le_not_supported),
                     Toast.LENGTH_LONG).show();
 //            finish();
+        }
+
+        //Check for bluetooth enable and disable.
+        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        } else {
+            if (Build.VERSION.SDK_INT >= 21) {
+                mLEScanner = mBluetoothAdapter.getBluetoothLeScanner();
+                settings = new ScanSettings.Builder()
+                        .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+                        .build();
+                filters = new ArrayList<ScanFilter>();
+            }
         }
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
