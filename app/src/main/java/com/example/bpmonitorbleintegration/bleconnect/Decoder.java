@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import com.example.bpmonitorbleintegration.constants.Constants;
 
+import java.util.Arrays;
+
 public class Decoder
 {
     String buffer = "";
@@ -167,6 +169,7 @@ public class Decoder
         value[2] = value[1];
         value[3] = value1[2];
         value[4] = value1[3];
+//        Log.d("Decoder", "replaceArrayVal: value " + Arrays.toString(value));
         return value;
     }
 

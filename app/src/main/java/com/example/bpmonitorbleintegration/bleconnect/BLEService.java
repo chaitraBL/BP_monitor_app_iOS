@@ -319,7 +319,7 @@ public class BLEService extends Service implements DecodeListener {
                 value[i] = (int) (data[i] & 0xff);
 //               Log.i("Decoder", "new values " + value[i]);
             }
-//            Log.d(TAG, "broadcastUpdate: char " + characteristic + " value " + Arrays.toString(value));
+            Log.d(TAG, "broadcastUpdate: char " + characteristic + " value " + Arrays.toString(value));
 //            Log.i("Decoder", "Command id " + (value[5]));
 
             // Check for checksum
@@ -334,6 +334,7 @@ public class BLEService extends Service implements DecodeListener {
                     case Constants.DEVICE_COMMANDID:
                         Constants.deviceId = new byte[]{(byte) value[1], (byte) value[2], (byte) value[3], (byte) value[4]};
 //                        Log.i(TAG, "broadcastUpdate: device byte " + (byte) value[1] + (byte) value[2] + (byte) value[3] + (byte) value[4]);
+//                        Log.d(TAG, "broadcastUpdate: device id " + Arrays.toString(Constants.deviceId));
                         Constants.startValue = decoder.replaceArrayVal(Constants.startValue, Constants.deviceId);
                         Constants.cancelValue = decoder.replaceArrayVal(Constants.cancelValue, Constants.deviceId);
                         Constants.ack = decoder.replaceArrayVal(Constants.ack, Constants.deviceId);
