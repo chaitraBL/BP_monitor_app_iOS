@@ -1,0 +1,81 @@
+
+/* Class = "UILabel"; text = "-"; ObjectID = "5xl-Uq-Yxq"; */
+"5xl-Uq-Yxq.text" = "-";
+
+/* Class = "UILabel"; text = "Systolic: "; ObjectID = "6ON-WE-sso"; */
+"6ON-WE-sso.text" = "Systolic: ";
+
+/* Class = "UILabel"; text = "Diastolic: "; ObjectID = "6m6-zz-1CG"; */
+"6m6-zz-1CG.text" = "Diastolic: ";
+
+/* Class = "UILabel"; text = "Diastolic : "; ObjectID = "8Yd-KF-IEZ"; */
+"8Yd-KF-IEZ.text" = "Diastolic : ";
+
+/* Class = "UILabel"; text = "Heart Rate : "; ObjectID = "AB6-a8-oKO"; */
+"AB6-a8-oKO.text" = "Heart Rate : ";
+
+/* Class = "UIButton"; normalTitle = "Start"; ObjectID = "Cn0-Sw-2uQ"; */
+"Cn0-Sw-2uQ.normalTitle" = "Start";
+
+/* Class = "UILabel"; text = "Heart Rate: "; ObjectID = "EIN-sJ-DHP"; */
+"EIN-sJ-DHP.text" = "Heart Rate: ";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "G1e-wP-hiC"; */
+"G1e-wP-hiC.text" = "Detail";
+
+/* Class = "UINavigationItem"; title = "Connected Devices"; ObjectID = "HJ2-sO-VBM"; */
+"HJ2-sO-VBM.title" = "Connected Devices";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Jhf-vR-sO3"; */
+"Jhf-vR-sO3.text" = "-";
+
+/* Class = "UIViewController"; title = "BLE connct"; ObjectID = "Q2V-mh-StP"; */
+"Q2V-mh-StP.title" = "BLE connct";
+
+/* Class = "UIButton"; normalTitle = "Stop"; ObjectID = "QH5-rQ-KlI"; */
+"QH5-rQ-KlI.normalTitle" = "Stop";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "ScR-IA-YEc"; */
+"ScR-IA-YEc.text" = "Title";
+
+/* Class = "UILabel"; text = "Systolic : "; ObjectID = "SjD-ad-lpD"; */
+"SjD-ad-lpD.text" = "Systolic : ";
+
+/* Class = "UILabel"; text = "---"; ObjectID = "VKq-au-ZXa"; */
+"VKq-au-ZXa.text" = "---";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Vn5-z7-1Gw"; */
+"Vn5-z7-1Gw.text" = "-";
+
+/* Class = "UIButton"; normalTitle = "Manual Readings"; ObjectID = "Z53-lY-qpb"; */
+"Z53-lY-qpb.normalTitle" = "Manual Readings";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "aco-wl-OJA"; */
+"aco-wl-OJA.normalTitle" = "Save";
+
+/* Class = "UINavigationItem"; title = "Readings"; ObjectID = "cl4-7K-F8j"; */
+"cl4-7K-F8j.title" = "Readings";
+
+/* Class = "UILabel"; text = "Connected"; ObjectID = "crZ-4Z-SRe"; */
+"crZ-4Z-SRe.text" = "Connected";
+
+/* Class = "UILabel"; text = "Battery"; ObjectID = "h7y-bi-8Gw"; */
+"h7y-bi-8Gw.text" = "Battery";
+
+/* Class = "UILabel"; text = "Do you want to save results? "; ObjectID = "hxT-QR-XEn"; */
+"hxT-QR-XEn.text" = "Do you want to save results? ";
+
+/* Class = "UINavigationItem"; title = "Manual Reading"; ObjectID = "iCg-bM-Gyh"; */
+"iCg-bM-Gyh.title" = "Manual Reading";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "igJ-8f-rhd"; */
+"igJ-8f-rhd.normalTitle" = "Save";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "v5N-63-FEJ"; */
+"v5N-63-FEJ.text" = "-";
+
+/* Class = "UILabel"; text = "MAP: "; ObjectID = "vHj-xu-Tg8"; */
+"vHj-xu-Tg8.text" = "MAP: ";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "vbg-LU-hj9"; */
+"vbg-LU-hj9.text" = "Status";
