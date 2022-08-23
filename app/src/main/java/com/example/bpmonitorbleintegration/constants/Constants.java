@@ -51,5 +51,5 @@ public class Constants {
     public static boolean is_buttonStarted;
     public static boolean is_errorReceived = false;
     public static boolean is_irregularHB = false;
-    public static boolean is_stopButton;
+    public static boolean is_stopButton = false;
 }
