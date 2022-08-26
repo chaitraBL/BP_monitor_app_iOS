@@ -47,7 +47,7 @@ class ShareReadingsViewController: UIViewController {
 //        statusLabel.text = selectedStatus
 //        print("status \( statusLabel.text)")
         
-        let text = "Blood Pressure Reading: \n" + "Systolic:          \(systolicLabel.text)\n Diastolic:          \(diastolicLabel.text)\n HeartRate:          \(heartRateLabel.text)\n Status:           \(statusLabel.text)\n Date:          \(dateLabel.text)"
+        let text = "Blood Pressure Reading: \n" + "Systolic:             \(systolicLabel.text!)\nDiastolic:         \(diastolicLabel.text!)\nHeartRate:        \(heartRateLabel.text!)\nStatus:            \(statusLabel.text!)\nDate:              \(dateLabel.text!)"
         
         // set up activity view controller
         let textToShare = [ text ]

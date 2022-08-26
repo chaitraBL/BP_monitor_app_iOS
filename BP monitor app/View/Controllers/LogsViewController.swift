@@ -32,6 +32,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     func selectedDate1(date: String) {
 //        print("end date \(date)")
         endDate.text = date
+        endDate.textColor = .black
         selectedEndDate = endDate.text
     }
     
@@ -39,6 +40,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     func selectedDate(date: String) {
 //        print("start date \(date)")
         startDate.text = date
+        startDate.textColor = .black
         selectedStartDate = startDate.text
     }
     
@@ -48,9 +50,26 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(hexString: "#162760")], for: .selected)
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .normal)
+        startDate.text = "Start Date"
+        endDate.text = "End Date"
+        startDate.textColor = .lightGray
+        endDate.textColor = .lightGray
         errorLabel.isHidden = true
         getData()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(hexString: "#162760")], for: .selected)
+
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .normal)
+        startDate.text = "Start Date"
+        endDate.text = "End Date"
+        startDate.textColor = .lightGray
+        endDate.textColor = .lightGray
+        errorLabel.isHidden = true
+        getData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,7 +153,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
 //                    print("count \(localReadingList.count)")
                     self.logTableView.reloadData()
                 }
-                self.logTableView.reloadData()
+//                self.logTableView.reloadData()
             }
             else {
                 self.logTableView.isHidden = true
@@ -142,7 +161,6 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.errorLabel.text = "No Data Found"
                 self.logTableView.setEmptyMessage("No Data Found")
             }
-            
         }
         catch {
             print("failed")
@@ -187,25 +205,26 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // Filter the date and display data
     @IBAction func applyDateFilter(_ sender: UIButton) {
-        if (startDate.text == ""){
+        if (startDate.text == "" || startDate.text == "Start Date"){
             let alert = UIAlertController(title: "Alert!", message: "Please select start date to continue", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
-        else if (endDate.text == "") {
+        else if (endDate.text == "" || endDate.text == "End Date") {
             let alert = UIAlertController(title: "Alert!", message: "Please select end date to continue", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
-            
         }
         else {
-            dateRange(strstartDate: selectedStartDate!, strendDate: selectedEndDate!)
+            dateRange(strstartDate: startDate.text!, strendDate: endDate.text!)
         }
     }
     
     func dateRange(strstartDate:String, strendDate:String)
     {
+        print("filter date")
         selectedDateArray.removeAll()
+        filteredArray.removeAll()
         var dateFrom =  Date() // First date
         var dateTo = Date() // End date
         let fmt = DateFormatter()
@@ -219,9 +238,9 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
             selectedDateArray.append(fmt.string(from: dateFrom))
             dateFrom = Calendar.current.date(byAdding: .day, value: 1, to: dateFrom)!
         }
+        print("selected date \(selectedDateArray) date from \(dateFrom)")
         
         // Adding filtered data to the model
-            filteredArray.removeAll()
             if localReadingList.count > 0
             {
                 for i in localReadingList
@@ -230,6 +249,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                     {
                         for j in selectedDateArray
                         {
+                            print("date \(i.date) and \(j)")
                             if i.date == j
                             {
 //                               print("name \(i.name)")
@@ -242,21 +262,20 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                             }
                             else
                             {
-                                
                                 self.logTableView.isHidden = true
                                 self.errorLabel.isHidden = false
                                 self.errorLabel.text = "No Data Found"
-                                self.logTableView.setEmptyMessage("No Data Found")
+//                                self.logTableView.setEmptyMessage("No Data Found")
                             }
                         }
+//                        self.logTableView.reloadData()
                     }
                     else
                     {
-                        
                         self.logTableView.isHidden = true
                         self.errorLabel.isHidden = false
                         self.errorLabel.text = "No Data Found"
-                        self.logTableView.setEmptyMessage("No Data Found")
+//                        self.logTableView.setEmptyMessage("No Data Found")
                     }
                 }
             }

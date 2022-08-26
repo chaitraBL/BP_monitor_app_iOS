@@ -47,7 +47,7 @@ class Constants: NSObject {
     var is_ackInIrregularHB = false
     var is_ackInCuff = false
     var is_ackInBattery = false
-    
+    var is_poweroff = false
     
     
     override init() {

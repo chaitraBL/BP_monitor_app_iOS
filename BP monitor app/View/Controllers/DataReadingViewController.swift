@@ -43,6 +43,8 @@ class DataReadingViewController: UIViewController {
     var peripheralManager:CBPeripheralManager!
     var secondsRemaining = 2
     @IBOutlet var activityView: UIView!
+    let app = UIApplication.shared
+    @IBOutlet var mapVal1: UILabel!
     
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
@@ -66,6 +68,8 @@ class DataReadingViewController: UIViewController {
         statusLabel.text = connStatus
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
         peripheralInAppdelegate = periperalData
+//        print ("perpheral data \(periperalData)")
+        constantValue.is_finalResultReceived = false
         
         startbtn.layer.cornerRadius = 0.5 * startbtn.bounds.size.width
         startbtn.clipsToBounds = true
@@ -86,16 +90,95 @@ class DataReadingViewController: UIViewController {
         constantValue.is_battery_received = false
         connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
         statusLabel.text = connStatus
+        constantValue.is_finalResultReceived = false
         
-        UIApplication.shared.isIdleTimerDisabled = true
-        
-        while (false) {
-            connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
-            statusLabel.text = connStatus
-        }
+//        print ("perpheral data in view will appear \(periperalData)")
+        let notificationCenter = NotificationCenter.default
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+   
     }
-    
-// https://www.ioscreator.com/tutorials/draw-shapes-core-graphics-ios-tutorial - to Draw different shapes.
+  
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        
+        if constantValue.is_poweroff == false {
+            //Timer
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+                    if self.secondsRemaining > 0 {
+                        print ("\(self.secondsRemaining) seconds")
+                        self.secondsRemaining -= 1
+                    } else if self.secondsRemaining == 0 {
+                        print ("condition in zero sec \(String(describing: self.periperalData))")
+                        Timer.invalidate()
+                        if self.periperalData == nil {
+//                            self.centralManager.cancelPeripheralConnection(self.periperalData)
+        //                    self.periperalData = nil
+
+                            self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+                        }
+                        else {
+//                            if self.constantValue.is_finalResultReceived == true {
+//                                self.centralManager.cancelPeripheralConnection(self.periperalData)
+//            //                    self.periperalData = nil
+//                                let alert = UIAlertController(title: "Alert!!!", message: "Do you want save the result and disconnect", preferredStyle: .alert)
+//
+//                                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
+//                                    let isSuccess = localDB.save(name: periperalData.name!, systolic: "\(systolicVal)", diastolic: "\(diastolicVal)", heartRate: "\(heartRateVal)", map: "\(map)")
+//
+//                                    constantValue.is_finalResultReceived = false
+//
+//                                    if isSuccess == true {
+//                                        constantValue.is_finalResultReceived = false
+//
+//                                        self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+//                                    }
+//                                    else {
+//                                        constantValue.is_finalResultReceived = false
+//                                        showToast(message: "Failed to save", font: .systemFont(ofSize: 12))
+////                                        self.centralManager.cancelPeripheralConnection(self.periperalData)
+//                    //                    self.periperalData = nil
+//
+//                                        self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+//                                    }
+//                                }))
+//                                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+////                                    self.centralManager.cancelPeripheralConnection(self.periperalData)
+//                //                    self.periperalData = nil
+//
+//                                    self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+//                                }))
+//                                self.present(alert, animated: true)
+//
+//                            }
+//                            else if self.constantValue.is_finalResultReceived == false {
+                                
+                                self.centralManager.cancelPeripheralConnection(self.periperalData)
+                                //                    self.periperalData = nil
+
+                                self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+//                            }
+                          
+                        }
+                        
+                    }
+                }
+        }
+        else {
+            print("power off")
+//            centralManager.cancelPeripheralConnection(periperalData)
+////            periperalData = nil
+//
+//            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "dashboardVc") as! ViewController
+//
+//            let navigationController = UINavigationController(rootViewController: vc)
+//
+//            self.present(navigationController, animated: true, completion: nil)
+        }
+      
+    }
+
+  // https://www.ioscreator.com/tutorials/draw-shapes-core-graphics-ios-tutorial - to Draw different shapes.
     private func drawArc() {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 300, height: 270))
         
@@ -131,6 +214,9 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if (segue.identifier == "disconnectPeripheral") {
         self.tabBarController?.tabBar.isHidden = false
     }
+    else if (segue.identifier == "toHome") {
+        self.tabBarController?.tabBar.isHidden = false
+    }
 }
   
     @IBAction func startReading(_ sender: Any) {
@@ -156,6 +242,19 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        print("checksum updated \(constantValue.startValue)")
         writeOutGoingValue(data: constantValue.startValue)
         
+        
+//        print("state \(periperalData)")
+        if periperalData.state == .disconnected {
+            let alert = UIAlertController(title: "Alert!!!", message: "Connection terminated!, please check the device connectivity", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                centralManager.cancelPeripheralConnection(periperalData)
+                periperalData = nil
+                performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+            }))
+            self.present(alert, animated: true)
+        }
+        
     }
     
     @IBAction func stopReading(_ sender: UIButton) {
@@ -165,7 +264,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         constantValue.is_irregularHB = false
         constantValue.is_cuffReplaced = false
         constantValue.is_ackReceived = false
-        constantValue.is_finalResultReceived = false
+//        constantValue.is_finalResultReceived = false
         constantValue.is_ackReceived = false
         constantValue.is_errorReceived = false
         constantValue.is_rawResultReceived = false
@@ -175,66 +274,107 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        print("checksum updated \(constantValue.cancelValue)")
         writeOutGoingValue(data: constantValue.cancelValue)
         
-        if constantValue.is_finalResultReceived == true {
-            systolicLabel.text = "\(systolicVal)"
-            diastolicLab.text = "\(diastolicVal)"
-            heartRateLabel.text = "\(heartRateVal)"
-            mapLabel.text = "\(map)"
+        
+        if self.constantValue.is_finalResultReceived == true {
+            self.systolicLabel.text = "\(self.systolicVal)"
+            self.diastolicLab.text = "\(self.diastolicVal)"
+            self.heartRateLabel.text = "\(self.heartRateVal)"
+            self.mapVal1.text = "\(self.map)"
+            changeStatus(systolic: Int(self.systolicVal), diastolic: Int(self.diastolicVal))
+            constantValue.is_finalResultReceived = false
+            }
+        
+        if periperalData.state == .disconnected {
+            let alert = UIAlertController(title: "Alert!!!", message: "Connection terminated!, please check the device connectivity", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                centralManager.cancelPeripheralConnection(periperalData)
+                periperalData = nil
+                performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+            }))
+            self.present(alert, animated: true)
         }
-        else {
-            systolicLabel.text = "-"
-            diastolicLab.text = "-"
-            heartRateLabel.text = "-"
-            mapLabel.text = "-"
-        }
+        
     }
     
     @IBAction func saveToLocal(_ sender: UIButton) {
         activityView.isHidden = false
         activityIndicator.startAnimating()
-        
-        if ((Int(systolicLabel.text!)! < 30) || (Int(systolicLabel.text!)! > 200)) {
-            activityView.isHidden = true
-            activityIndicator.stopAnimating()
-            let alert = UIAlertController(title: "Alert!", message: "Systolic range should be between 30 to 200,\n Please check the readings...", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
-        else if ((Int(diastolicLab.text!)! < 40) || (Int(diastolicLab.text!)! > 120)) {
-            activityView.isHidden = true
-            activityIndicator.stopAnimating()
-            let alert = UIAlertController(title: "Alert!", message: "Diastolic range should be between 40 to 120,\n Please check the readings...", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
-        else if ((systolicLabel.text == "-") || (diastolicLab.text == "-") || (heartRateLabel.text == "-") || (mapLabel.text == "-")) {
-            activityView.isHidden = true
-            activityIndicator.stopAnimating()
-            let alert = UIAlertController(title: "Alert!", message: "Please check the reading value...", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
-        else {
-            activityView.isHidden = true
-            activityIndicator.stopAnimating()
-            print("peripheral name = \(String(describing: periperalData.name))")
-            let isSuccess = localDB.save(name: periperalData.name!, systolic: systolicLabel.text!, diastolic: diastolicLab.text!, heartRate: heartRateLabel.text!, map: mapLabel.text!)
-            
-            if isSuccess == true {
-                let alert = UIAlertController(title: "Success", message: "Saved successfully", preferredStyle: .alert)
+       
+             if ((systolicLabel.text == "-") || (diastolicLab.text == "-") || (heartRateLabel.text == "-") || (mapLabel.text == "-")) {
+                activityView.isHidden = true
+                activityIndicator.stopAnimating()
+                let alert = UIAlertController(title: "Alert!", message: "Please check the reading value...", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true)
-                systolicLabel.text = "-"
-                diastolicLab.text = "-"
-                heartRateLabel.text = "-"
-                mapLabel.text = "-"
             }
             else {
-                let alert = UIAlertController(title: "Unsuccess", message: "Failed to save", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true)
+                if ((Int(systolicLabel.text!)! < 30) || (Int(systolicLabel.text!)! > 200)) {
+                    activityView.isHidden = true
+                    activityIndicator.stopAnimating()
+                    let alert = UIAlertController(title: "Alert!", message: "Systolic range should be between 30 to 200,\n Please check the readings...", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }
+                else if ((Int(diastolicLab.text!)! < 40) || (Int(diastolicLab.text!)! > 120)) {
+                    activityView.isHidden = true
+                    activityIndicator.stopAnimating()
+                    let alert = UIAlertController(title: "Alert!", message: "Diastolic range should be between 40 to 120,\n Please check the readings...", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }
+                else {
+                    activityView.isHidden = true
+                    activityIndicator.stopAnimating()
+                    print("peripheral name = \(String(describing: periperalData.name))")
+                    let isSuccess = localDB.save(name: periperalData.name!, systolic: systolicLabel.text!, diastolic: diastolicLab.text!, heartRate: heartRateLabel.text!, map: mapLabel.text!)
+                    
+                    if isSuccess == true {
+                        let alert = UIAlertController(title: "Success", message: "Saved successfully", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                        systolicLabel.text = "-"
+                        diastolicLab.text = "-"
+                        heartRateLabel.text = "-"
+                        mapLabel.text = "-"
+                    }
+                    else {
+                        let alert = UIAlertController(title: "Unsuccess", message: "Failed to save", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                }
             }
+    }
+    
+    // Status of the BP
+    func changeStatus(systolic:Int, diastolic:Int) {
+        var msg:String?
+        if((systolic < 80) || (diastolic < 60)) {
+            msg = "Low Blood Pressure"
+            mapLabel.text = msg
         }
+        else if ((systolic <= 120) && (diastolic <= 80)){
+            msg = "Normal Blood Pressure"
+            mapLabel.text = msg
+        }
+        else if ((systolic <= 139) || (diastolic <= 89)) {
+            msg = "High Normal Blood Pressure"
+            mapLabel.text = msg
+        }
+        else if ((systolic <= 159) || (diastolic <= 99)) {
+            msg = "Hypertension Stage 1"
+            mapLabel.text = msg
+        }
+        else if ((systolic <= 179 ) || (diastolic <= 109)) {
+            msg = "Hypertension Stage 2"
+            mapLabel.text = msg
+        }
+        else {
+            msg = "Hypertension Stage 3"
+            mapLabel.text = msg
+        }
+        
     }
     
     func showBattery() {
@@ -328,8 +468,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                 }
             return msg
         }
-    
-
        
         func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
             if ((error) != nil) {
@@ -341,14 +479,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
 //                print("Services \(service)")
                 peripheral.discoverCharacteristics(nil, for: service)
             }
-//            if periperalData.state == .disconnected {
-//                centralManager.cancelPeripheralConnection(periperalData)
-//                periperalData = nil
-//                connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
-//                statusLabel.text = connStatus
-//                print("Disconnected")
-//            }
-    //        print("Services list \(services)")
         }
         
         func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -366,13 +496,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                     
                 }
             }
-//            if periperalData.state == .disconnected {
-//                centralManager.cancelPeripheralConnection(periperalData)
-//                periperalData = nil
-//                connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
-//                statusLabel.text = connStatus
-//                print("Disconnected")
-//            }
         }
         
         func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
@@ -382,13 +505,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
             if (characteristic.isNotifying) {
                 print("notification began \(characteristic)")
             }
-//            if periperalData.state == .disconnected {
-//                centralManager.cancelPeripheralConnection(periperalData)
-//                periperalData = nil
-//                connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
-//                statusLabel.text = connStatus
-//                print("Disconnected")
-//            }
         }
         
         func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -507,7 +623,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.map = newArray[13]
                     
                                     print("final result: \(self.systolicVal) / \(self.diastolicVal) / \(self.heartRateVal) / \(self.map)")
-                    
+                                    
                                     self.readingsLabel.text = "\(self.systolicVal) / \(self.diastolicVal) / \(self.heartRateVal)"
                     
                                     self.constantValue.ack = self.bleManagerReading.computeCheckSum(data: self.constantValue.ack)
@@ -700,9 +816,11 @@ extension DataReadingViewController: CBPeripheralDelegate {
                     
                                 case self.constantValue.ACK_COMMANDID:
                                     print("ack: \(byteArray)")
+                                    
                                     Timer.invalidate()
                                     self.secondsRemaining = 2
                                     self.constantValue.is_ackReceived = true
+                                    
                                     if self.constantValue.is_stopTapped == true {
                                         self.stopBtn.isHidden = true
                                         self.startbtn.isHidden = false
@@ -710,7 +828,9 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.startbtn.isEnabled = true
                                         self.readingsLabel.text = "---"
                                         self.constantValue.is_stopTapped = false
+                                 
                                     }
+                                    
                                     else if self.constantValue.is_startTapped == true {
                                         self.stopBtn.isHidden = false
                                         self.startbtn.isHidden = true
@@ -718,6 +838,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.startbtn.isEnabled = false
                                         self.constantValue.is_startTapped = false
                                     }
+                                    
                                     else if self.constantValue.is_ackInCuff == true {
                                         self.stopBtn.isHidden = true
                                         self.startbtn.isHidden = false
@@ -725,7 +846,10 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.startbtn.isEnabled = true
                                         self.readingsLabel.text = "---"
                                         self.constantValue.is_ackInCuff = false
+                                        
+//
                                     }
+                                    
                                     else if self.constantValue.is_ackInIrregularHB == true {
                                         self.stopBtn.isHidden = true
                                         self.startbtn.isHidden = false
@@ -733,7 +857,9 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.startbtn.isEnabled = true
                                         self.readingsLabel.text = "---"
                                         self.constantValue.is_ackInIrregularHB = false
+                              
                                     }
+                                    
                                     else if self.constantValue.is_ackInBattery == true {
                                         self.stopBtn.isHidden = true
                                         self.startbtn.isHidden = false
@@ -742,6 +868,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.readingsLabel.text = "---"
                                         self.constantValue.is_ackInBattery = false
                                     }
+                                    
                                     else {
                                         self.stopBtn.isHidden = true
                                         self.startbtn.isHidden = false
@@ -824,16 +951,60 @@ extension DataReadingViewController:CBPeripheralManagerDelegate {
             return
         case .poweredOff:
             print("Power off")
-            centralManager.cancelPeripheralConnection(periperalData)
-            periperalData = nil
-            connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
-            statusLabel.text = connStatus
+            constantValue.is_poweroff = true
+            
+            if periperalData != nil {
+//                let alert = UIAlertController(title: "Alert!!!", message: "Connection terminated!, Please turn on bluetooth", preferredStyle: .alert)
+//
+//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                    
+                    centralManager.cancelPeripheralConnection(periperalData)
+                    periperalData = nil
+                    performSegue(withIdentifier: "toHome", sender: self)
+   
+//                }))
+//                self.present(alert, animated: true)
+            }
+            
+            else {
+                dismiss(animated: true)
+            }
+         
+          
+//            self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+//            connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
+//            statusLabel.text = connStatus
             return
+            
+        case .resetting:
+            print("Resetting")
+            constantValue.is_poweroff = true
+            if periperalData != nil {
+//                let alert = UIAlertController(title: "Alert!!!", message: "Connection terminated!, Please turn on bluetooth", preferredStyle: .alert)
+//
+//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                    
+                    centralManager.cancelPeripheralConnection(periperalData)
+                    periperalData = nil
+                    performSegue(withIdentifier: "toHome", sender: self)
+             
+//                }))
+//                self.present(alert, animated: true)
+            }
+            
+            else {
+                dismiss(animated: true)
+            }
+            
+            return
+            
         default:
             print("Other state")
             return
         }
     }
+    
+   
 }
     
 //Convert UInt8 to hexdecimal.

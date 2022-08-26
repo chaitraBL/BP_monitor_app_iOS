@@ -32,7 +32,7 @@ class ConnectedDevicesViewController: UIViewController , UITableViewDelegate, UI
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
-        cManager = CBCentralManager(delegate: self, queue: nil)
+        cManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         
 //        centralManager.delegate = self
         
@@ -126,8 +126,10 @@ extension ConnectedDevicesViewController:CBCentralManagerDelegate, CBPeripheralD
             break
         case .poweredOff:
 //            isPowerOn = false
+            Constants.init().is_poweroff = true
             print("Central is not powered on")
 //            msg = "Bluetooth is OFF"
+            showToast(message: "Please turn on the bluetooth", font: .systemFont(ofSize: 12))
             cManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
             break
         case .poweredOn:
