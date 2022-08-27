@@ -738,7 +738,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                     //                                            self.constantValue.is_cuffReplaced = false
                     //                                readingsLabel.text = "---"
                                         }))
-                                        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+                                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
                                             self.constantValue.is_ackInCuff = true
                                             self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
                             //                print("checksum updated \(self.constantValue.ack)")
@@ -746,7 +746,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                     //                                            self.constantValue.is_cuffReplaced = false
                                         }))
                                         self.present(alert, animated: true)
-                                        //reset/ noreset
                                         break
                     
                                     case 7:

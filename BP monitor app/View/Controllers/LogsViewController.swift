@@ -78,7 +78,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
             count = filteredArray.count
         }
         else {
-//            print("count in cell \(logObj.count)")
+            print("count in cell \(logObj.count)")
             count = logObj.count
         }
         return count
@@ -139,6 +139,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     // To get data from coredata and append it to model
     func getData() {
         localReadingList.removeAll()
+        filteredArray.removeAll()
         do {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             logObj = try context.fetch(Reading.fetchRequest())
@@ -249,7 +250,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                     {
                         for j in selectedDateArray
                         {
-                            print("date \(i.date) and \(j)")
+                            print("date \(String(describing: i.date)) and \(j)")
                             if i.date == j
                             {
 //                               print("name \(i.name)")
@@ -257,15 +258,18 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 self.logTableView.isHidden = false
                                 let obj = filteredData(myname: i.name!, mysysta: i.systa!, myDiasta: i.diasta!, myRate: i.heartRate!, mymap: i.map!, myDate: i.date!, myTime: i.time!)
                                 filteredArray.append(obj)
+                                print("filter array \(filteredArray)")
                                 
                                 self.logTableView.reloadData()
                             }
-                            else
+                            
+                            if i.date != j
                             {
                                 self.logTableView.isHidden = true
                                 self.errorLabel.isHidden = false
                                 self.errorLabel.text = "No Data Found"
 //                                self.logTableView.setEmptyMessage("No Data Found")
+                                print("filter array in else \(filteredArray)")
                             }
                         }
 //                        self.logTableView.reloadData()
@@ -276,6 +280,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.errorLabel.isHidden = false
                         self.errorLabel.text = "No Data Found"
 //                        self.logTableView.setEmptyMessage("No Data Found")
+                        print("filter array in count else \(filteredArray)")
                     }
                 }
             }
