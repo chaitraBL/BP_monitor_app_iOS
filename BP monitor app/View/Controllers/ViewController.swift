@@ -92,14 +92,23 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         }
     }
     
+//    https://medium.com/geekculture/swift-ios-charts-tutorial-highlight-selected-value-with-a-custom-marker-30ccbf92aa1b
+    
     //Marker view
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        let markerPosition = chartView.getMarkerPosition(highlight: highlight)
+//        guard
+        let dataSet = chartView.data?.dataSets[highlight.dataSetIndex]
+//        else{ return }
+        let entryIndex = dataSet?.entryIndex(entry: entry)
+
+        markerView.systolic.text = "\(sysList[entryIndex!])"
+        markerView.diastolic.text = "\(diaList[entryIndex!])"
+//        let markerPosition = chartView.getMarkerPosition(highlight: highlight)
         
-        markerView.systolic.text = entry.description
-        markerView.diastolic.text = entry.debugDescription
-        markerView.center = CGPoint(x: markerPosition.x, y: markerView.center.y)
-        markerView.isHidden = false
+//        markerView.systolic.text = entry.description
+//        markerView.diastolic.text = entry.debugDescription
+//        markerView.center = CGPoint(x: markerPosition.x, y: markerView.center.y)
+//        markerView.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -125,6 +134,9 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         
         profilePic.layer.masksToBounds = true
         profilePic.layer.cornerRadius = profilePic.bounds.width / 2
+        
+//        markerView.chartView = combinedChart
+//        combinedChart.marker = markerView as! IMarker
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,6 +177,19 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
                     bpReadings.text = lastElement.systolic! + " / " + lastElement.diastolic! + " mmHg"
                     heartRateReadings.text = lastElement.heartRate! + " bpm"
                     
+                    let originalDateFormatter = DateFormatter()
+                    originalDateFormatter.dateFormat = "dd-MM-yyyy"
+                    //            "yyyy-MM-dd"
+                    let newDateFormatter = DateFormatter()
+                    newDateFormatter.dateFormat = "dd - MMM"
+                    if let date: Date = originalDateFormatter.date(from: lastElement.date!) {
+                        let dateInNewStringFormat: String = newDateFormatter.string(from: date)
+//                        print("dateInNewStringFormat\(dateInNewStringFormat)")
+//                        logData.date.text = dateInNewStringFormat
+//                         xVal = dateInNewStringFormat + "\n" + i.time!
+                        dateChangeLabel.text = dateInNewStringFormat
+                    }
+                    
                     if ((lastElement.systolic == "-") || (lastElement.diastolic == "-")) {
                         print("not an format")
                     }
@@ -187,7 +212,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //                        print("dateInNewStringFormat\(dateInNewStringFormat)")
 //                        logData.date.text = dateInNewStringFormat
                          xVal = dateInNewStringFormat + "\n" + i.time!
-                        dateChangeLabel.text = "03 - Aug"
+//                        dateChangeLabel.text = "27 - Aug"
                     }
                     
 //                    print("xVal = \(xVal)")
@@ -308,6 +333,26 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         sysList.removeAll()
         diaList.removeAll()
         if filteredObj.count > 0 {
+            
+            //Fetching latest reading from array.
+            if let lastElement = filteredObj.last {
+                
+                let originalDateFormatter = DateFormatter()
+                originalDateFormatter.dateFormat = "dd-MM-yyyy"
+                //            "yyyy-MM-dd"
+                let newDateFormatter = DateFormatter()
+                newDateFormatter.dateFormat = "dd - MMM"
+                if let date: Date = originalDateFormatter.date(from: lastElement.date!) {
+                    let dateInNewStringFormat: String = newDateFormatter.string(from: date)
+//                        print("dateInNewStringFormat\(dateInNewStringFormat)")
+//                        logData.date.text = dateInNewStringFormat
+//                         xVal = dateInNewStringFormat + "\n" + i.time!
+                    dateChangeLabel.text = dateInNewStringFormat
+                }
+                
+            }
+            
+            
             for i in filteredObj {
                 var xVal:String?
                 let originalDateFormatter = DateFormatter()
@@ -320,7 +365,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //                    print("dateInNewStringFormat\(dateInNewStringFormat)")
                     //                        logData.date.text = dateInNewStringFormat
                     xVal = dateInNewStringFormat + "\n" + i.time!
-                    dateChangeLabel.text = "04 - Jul"
+//                    dateChangeLabel.text = "27 - Aug"
                 }
                 datelist.append(xVal!)
                 sysList.append(Int(i.systolic!)!)

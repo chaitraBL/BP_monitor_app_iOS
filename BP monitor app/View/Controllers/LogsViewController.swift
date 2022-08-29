@@ -75,6 +75,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
         if filteredArray.count > 0 {
+            print("count in filter cell \(filteredArray.count)")
             count = filteredArray.count
         }
         else {
@@ -223,7 +224,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func dateRange(strstartDate:String, strendDate:String)
     {
-        print("filter date")
+//        print("filter date")
         selectedDateArray.removeAll()
         filteredArray.removeAll()
         var dateFrom =  Date() // First date
