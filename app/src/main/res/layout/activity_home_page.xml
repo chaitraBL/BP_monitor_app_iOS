@@ -161,7 +161,7 @@
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/arial"
-                    android:text="@string/systolic"
+                    android:text="@string/systolic_home"
                     android:textSize="10sp"
                     tools:ignore="SmallSp" />
 
@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="5dp"
-                    android:text="@string/diastolic"
+                    android:text="@string/diastolic_home"
                     android:fontFamily="@font/arial"
                     android:textSize="10sp"
                     tools:ignore="SmallSp" />
@@ -253,7 +253,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="3dp"
                     android:fontFamily="@font/arial"
-                    android:text="@string/heart_rate"
+                    android:text="@string/heart_rate_home"
                     android:textColor="#393636"
                     android:textSize="13sp"
                     android:textStyle="bold" />

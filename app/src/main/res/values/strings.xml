@@ -131,4 +131,9 @@
     <string name="save_final_reading">Do you want to save final readings before disconnect</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="scan_device">Scan Device</string>
+    <string name="scan_device1">Scan Device</string>
+    <string name="systolic_home">Systolic</string>
+    <string name="diastolic_home">Diastolic</string>
+    <string name="heart_rate_home">Heart Rate</string>
 </resources>

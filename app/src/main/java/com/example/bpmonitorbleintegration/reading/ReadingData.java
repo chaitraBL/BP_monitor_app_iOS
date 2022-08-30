@@ -190,6 +190,9 @@ public class ReadingData extends AppCompatActivity {
                 Constants.is_errorReceived = false;
                 Constants.is_finalResult = false;
                 Constants.is_batterValueReceived = false;
+                Constants.cuffPop = false;
+                Constants.heartbeatPop = false;
+                Constants.batteryPop = false;
 
                 if (mNotifyCharacteristic != null) {
                     Constants.startValue = decoder.computeCheckSum(Constants.startValue);
@@ -715,28 +718,32 @@ public class ReadingData extends AppCompatActivity {
                                                                 batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
                                                                 progressText.setText("---");
                                                             }
-                                                            if ((dialog == null) || !dialog.isShowing()) {
-                                                                dialog = new AlertDialog.Builder(ReadingData.this)
-                                                                        .setTitle(getApplicationContext().getResources().getString(R.string.message))
-                                                                        .setMessage(data)
+
+                                                            if (Constants.batteryPop == false) {
+                                                                if ((dialog == null) || !dialog.isShowing()) {
+                                                                    dialog = new AlertDialog.Builder(ReadingData.this)
+                                                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
+                                                                            .setMessage(data)
 //                                            .setMessage(mBluetoothLeService.errorMessage)
-                                                                        .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                                                            @Override
-                                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                                Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-                                                                                mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-                                                                                startBtn.setEnabled(true);
-                                                                                startBtn.setVisibility(View.VISIBLE);
-                                                                                stopBtn.setVisibility(View.INVISIBLE);
-                                                                                stopBtn.setEnabled(false);
-                                                                                Constants.is_buttonStarted = false;
-                                                                                progressText.setText("---");
+                                                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+                                                                                    startBtn.setEnabled(true);
+                                                                                    startBtn.setVisibility(View.VISIBLE);
+                                                                                    stopBtn.setVisibility(View.INVISIBLE);
+                                                                                    stopBtn.setEnabled(false);
+                                                                                    Constants.is_buttonStarted = false;
+                                                                                    progressText.setText("---");
 //                                                    dialog.dismiss();
-                                                                            }
-                                                                        })
-                                                                        .setCancelable(false)
-                                                                        .show();
+                                                                                }
+                                                                            })
+                                                                            .setCancelable(false)
+                                                                            .show();
+                                                                }
                                                             }
+
                                                         }
                                                     }
                                                 });
@@ -817,81 +824,85 @@ public class ReadingData extends AppCompatActivity {
 //                                    Constants.is_readingStarted = false;
                                             mCountDownTimer.cancel();
                                             progressText.setText("---");
-                                            if ((dialog == null) || !dialog.isShowing()) {
-                                                dialog = new AlertDialog.Builder(ReadingData.this)
-                                                        .setTitle(getApplicationContext().getResources().getString(R.string.message))
+                                            if (Constants.heartbeatPop == false) {
+                                                if ((dialog == null) || !dialog.isShowing()) {
+                                                    dialog = new AlertDialog.Builder(ReadingData.this)
+                                                            .setTitle(getApplicationContext().getResources().getString(R.string.message))
 //                                                           .setMessage(data)
-                                                        .setMessage(mBluetoothLeService.errorMessage)
-                                                        .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-                                                                mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+                                                            .setMessage(mBluetoothLeService.errorMessage)
+                                                            .setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    Constants.heartbeatPop = true;
+                                                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
 
-                                                                // To check the ack after the reset command sent
-                                                                mCountDownTimer = new CountDownTimer(300, 10) {
-                                                                    @Override
-                                                                    public void onTick(long l) {
-                                                                        counter++;
+                                                                    // To check the ack after the reset command sent
+                                                                    mCountDownTimer = new CountDownTimer(300, 10) {
+                                                                        @Override
+                                                                        public void onTick(long l) {
+                                                                            counter++;
 //                                                Log.i(TAG, "counter Started " + startTime);
-                                                                        runOnUiThread(new Runnable() {
-                                                                            @Override
-                                                                            public void run() {
+                                                                            runOnUiThread(new Runnable() {
+                                                                                @Override
+                                                                                public void run() {
 
-                                                                                if (Constants.is_ackReceived == true) {
-                                                                                    mTimerRunning = false;
-                                                                                    mCountDownTimer.cancel();
-                                                                                    startBtn.setEnabled(true);
-                                                                                    startBtn.setVisibility(View.VISIBLE);
-                                                                                    stopBtn.setVisibility(View.INVISIBLE);
-                                                                                    stopBtn.setEnabled(false);
+                                                                                    if (Constants.is_ackReceived == true) {
+                                                                                        mTimerRunning = false;
+                                                                                        mCountDownTimer.cancel();
+                                                                                        startBtn.setEnabled(true);
+                                                                                        startBtn.setVisibility(View.VISIBLE);
+                                                                                        stopBtn.setVisibility(View.INVISIBLE);
+                                                                                        stopBtn.setEnabled(false);
 //                                                                            Constants.is_readingStarted = false;
-                                                                                    progressText.setText("---");
-                                                                                    Constants.is_buttonStarted = false;
+                                                                                        progressText.setText("---");
+                                                                                        Constants.is_buttonStarted = false;
 //                                    Log.i(TAG, "run: ack in cancel condition " + Constants.is_ackReceived);
-                                                                                }
-                                                                            }
-                                                                        });
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onFinish() {
-                                                                        runOnUiThread(new Runnable() {
-                                                                            @Override
-                                                                            public void run() {
-                                                                                // If ack not received
-                                                                                if (mTimerRunning) {
-                                                                                    if (Constants.is_ackReceived == false) {
-                                                                                        dialog1.show();
-                                                                                        Log.d(TAG, "run: ack not received while irregular hb");
-                                                                                        Constants.noResetValue = decoder.computeCheckSum(Constants.cancelValue);
-//          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.cancelValue) + " " + Constants.cancelValue);
-                                                                                        mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-                                                                                        start();
                                                                                     }
                                                                                 }
-                                                                                else
-                                                                                {
-                                                                                    mCountDownTimer.cancel();
+                                                                            });
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onFinish() {
+                                                                            runOnUiThread(new Runnable() {
+                                                                                @Override
+                                                                                public void run() {
+                                                                                    // If ack not received
+                                                                                    if (mTimerRunning) {
+                                                                                        if (Constants.is_ackReceived == false) {
+                                                                                            dialog1.show();
+                                                                                            Log.d(TAG, "run: ack not received while irregular hb");
+                                                                                            Constants.noResetValue = decoder.computeCheckSum(Constants.cancelValue);
+//          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.cancelValue) + " " + Constants.cancelValue);
+                                                                                            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
+                                                                                            start();
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        mCountDownTimer.cancel();
 //                                                                    Log.d(TAG, "run: timer off");
-                                                                                    Constants.is_ackReceived = false;
-                                                                                    progressText.setText("---");
-                                                                                    startBtn.setEnabled(true);
-                                                                                    startBtn.setVisibility(View.VISIBLE);
-                                                                                    stopBtn.setVisibility(View.INVISIBLE);
-                                                                                    stopBtn.setEnabled(false);
-                                                                                    Constants.is_buttonStarted = false;
+                                                                                        Constants.is_ackReceived = false;
+                                                                                        progressText.setText("---");
+                                                                                        startBtn.setEnabled(true);
+                                                                                        startBtn.setVisibility(View.VISIBLE);
+                                                                                        stopBtn.setVisibility(View.INVISIBLE);
+                                                                                        stopBtn.setEnabled(false);
+                                                                                        Constants.is_buttonStarted = false;
 //                                                                            dialog1.dismiss();
+                                                                                    }
                                                                                 }
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                }.start();
+                                                                            });
+                                                                        }
+                                                                    }.start();
 //                                                    dialog.dismiss();
-                                                            }
-                                                        }).setCancelable(false)
-                                                        .show();
+                                                                }
+                                                            }).setCancelable(false)
+                                                            .show();
+                                                }
                                             }
+
                                         }
                                     }
                                 });
@@ -927,158 +938,161 @@ public class ReadingData extends AppCompatActivity {
                                             progressText.setText("---");
                                             Constants.is_buttonStarted = false;
 
-                                            if ((dialog1 == null) || !dialog1.isShowing()) {
-                                                builder1 = new AlertDialog.Builder(ReadingData.this);
-                                                builder1.setTitle(getApplicationContext().getResources().getString(R.string.message));
-                                                builder1.setMessage(getApplicationContext().getResources().getString(R.string.cuff_replaced));
-                                                // On click ok button reset command will be sent
-                                                builder1.setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                                    @Override
+                                            if (Constants.cuffPop == false) {
+                                                if ((dialog1 == null) || !dialog1.isShowing()) {
+                                                    builder1 = new AlertDialog.Builder(ReadingData.this);
+                                                    builder1.setTitle(getApplicationContext().getResources().getString(R.string.message));
+                                                    builder1.setMessage(getApplicationContext().getResources().getString(R.string.cuff_replaced));
+                                                    // On click ok button reset command will be sent
+                                                    builder1.setPositiveButton(getApplicationContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                                        @Override
 
-                                                    public void onClick(DialogInterface dialogInterface, int which) {
-                                                        Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
+                                                        public void onClick(DialogInterface dialogInterface, int which) {
+                                                            Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
 //          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
-                                                        mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
+                                                            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
 
-                                                        mCountDownTimer = new CountDownTimer(100, 10) {
-                                                            @Override
-                                                            public void onTick(long l) {
-                                                                // mTimerRunning = true;
-                                                                counter++;
-                                                                runOnUiThread(new Runnable() {
-                                                                    @Override
-                                                                    public void run() {
-                                                                        if (Constants.is_ackReceived == true) {
-                                                                            mTimerRunning = false;
-                                                                            mCountDownTimer.cancel();
-                                                                            dialogInterface.dismiss();
-                                                                            dialog1.dismiss();
+                                                            mCountDownTimer = new CountDownTimer(100, 10) {
+                                                                @Override
+                                                                public void onTick(long l) {
+                                                                    // mTimerRunning = true;
+                                                                    counter++;
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            if (Constants.is_ackReceived == true) {
+                                                                                mTimerRunning = false;
+                                                                                mCountDownTimer.cancel();
+                                                                                dialogInterface.dismiss();
+                                                                                dialog1.dismiss();
 //                                                                    Constants.is_readingStarted = false;
-                                                                            progressText.setText("---");
-                                                                            startBtn.setEnabled(true);
-                                                                            startBtn.setVisibility(View.VISIBLE);
-                                                                            stopBtn.setVisibility(View.INVISIBLE);
-                                                                            stopBtn.setEnabled(false);
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-
-                                                            @Override
-                                                            public void onFinish() {
-                                                                runOnUiThread(new Runnable() {
-                                                                    @Override
-                                                                    public void run() {
-                                                                        // If ack not received
-                                                                        if (mTimerRunning) {
-                                                                            if (Constants.is_ackReceived == false) {
-                                                                                dialog1.show();
-                                                                                Log.d(TAG, "run: ack not received while reset");
-                                                                                Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
-////          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
-                                                                                mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
-                                                                                start();
+                                                                                progressText.setText("---");
+                                                                                startBtn.setEnabled(true);
+                                                                                startBtn.setVisibility(View.VISIBLE);
+                                                                                stopBtn.setVisibility(View.INVISIBLE);
+                                                                                stopBtn.setEnabled(false);
                                                                             }
                                                                         }
-                                                                        else
-                                                                        {
-                                                                            mCountDownTimer.cancel();
+                                                                    });
+                                                                }
+
+                                                                @Override
+                                                                public void onFinish() {
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            // If ack not received
+                                                                            if (mTimerRunning) {
+                                                                                if (Constants.is_ackReceived == false) {
+                                                                                    dialog1.show();
+                                                                                    Log.d(TAG, "run: ack not received while reset");
+                                                                                    Constants.resetValue = decoder.computeCheckSum(Constants.resetValue);
+////          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
+                                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.resetValue);
+                                                                                    start();
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                mCountDownTimer.cancel();
 //                                                                    Log.d(TAG, "run: timer off");
 //                                                                                Constants.is_ackReceived = false;
-                                                                            progressText.setText("---");
-                                                                            startBtn.setEnabled(true);
-                                                                            startBtn.setVisibility(View.VISIBLE);
-                                                                            stopBtn.setVisibility(View.INVISIBLE);
-                                                                            stopBtn.setEnabled(false);
+                                                                                progressText.setText("---");
+                                                                                startBtn.setEnabled(true);
+                                                                                startBtn.setVisibility(View.VISIBLE);
+                                                                                stopBtn.setVisibility(View.INVISIBLE);
+                                                                                stopBtn.setEnabled(false);
 //                                                                    Constants.is_stopButton = false;
-                                                                            dialog1.dismiss();
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-                                                        }.start();
-                                                    }
-                                                });
-                                                // On click cancel button no-reset command will be sent
-                                                builder1.setNegativeButton(getApplicationContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                                        Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
-//          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
-                                                        mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
-//                Log.i(TAG, "run: ack in ok before timer " + Constants.is_ackReceived);
-
-                                                        // To check the ack after the reset command sent
-                                                        mCountDownTimer = new CountDownTimer(100, 10) {
-                                                            @Override
-                                                            public void onTick(long l) {
-                                                                counter++;
-//                                                Log.i(TAG, "counter Started " + startTime);
-                                                                runOnUiThread(new Runnable() {
-                                                                    @Override
-                                                                    public void run() {
-
-                                                                        if (Constants.is_ackReceived == true) {
-                                                                            mTimerRunning = false;
-                                                                            mCountDownTimer.cancel();
-                                                                            dialogInterface.dismiss();
-                                                                            dialog1.dismiss();
-                                                                            progressText.setText("---");
-                                                                            startBtn.setEnabled(true);
-                                                                            startBtn.setVisibility(View.VISIBLE);
-                                                                            stopBtn.setVisibility(View.INVISIBLE);
-                                                                            stopBtn.setEnabled(false);
-//                                    Log.i(TAG, "run: ack in cancel condition " + Constants.is_ackReceived);
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-
-                                                            @Override
-                                                            public void onFinish() {
-                                                                runOnUiThread(new Runnable() {
-                                                                    @Override
-                                                                    public void run() {
-                                                                        // If ack not received
-                                                                        if (mTimerRunning) {
-                                                                            if (Constants.is_ackReceived == false) {
-                                                                                dialog1.show();
-                                                                                Log.d(TAG, "run: ack not received while non reset");
-                                                                                Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
-//          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
-                                                                                mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
-                                                                                start();
+                                                                                dialog1.dismiss();
                                                                             }
                                                                         }
-                                                                        else
-                                                                        {
-                                                                            mCountDownTimer.cancel();
-//                                                                    Log.d(TAG, "run: timer off");
-                                                                            Constants.is_ackReceived = false;
-                                                                            progressText.setText("---");
-                                                                            startBtn.setEnabled(true);
-                                                                            startBtn.setVisibility(View.VISIBLE);
-                                                                            stopBtn.setVisibility(View.INVISIBLE);
-                                                                            stopBtn.setEnabled(false);
-//                                                                    Constants.is_stopButton = false;
-                                                                            dialog1.dismiss();
+                                                                    });
+                                                                }
+                                                            }.start();
+                                                        }
+                                                    });
+                                                    // On click cancel button no-reset command will be sent
+                                                    builder1.setNegativeButton(getApplicationContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                            Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
+//          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
+                                                            mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
+//                Log.i(TAG, "run: ack in ok before timer " + Constants.is_ackReceived);
+
+                                                            // To check the ack after the reset command sent
+                                                            mCountDownTimer = new CountDownTimer(100, 10) {
+                                                                @Override
+                                                                public void onTick(long l) {
+                                                                    counter++;
+//                                                Log.i(TAG, "counter Started " + startTime);
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+
+                                                                            if (Constants.is_ackReceived == true) {
+                                                                                mTimerRunning = false;
+                                                                                mCountDownTimer.cancel();
+                                                                                dialogInterface.dismiss();
+                                                                                dialog1.dismiss();
+                                                                                progressText.setText("---");
+                                                                                startBtn.setEnabled(true);
+                                                                                startBtn.setVisibility(View.VISIBLE);
+                                                                                stopBtn.setVisibility(View.INVISIBLE);
+                                                                                stopBtn.setEnabled(false);
+//                                    Log.i(TAG, "run: ack in cancel condition " + Constants.is_ackReceived);
+                                                                            }
                                                                         }
-                                                                    }
-                                                                });
-                                                            }
-                                                        }.start();
-                                                    }
-                                                });
-                                                //To create alert dialog
-                                                dialog1 = builder1.create();
-                                                //Prevent dialog box from getting dismissed on back key pressed
-                                                dialog1.setCancelable(false);
-                                                //Prevent dialog box from getting dismissed on outside touch
-                                                dialog1.setCanceledOnTouchOutside(false);
-                                                //To show alert dialog
-                                                dialog1.show();
+                                                                    });
+                                                                }
+
+                                                                @Override
+                                                                public void onFinish() {
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            // If ack not received
+                                                                            if (mTimerRunning) {
+                                                                                if (Constants.is_ackReceived == false) {
+                                                                                    dialog1.show();
+                                                                                    Log.d(TAG, "run: ack not received while non reset");
+                                                                                    Constants.noResetValue = decoder.computeCheckSum(Constants.noResetValue);
+//          Log.i(TAG, "Reset value after checksum " + Arrays.toString(Constants.resetValue) + " " + Constants.resetValue);
+                                                                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.noResetValue);
+                                                                                    start();
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                mCountDownTimer.cancel();
+//                                                                    Log.d(TAG, "run: timer off");
+                                                                                Constants.is_ackReceived = false;
+                                                                                progressText.setText("---");
+                                                                                startBtn.setEnabled(true);
+                                                                                startBtn.setVisibility(View.VISIBLE);
+                                                                                stopBtn.setVisibility(View.INVISIBLE);
+                                                                                stopBtn.setEnabled(false);
+//                                                                    Constants.is_stopButton = false;
+                                                                                dialog1.dismiss();
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }.start();
+                                                        }
+                                                    });
+                                                    //To create alert dialog
+                                                    dialog1 = builder1.create();
+                                                    //Prevent dialog box from getting dismissed on back key pressed
+                                                    dialog1.setCancelable(false);
+                                                    //Prevent dialog box from getting dismissed on outside touch
+                                                    dialog1.setCanceledOnTouchOutside(false);
+                                                    //To show alert dialog
+                                                    dialog1.show();
+                                                }
                                             }
+
                                         }
                                     }
                                 });

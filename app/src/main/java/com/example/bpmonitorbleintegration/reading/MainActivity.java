@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         mHandler = new Handler();
 
         ActionBar actioBar = getSupportActionBar();
-        Objects.requireNonNull(actioBar).setTitle(R.string.connect_device);
+        Objects.requireNonNull(actioBar).setTitle(R.string.scan_device);
 //        actioBar.setHomeAsUpIndicator(R.drawable.ic_baseline_keyboard_arrow_left_24);
         actioBar.setDisplayHomeAsUpEnabled(true);
         actioBar.setDisplayShowHomeEnabled(true);
@@ -357,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 listBluetoothDevice.add(device);
 //                filterDevices.put(device, btMac);
                 deviceList.add(device.getName() + "\n" + device.getAddress());
+//                deviceList.add(device.getName());
                 deviceAdapter.notifyDataSetChanged();
                 listView.invalidateViews();
             }

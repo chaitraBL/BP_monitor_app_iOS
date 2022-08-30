@@ -52,4 +52,8 @@ public class Constants {
     public static boolean is_errorReceived = false;
     public static boolean is_irregularHB = false;
     public static boolean is_stopButton = false;
+
+    public static boolean cuffPop = false;
+    public static boolean heartbeatPop = false;
+    public static boolean batteryPop = false;
 }
