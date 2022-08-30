@@ -232,6 +232,9 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         constantValue.is_errorReceived = false
         constantValue.is_rawResultReceived = false
         constantValue.is_batterystatus = false
+        constantValue.cuffPop = false
+        constantValue.heartbeatPop = false
+        constantValue.batteryPop = false
         
         systolicLabel.text = "-"
         diastolicLab.text = "-"
@@ -668,22 +671,27 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.constantValue.is_irregularHB = true
                                         msg = "Irregular heartbeat detected, Please try again"
                                         self.readingsLabel.text = "---"
+                                        
+                                        if self.constantValue.heartbeatPop == false {
+                                            let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
+                        
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                                                self.constantValue.heartbeatPop = true
+                                                
+    //                                            self.constantValue.ack = self.bleManagerReading.computeCheckSum(data: self.constantValue.ack)
+    //                                //            print("checksum updated \(constantValue.ack)")
+    //                                            self.writeOutGoingValue(data: self.constantValue.ack)
+                                                self.constantValue.is_ackInIrregularHB = true
+                                                self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
+                                //                print("checksum updated \(self.constantValue.ack)")
+                                                writeOutGoingValue(data: self.constantValue.cancelValue)
+                        //                                readingsLabel.text = "---"
+                                               
+                                            }))
+                                            self.present(alert, animated: true)
+                                        }
                     
-                                        let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
-                    
-                                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
-                                            
-//                                            self.constantValue.ack = self.bleManagerReading.computeCheckSum(data: self.constantValue.ack)
-//                                //            print("checksum updated \(constantValue.ack)")
-//                                            self.writeOutGoingValue(data: self.constantValue.ack)
-                                            self.constantValue.is_ackInIrregularHB = true
-                                            self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
-                            //                print("checksum updated \(self.constantValue.ack)")
-                                            writeOutGoingValue(data: self.constantValue.cancelValue)
-                    //                                readingsLabel.text = "---"
-                                           
-                                        }))
-                                        self.present(alert, animated: true)
+                                       
                     
                                         break
                     
@@ -704,20 +712,25 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         msg = "Low battery, Please charge the batteries"
                                         self.batteryLabel.backgroundColor = UIColor(hexString: "#FF0000")
                                         self.readingsLabel.text = "---"
-                                        let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
-                    
-                                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
-                                            self.constantValue.is_ackInBattery = true
-                                            self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
-                            //                print("checksum updated \(self.constantValue.ack)")
-                                            writeOutGoingValue(data: self.constantValue.cancelValue)
-//                                            stopBtn.isHidden = true
-//                                            startbtn.isHidden = false
-//                                            stopBtn.isEnabled = false
-//                                            startbtn.isEnabled = true
-                    //                                readingsLabel.text = "---"
-                                        }))
-                                        self.present(alert, animated: true)
+                                        
+                                        if self.constantValue.batteryPop == false {
+                                            let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
+                        
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                                                self.constantValue.batteryPop = true
+                                                self.constantValue.is_ackInBattery = true
+                                                self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
+                                //                print("checksum updated \(self.constantValue.ack)")
+                                                writeOutGoingValue(data: self.constantValue.cancelValue)
+    //                                            stopBtn.isHidden = true
+    //                                            startbtn.isHidden = false
+    //                                            stopBtn.isEnabled = false
+    //                                            startbtn.isEnabled = true
+                        //                                readingsLabel.text = "---"
+                                            }))
+                                            self.present(alert, animated: true)
+                                        }
+                                        
                     
                                         break
                     
@@ -728,24 +741,29 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         msg = "Please replace to new cuff!!!"
                                         self.readingsLabel.text = "---"
                     
-                                        let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
-                    
-                                        alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { [self] action in
-                                            self.constantValue.is_ackInCuff = true
-                                            self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
-                            //                print("checksum updated \(self.constantValue.ack)")
-                                            self.writeOutGoingValue(data: self.constantValue.resetValue)
-                    //                                            self.constantValue.is_cuffReplaced = false
-                    //                                readingsLabel.text = "---"
-                                        }))
-                                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-                                            self.constantValue.is_ackInCuff = true
-                                            self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
-                            //                print("checksum updated \(self.constantValue.ack)")
-                                            self.writeOutGoingValue(data: self.constantValue.noResetValue)
-                    //                                            self.constantValue.is_cuffReplaced = false
-                                        }))
-                                        self.present(alert, animated: true)
+                                        if self.constantValue.cuffPop == false {
+                                            let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
+                        
+                                            alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { [self] action in
+                                                self.constantValue.cuffPop = true
+                                                self.constantValue.is_ackInCuff = true
+                                                self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
+                                //                print("checksum updated \(self.constantValue.ack)")
+                                                self.writeOutGoingValue(data: self.constantValue.resetValue)
+                        //                                            self.constantValue.is_cuffReplaced = false
+                        //                                readingsLabel.text = "---"
+                                            }))
+                                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                                                self.constantValue.cuffPop = true
+                                                self.constantValue.is_ackInCuff = true
+                                                self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
+                                //                print("checksum updated \(self.constantValue.ack)")
+                                                self.writeOutGoingValue(data: self.constantValue.noResetValue)
+                        //                                            self.constantValue.is_cuffReplaced = false
+                                            }))
+                                            self.present(alert, animated: true)
+                                        }
+                                       
                                         break
                     
                                     case 7:
@@ -754,22 +772,26 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.secondsRemaining = 2
                                         msg = "Heartbeat varied please retry again"
                                         self.readingsLabel.text = "---"
-                                        let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
-                    
-                                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
-                                            
-//                                            self.constantValue.ack = self.bleManagerReading.computeCheckSum(data: self.constantValue.ack)
-//                                //            print("checksum updated \(constantValue.ack)")
-//                                            self.writeOutGoingValue(data: self.constantValue.ack)
-                                            self.constantValue.is_ackInIrregularHB = true
-                                            self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
-                            //                print("checksum updated \(self.constantValue.ack)")
-                                            writeOutGoingValue(data: self.constantValue.cancelValue)
-                                            
-                    //                                readingsLabel.text = "---"
-                    //                                            self.constantValue.is_irregularHB = false
-                                        }))
-                                        self.present(alert, animated: true)
+                                        
+                                        if self.constantValue.heartbeatPop == false {
+                                            let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
+                        
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                                                self.constantValue.heartbeatPop = true
+    //                                            self.constantValue.ack = self.bleManagerReading.computeCheckSum(data: self.constantValue.ack)
+    //                                //            print("checksum updated \(constantValue.ack)")
+    //                                            self.writeOutGoingValue(data: self.constantValue.ack)
+                                                self.constantValue.is_ackInIrregularHB = true
+                                                self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
+                                //                print("checksum updated \(self.constantValue.ack)")
+                                                writeOutGoingValue(data: self.constantValue.cancelValue)
+                                                
+                        //                                readingsLabel.text = "---"
+                        //                                            self.constantValue.is_irregularHB = false
+                                            }))
+                                            self.present(alert, animated: true)
+                                        }
+                                     
                     
                                         break
                     
@@ -781,21 +803,26 @@ extension DataReadingViewController: CBPeripheralDelegate {
                     
                                         self.batteryLabel.backgroundColor = UIColor(hexString: "#a41e22")
                                         self.readingsLabel.text = "---"
-                                        let alert = UIAlertController(title: "Alert!!!", message: "Battery level exceeded, Please change the battery", preferredStyle: .alert)
-                    
-                                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
-                                            self.constantValue.is_ackInBattery = true
-                                            self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
-                            //                print("checksum updated \(self.constantValue.ack)")
-                                            writeOutGoingValue(data: self.constantValue.cancelValue)
-//                                            stopBtn.isHidden = true
-//                                            startbtn.isHidden = false
-//                                            stopBtn.isEnabled = false
-//                                            startbtn.isEnabled = true
-                    //                                            self.constantValue.is_batterystatus = false
-                    //                                readingsLabel.text = "---"
-                                        }))
-                                        self.present(alert, animated: true)
+                                        
+                                        if self.constantValue.batteryPop == false {
+                                            let alert = UIAlertController(title: "Alert!!!", message: "Battery level exceeded, Please change the battery", preferredStyle: .alert)
+                        
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                                                self.constantValue.batteryPop = true
+                                                self.constantValue.is_ackInBattery = true
+                                                self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
+                                //                print("checksum updated \(self.constantValue.ack)")
+                                                writeOutGoingValue(data: self.constantValue.cancelValue)
+    //                                            stopBtn.isHidden = true
+    //                                            startbtn.isHidden = false
+    //                                            stopBtn.isEnabled = false
+    //                                            startbtn.isEnabled = true
+                        //                                            self.constantValue.is_batterystatus = false
+                        //                                readingsLabel.text = "---"
+                                            }))
+                                            self.present(alert, animated: true)
+                                        }
+                                      
                     //
                                         break
                     

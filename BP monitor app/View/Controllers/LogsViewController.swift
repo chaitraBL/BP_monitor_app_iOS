@@ -75,11 +75,11 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
         if filteredArray.count > 0 {
-            print("count in filter cell \(filteredArray.count)")
+//            print("count in filter cell \(filteredArray.count)")
             count = filteredArray.count
         }
         else {
-            print("count in cell \(logObj.count)")
+//            print("count in cell \(logObj.count)")
             count = logObj.count
         }
         return count
@@ -218,7 +218,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
             present(alert, animated: true, completion: nil)
         }
         else {
-            dateRange(strstartDate: startDate.text!, strendDate: endDate.text!)
+            dateRange(strstartDate: selectedStartDate!, strendDate: selectedEndDate!)
         }
     }
     
@@ -240,7 +240,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
             selectedDateArray.append(fmt.string(from: dateFrom))
             dateFrom = Calendar.current.date(byAdding: .day, value: 1, to: dateFrom)!
         }
-        print("selected date \(selectedDateArray) date from \(dateFrom)")
+//        print("selected date \(selectedDateArray) date from \(dateFrom)")
         
         // Adding filtered data to the model
             if localReadingList.count > 0
@@ -259,21 +259,11 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 self.logTableView.isHidden = false
                                 let obj = filteredData(myname: i.name!, mysysta: i.systa!, myDiasta: i.diasta!, myRate: i.heartRate!, mymap: i.map!, myDate: i.date!, myTime: i.time!)
                                 filteredArray.append(obj)
-                                print("filter array \(filteredArray)")
+//                                print("filter array \(filteredArray)")
                                 
-                                self.logTableView.reloadData()
-                            }
-                            
-                            if i.date != j
-                            {
-                                self.logTableView.isHidden = true
-                                self.errorLabel.isHidden = false
-                                self.errorLabel.text = "No Data Found"
-//                                self.logTableView.setEmptyMessage("No Data Found")
-                                print("filter array in else \(filteredArray)")
+//                                self.logTableView.reloadData()
                             }
                         }
-//                        self.logTableView.reloadData()
                     }
                     else
                     {
@@ -281,8 +271,18 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.errorLabel.isHidden = false
                         self.errorLabel.text = "No Data Found"
 //                        self.logTableView.setEmptyMessage("No Data Found")
-                        print("filter array in count else \(filteredArray)")
+//                        print("filter array in count else \(filteredArray)")
                     }
+                }
+                
+                if filteredArray.count > 0 {
+                    self.logTableView.reloadData()
+                }
+                else {
+                    self.logTableView.isHidden = true
+                    self.errorLabel.isHidden = false
+                    self.errorLabel.text = "No Data Found"
+  //                self.logTableView.setEmptyMessage("No Data Found")
                 }
             }
         
