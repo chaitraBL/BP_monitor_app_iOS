@@ -271,61 +271,61 @@ public class ReadingData extends AppCompatActivity {
             // not sleep
 
             if (isApplicationSentToBackground(this)) {
-                if (Constants.is_finalResult == true) {
-                    systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
-                    diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
-                    heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
-                    String status = changeStatus(mBluetoothLeService.systalic,mBluetoothLeService.dystolic);
-                    mapText.setText(status);
-                    statusText1.setText(String.valueOf(mBluetoothLeService.range));
-                    Constants.is_finalResult = false;
-
-                    if ((dialog == null) || !dialog.isShowing()) {
-                        dialog = new AlertDialog.Builder(ReadingData.this)
-                                .setTitle(getApplicationContext().getResources().getString(R.string.message))
-                                .setMessage(R.string.save_final_reading)
-                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                                    @SuppressLint("MissingPermission")
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, ReadingData.this);
-                                        //Navigating to next activity on tap of ok button - On app minimize need to disconnect from services & BLE.
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                            mBluetoothLeService.disconnect();
-//                                            mBluetoothLeService.close();
-//                                            mBluetoothLeService.stopSelf();
-                                            Intent intent1 = new Intent(ReadingData.this, MainActivity.class);
-                                            startActivity(intent1);
-
-                                            Intent startMain = new Intent(Intent.ACTION_MAIN);
-                                            startMain.addCategory(Intent.CATEGORY_HOME);
-                                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(startMain);
-                                        }
-                                    }
-                                })
-                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialog.dismiss();
-//                                        mBluetoothLeService.disconnect();
-//                                        mBluetoothLeService.close();
-//                                        mBluetoothLeService.stopSelf();
-                                        //Navigating to next activity on tap of ok button - On app minimize need to disconnect from services & BLE.
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                            Intent intent1 = new Intent(ReadingData.this, MainActivity.class);
-                                            startActivity(intent1);
-
-                                            Intent startMain = new Intent(Intent.ACTION_MAIN);
-                                            startMain.addCategory(Intent.CATEGORY_HOME);
-                                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(startMain);
-                                        }
-                                    }
-                                }).show();
-                    }
-                }
-                else {
+//                if (Constants.is_finalResult == true) {
+//                    systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
+//                    diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
+//                    heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+//                    String status = changeStatus(mBluetoothLeService.systalic,mBluetoothLeService.dystolic);
+//                    mapText.setText(status);
+//                    statusText1.setText(String.valueOf(mBluetoothLeService.range));
+//                    Constants.is_finalResult = false;
+//
+////                    if ((dialog == null) || !dialog.isShowing()) {
+////                        dialog = new AlertDialog.Builder(ReadingData.this)
+////                                .setTitle(getApplicationContext().getResources().getString(R.string.message))
+////                                .setMessage(R.string.save_final_reading)
+////                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+////                                    @SuppressLint("MissingPermission")
+////                                    @Override
+////                                    public void onClick(DialogInterface dialog, int which) {
+////                                        localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, ReadingData.this);
+////                                        //Navigating to next activity on tap of ok button - On app minimize need to disconnect from services & BLE.
+////                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//////                                            mBluetoothLeService.disconnect();
+//////                                            mBluetoothLeService.close();
+//////                                            mBluetoothLeService.stopSelf();
+////                                            Intent intent1 = new Intent(ReadingData.this, MainActivity.class);
+////                                            startActivity(intent1);
+////
+////                                            Intent startMain = new Intent(Intent.ACTION_MAIN);
+////                                            startMain.addCategory(Intent.CATEGORY_HOME);
+////                                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                                            startActivity(startMain);
+////                                        }
+////                                    }
+////                                })
+////                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+////                                    @Override
+////                                    public void onClick(DialogInterface dialogInterface, int i) {
+////                                        dialog.dismiss();
+//////                                        mBluetoothLeService.disconnect();
+//////                                        mBluetoothLeService.close();
+//////                                        mBluetoothLeService.stopSelf();
+////                                        //Navigating to next activity on tap of ok button - On app minimize need to disconnect from services & BLE.
+////                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+////                                            Intent intent1 = new Intent(ReadingData.this, MainActivity.class);
+////                                            startActivity(intent1);
+////
+////                                            Intent startMain = new Intent(Intent.ACTION_MAIN);
+////                                            startMain.addCategory(Intent.CATEGORY_HOME);
+////                                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                                            startActivity(startMain);
+////                                        }
+////                                    }
+////                                }).show();
+////                    }
+//                }
+//                else {
                     //Navigating to next activity on tap of ok button - On app minimize need to disconnect from services & BLE.
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //                        mBluetoothLeService.disconnect();
@@ -342,7 +342,7 @@ public class ReadingData extends AppCompatActivity {
 
                         //Method 2
 //                moveTaskToBack(true);
-                    }
+//                    }
             }
 
             }
