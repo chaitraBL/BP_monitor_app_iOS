@@ -23,6 +23,7 @@ class ShareReadingsViewController: UIViewController {
     var selectedHeartRate:String?
     var selectedDate:String?
     var selectedStatus:String?
+    var decoderVal = Decoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,8 @@ class ShareReadingsViewController: UIViewController {
         heartRateLabel.text = selectedHeartRate
         dateLabel.text = selectedDate
         
-       changeStatus(systolic: Int(systolicLabel.text!)!, diastolic: Int(diastolicLabel.text!)!)
+        var msg = decoderVal.changeStatus(systolic: Int(systolicLabel.text!)!, diastolic: Int(diastolicLabel.text!)!)
+        statusLabel.text = msg
         
     }
     
@@ -59,36 +61,6 @@ class ShareReadingsViewController: UIViewController {
         
         // present the view controller
         self.present(activityViewController, animated: true, completion: nil)
-        
-    }
-    
-    // Status of the BP
-    func changeStatus(systolic:Int, diastolic:Int) {
-        var msg:String?
-        if((systolic < 80) || (diastolic < 60)) {
-            msg = "Low Blood Pressure"
-            statusLabel.text = msg
-        }
-        else if ((systolic <= 120) && (diastolic <= 80)){
-            msg = "Normal Blood Pressure"
-             statusLabel.text = msg
-        }
-        else if ((systolic <= 139) || (diastolic <= 89)) {
-            msg = "High Normal Blood Pressure"
-             statusLabel.text = msg
-        }
-        else if ((systolic <= 159) || (diastolic <= 99)) {
-            msg = "Hypertension Stage 1"
-             statusLabel.text = msg
-        }
-        else if ((systolic <= 179 ) || (diastolic <= 109)) {
-            msg = "Hypertension Stage 2"
-             statusLabel.text = msg
-        }
-        else {
-            msg = "Hypertension Stage 3"
-             statusLabel.text = msg
-        }
         
     }
     

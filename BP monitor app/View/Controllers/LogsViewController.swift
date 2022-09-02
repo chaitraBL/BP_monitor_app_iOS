@@ -208,18 +208,20 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Filter the date and display data
     @IBAction func applyDateFilter(_ sender: UIButton) {
         if (startDate.text == "" || startDate.text == "Start Date"){
-            let alert = UIAlertController(title: "Alert!", message: "Please select start date to continue", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+            alert(title: "Alert!", msg: "Please select start date to continue", buttonName: "OK")
         }
         else if (endDate.text == "" || endDate.text == "End Date") {
-            let alert = UIAlertController(title: "Alert!", message: "Please select end date to continue", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+            alert(title: "Alert!", msg: "Please select end date to continue", buttonName: "OK")
         }
         else {
             dateRange(strstartDate: selectedStartDate!, strendDate: selectedEndDate!)
         }
+    }
+    
+    func alert(title:String, msg:String,buttonName:String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonName, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     func dateRange(strstartDate:String, strendDate:String)
