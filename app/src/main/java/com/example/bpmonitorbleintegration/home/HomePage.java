@@ -560,7 +560,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             e.printStackTrace();
         }
         Calendar c = Calendar.getInstance();
-        c.setTime(date1);
+        c.setTime(Objects.requireNonNull(date1));
         c.add(Calendar.DATE, 1);
         Date nextDate = c.getTime();
         return nextDate;
@@ -582,7 +582,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             e.printStackTrace();
         }
         Calendar c = Calendar.getInstance();
-        c.setTime(date1);
+        c.setTime(Objects.requireNonNull(date1));
         c.add(Calendar.DATE, -1);
         Date previousDate = c.getTime();
         return previousDate;
