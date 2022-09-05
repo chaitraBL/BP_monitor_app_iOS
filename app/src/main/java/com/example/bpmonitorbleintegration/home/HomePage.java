@@ -298,7 +298,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                                                     @Override
                                                     public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
                                                         try {
-                                                            if (df2.parse(bloodPressureDB.getTime()).before(df2.parse(t1.getTime()))){
+                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
                                                                 return -1;
                                                             }
                                                         } catch (ParseException e) {
@@ -342,7 +342,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                                                     @Override
                                                     public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
                                                         try {
-                                                            if (df2.parse(bloodPressureDB.getTime()).before(df2.parse(t1.getTime()))){
+                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
                                                                 return -1;
                                                             }
                                                         } catch (ParseException e) {
@@ -394,7 +394,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                             @Override
                             public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
                                 try {
-                                    if (df1.parse(bloodPressureDB.getDate()).before(df1.parse(t1.getDate()))){
+                                    if (Objects.requireNonNull(df1.parse(bloodPressureDB.getDate())).before(df1.parse(t1.getDate()))){
                                         return -1;
                                     }
                                 } catch (ParseException e) {
@@ -416,7 +416,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                     combinedChart.notifyDataSetChanged();
                     combinedChart.invalidate();
                 }
-
             }
         });
     }
@@ -439,7 +438,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu_file, menu);
         return super.onCreateOptionsMenu(menu);
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -520,9 +518,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                             }
                         });
 
-//                        Collections.reverse(tasks);
-
-//                        pressureVal.add(tasks.get(i));
                         if (date.equals(tasks.get(i).getDate()))
                         {
                             plotForSelectedDate(tasks);
@@ -536,7 +531,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                         plotCombinedChart(tasks);
                         combinedChart.notifyDataSetChanged();
                         combinedChart.invalidate();
-
                 }
                 }
                 else {
@@ -767,7 +761,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             combinedChart.setData(data);
             combinedChart.notifyDataSetChanged();
             combinedChart.invalidate();
-
         }
         else{
             progress.setVisibility(View.GONE);
@@ -1040,8 +1033,9 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     }
 
     //Marker view
-    public class CustomMarkerView1 extends MarkerView {
-        private TextView markerText;
+    @SuppressLint("ViewConstructor")
+    public static class CustomMarkerView1 extends MarkerView {
+        private final TextView markerText;
         List<String> mXLabels;
 
         /**
@@ -1068,7 +1062,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             else{
                 markerText.setText("" + Utils.formatNumber(e.getY(),0,true));
             }
-
         }
 
         @Override
@@ -1086,13 +1079,9 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         public MPPointF getOffsetForDrawingAtPoint(float posX, float posY) {
             if(mOffset == null) {
                 // center the marker horizontally and fixed Y position at the top
-
                 mOffset = new MPPointF(-(getWidth() / 2f), -150);
-
             }
-
             return mOffset;
         }
     }
-
     }
