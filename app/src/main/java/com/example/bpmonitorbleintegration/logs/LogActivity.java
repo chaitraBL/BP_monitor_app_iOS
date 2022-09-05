@@ -140,7 +140,6 @@ public class LogActivity extends AppCompatActivity implements BottomNavigationVi
                         startDate.setText(day+"-"+"0"+get_month+"-"+year);
                         startDate.setTextColor(getResources().getColor(R.color.black));
                     }else {
-
                         startDate.setText(day+"-"+get_month+"-"+year);
                         startDate.setTextColor(getResources().getColor(R.color.black));
                     }
@@ -178,7 +177,6 @@ private  void endDateCalendar() {
                     endDate.setText(day+"-"+"0"+get_month+"-"+year);
                     endDate.setTextColor(getResources().getColor(R.color.black));
                 }else {
-
                     endDate.setText(day+"-"+get_month+"-"+year);
                     endDate.setTextColor(getResources().getColor(R.color.black));
                 }
@@ -352,8 +350,6 @@ private  void endDateCalendar() {
                                         }
                                     }
                                 }
-
-
                             }
                         }
                     });
@@ -559,8 +555,6 @@ private  void endDateCalendar() {
                 }
                 return msg;
             }
-
         }
     }
-
 }
