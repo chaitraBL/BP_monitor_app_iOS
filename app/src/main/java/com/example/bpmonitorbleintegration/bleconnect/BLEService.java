@@ -78,7 +78,7 @@ public class BLEService extends Service implements DecodeListener {
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message message) {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised), Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised));
                     // This is where you do your work in the UI thread.
                     // Your worker tells you in the message what to do.
                 }
@@ -90,7 +90,7 @@ public class BLEService extends Service implements DecodeListener {
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message message) {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.existing_connection), Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.existing_connection));
                     // This is where you do your work in the UI thread.
                     // Your worker tells you in the message what to do.
                 }
@@ -102,7 +102,7 @@ public class BLEService extends Service implements DecodeListener {
                 mHandler = new Handler(Looper.getMainLooper()) {
                     @Override
                     public void handleMessage(Message message) {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+                        toastMsg(getApplicationContext().getResources().getString(R.string.connecting));
                         // This is where you do your work in the UI thread.
                         // Your worker tells you in the message what to do.
                     }
@@ -112,7 +112,7 @@ public class BLEService extends Service implements DecodeListener {
                 mHandler = new Handler(Looper.getMainLooper()) {
                     @Override
                     public void handleMessage(Message message) {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.cannot_connect), Toast.LENGTH_SHORT).show();
+                        toastMsg(getApplicationContext().getResources().getString(R.string.cannot_connect));
                         // This is where you do your work in the UI thread.
                         // Your worker tells you in the message what to do.
                     }
@@ -125,7 +125,7 @@ public class BLEService extends Service implements DecodeListener {
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message message) {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.device_not_found), Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.device_not_found));
                     // This is where you do your work in the UI thread.
                     // Your worker tells you in the message what to do.
                 }
@@ -480,7 +480,7 @@ public class BLEService extends Service implements DecodeListener {
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message message) {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised), Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised));
                     // This is where you do your work in the UI thread.
                     // Your worker tells you in the message what to do.
                 }
@@ -499,7 +499,7 @@ public class BLEService extends Service implements DecodeListener {
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message message) {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised), Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised));
                     // This is where you do your work in the UI thread.
                     // Your worker tells you in the message what to do.
                 }
@@ -520,7 +520,7 @@ public class BLEService extends Service implements DecodeListener {
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message message) {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised), Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised));
                     // This is where you do your work in the UI thread.
                     // Your worker tells you in the message what to do.
                 }
@@ -537,7 +537,7 @@ public class BLEService extends Service implements DecodeListener {
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message message) {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised), Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.bluetooth_adapter_not_initialised));
                     // This is where you do your work in the UI thread.
                     // Your worker tells you in the message what to do.
                 }
@@ -708,6 +708,10 @@ public class BLEService extends Service implements DecodeListener {
         if (mHandler != null) {
             mHandler.obtainMessage(err).sendToTarget();
         }
+    }
+
+    public void toastMsg(String msg) {
+        Toast.makeText(getApplicationContext(),msg ,Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -212,16 +212,16 @@ public class ReadingData extends AppCompatActivity {
             public void onClick(View view) {
                 progress.setVisibility(View.VISIBLE);
                 if (systolicText.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.check_value), Toast.LENGTH_SHORT).show();
+                    toastMsgInReading(getApplication().getResources().getString(R.string.check_value));
                     progress.setVisibility(View.GONE);
                 } else if (diastolicText.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(),getApplication().getResources().getString(R.string.check_value), Toast.LENGTH_SHORT).show();
+                    toastMsgInReading(getApplication().getResources().getString(R.string.check_value));
                     progress.setVisibility(View.GONE);
                 } else if (heartRateText.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(),getApplication().getResources().getString(R.string.check_value), Toast.LENGTH_SHORT).show();
+                    toastMsgInReading(getApplication().getResources().getString(R.string.check_value));
                     progress.setVisibility(View.GONE);
                 } else if (mapText.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(),getApplication().getResources().getString(R.string.check_value), Toast.LENGTH_SHORT).show();
+                    toastMsgInReading(getApplication().getResources().getString(R.string.check_value));
                     progress.setVisibility(View.GONE);
                 } else {
                     localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, ReadingData.this);
@@ -637,15 +637,11 @@ public class ReadingData extends AppCompatActivity {
 
     // To Display data on text field and popups
     private  void displayData(String data) {
-//        Toast.makeText(getApplicationContext(), "received data before" + data, Toast.LENGTH_SHORT).show();
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-                if (data != null) {
 
-                    Log.d(TAG, "displayData: start tapped " + Constants.is_buttonStarted);
-                    Log.d(TAG, "displayData: stop tapped " + Constants.is_stopButton);
+                if (data != null) {
+//
+//                    Log.d(TAG, "displayData: start tapped " + Constants.is_buttonStarted);
+//                    Log.d(TAG, "displayData: stop tapped " + Constants.is_stopButton);
                     if (Constants.is_buttonStarted == true) {
 
                         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 500) {
@@ -685,10 +681,10 @@ public class ReadingData extends AppCompatActivity {
                                             // To display final results.
                                             if (Constants.is_finalResult == true) {
                                                 if ((mBluetoothLeService.systalic < 30) || (mBluetoothLeService.systalic > 200)){
-                                                    Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.systolic_error), Toast.LENGTH_SHORT).show();
+                                                    toastMsgInReading(getApplication().getResources().getString(R.string.systolic_error));
                                                 }
                                                 else if ((mBluetoothLeService.dystolic < 40) || (mBluetoothLeService.dystolic > 120)) {
-                                                    Toast.makeText(getApplicationContext(), getApplication().getResources().getString(R.string.diastolic_error), Toast.LENGTH_SHORT).show();
+                                                    toastMsgInReading(getApplication().getResources().getString(R.string.diastolic_error));
                                                 }
                                                 else {
                                                     progressText.setText(data);
@@ -775,7 +771,7 @@ public class ReadingData extends AppCompatActivity {
                                         if (mTimerRunning) {
                                             if (!Constants.is_ackReceived){
                                                 mCountDownTimer.cancel();
-                                                Toast.makeText(ReadingData.this,getApplicationContext().getResources().getString(R.string.please_start_again),Toast.LENGTH_SHORT).show();
+                                                toastMsgInReading(getApplicationContext().getResources().getString(R.string.please_start_again));
                                                 startBtn.setEnabled(true);
                                                 startBtn.setVisibility(View.VISIBLE);
                                                 stopBtn.setVisibility(View.INVISIBLE);
@@ -1218,7 +1214,7 @@ public class ReadingData extends AppCompatActivity {
                         if (mTimerRunning) {
                             if (!Constants.is_batterValueReceived) {
                                 mCountDownTimer.cancel();
-                                Toast.makeText(ReadingData.this, getApplicationContext().getResources().getString(R.string.please_connect_again), Toast.LENGTH_SHORT).show();
+                                toastMsgInReading(getApplicationContext().getResources().getString(R.string.please_connect_again));
                             }
                         } else {
                             mCountDownTimer.cancel();
@@ -1248,7 +1244,7 @@ public class ReadingData extends AppCompatActivity {
         }
         else if (mBluetoothLeService.batteryLevel == Constants.LOW_BATTERY) {
             batteryText.setBackgroundColor(Color.parseColor("#FF0000"));
-            Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.battery_low),Toast.LENGTH_SHORT).show();
+            toastMsgInReading(getApplicationContext().getResources().getString(R.string.battery_low));
             Constants.ack = decoder.computeCheckSum(Constants.ack);
             mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.ack);
             Constants.is_batterValueReceived = false;
@@ -1305,6 +1301,10 @@ public class ReadingData extends AppCompatActivity {
             }
         }
     };
+
+    public void toastMsgInReading(String msg) {
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
 
     //Updating connection status through text field. if disconnected, status navigating to mainActivity through alert dialog.
     private void updateConnectionState(final String status) {
