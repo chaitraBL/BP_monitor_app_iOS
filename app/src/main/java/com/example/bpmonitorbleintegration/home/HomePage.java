@@ -149,6 +149,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
 //        previousDateBtn.setBackgroundDrawable(null);
         calendarBtn.setBackgroundDrawable(null);
 
+//        Navigates from one activity to another through linear layout
         LinearLayout linearLayout = findViewById(R.id.linear_bp);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +174,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         @SuppressLint("SimpleDateFormat") DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy"); // Format date
         @SuppressLint("SimpleDateFormat") DateFormat df2 = new SimpleDateFormat("hh:mm aa"); // Format time
 
+        // Choose calendar date to update chart
         calendarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -378,6 +380,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                 }
             });
 
+//        All btn to display all the value in graph.
         allBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
@@ -588,6 +591,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         return previousDate;
     }
 
+    // Specifying date format
     private String changeDateFormat(String date) {
         String[] showDate = date.split("-");
         String holder = null;
@@ -622,6 +626,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         return holder;
     }
 
+    // Updating systolic value to progress bar
     private void changeSystolicProgress(int systolic) {
         if (systolic < 80) {
             progressBar1.setProgress(systolic);
@@ -649,6 +654,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         }
     }
 
+//    Updating diastolic value to progressbar
     private void changeDiastolicProgress(int diastolic) {
         if (diastolic < 60) {
             progressBar2.setProgress(diastolic);
@@ -1013,6 +1019,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         return d;
     }
 
+    // X axis renderer to display date in text field.
     public class CustomXAxisRenderer extends XAxisRenderer {
         public CustomXAxisRenderer(ViewPortHandler viewPortHandler, XAxis xAxis, Transformer trans) {
             super(viewPortHandler, xAxis, trans);
@@ -1032,6 +1039,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         }
     }
 
+    //Marker view
     public class CustomMarkerView1 extends MarkerView {
         private TextView markerText;
         List<String> mXLabels;
