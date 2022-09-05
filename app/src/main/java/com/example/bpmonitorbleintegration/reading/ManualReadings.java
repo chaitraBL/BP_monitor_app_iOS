@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.example.bpmonitorbleintegration.R;
 import com.example.bpmonitorbleintegration.bleconnect.Decoder;
 import com.example.bpmonitorbleintegration.database.RoomDB;
-import com.example.bpmonitorbleintegration.home.HomePage;
 
 import java.util.Objects;
 
@@ -78,17 +77,17 @@ public class ManualReadings extends AppCompatActivity {
                 //Method 2: Validating the edit text fields.
                 if (systolic.getText().toString().equals(""))
                 {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.enter_systolic_value),Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.enter_systolic_value));
                     progressBar.setVisibility(View.GONE);
                 }
                 else if (diastolic.getText().toString().equals(""))
                 {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.enter_diastolic_value),Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.enter_diastolic_value));
                     progressBar.setVisibility(View.GONE);
                 }
                 else if (heartRate.getText().toString().equals(""))
                 {
-                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.enter_heart_rate),Toast.LENGTH_SHORT).show();
+                    toastMsg(getApplicationContext().getResources().getString(R.string.enter_heart_rate));
                     progressBar.setVisibility(View.GONE);
                 }
                 else {
@@ -96,11 +95,11 @@ public class ManualReadings extends AppCompatActivity {
                     map = decoder.calculateMAP(Integer.parseInt(systolic.getText().toString()),Integer.parseInt(diastolic.getText().toString()));
 
                     if ((Integer.parseInt(systolic.getText().toString()) < 30) || (Integer.parseInt(systolic.getText().toString()) > 200)){
-                        Toast.makeText(getApplicationContext(),  getApplicationContext().getResources().getString(R.string.systolic_range_fault), Toast.LENGTH_SHORT).show();
+                        toastMsg(getApplicationContext().getResources().getString(R.string.systolic_range_fault));
                         progressBar.setVisibility(View.GONE);
                     }
                     else if ((Integer.parseInt(diastolic.getText().toString()) < 40) || (Integer.parseInt(diastolic.getText().toString()) > 120)) {
-                        Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.diastolic_range_fault), Toast.LENGTH_SHORT).show();
+                        toastMsg(getApplicationContext().getResources().getString(R.string.diastolic_range_fault));
                         progressBar.setVisibility(View.GONE);
                     }
                     else {
@@ -116,6 +115,10 @@ public class ManualReadings extends AppCompatActivity {
             }
         });
 
+    }
+    
+    private void toastMsg(String msg) {
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override
