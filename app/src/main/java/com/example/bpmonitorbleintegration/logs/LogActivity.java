@@ -236,7 +236,7 @@ private  void endDateCalendar() {
                         @Override
                         public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
                             try {
-                                if (df1.parse(bloodPressureDB.getDate()).before(df1.parse(t1.getDate()))){
+                                if (Objects.requireNonNull(df1.parse(bloodPressureDB.getDate())).before(df1.parse(t1.getDate()))){
                                     return -1;
                                 }
                             } catch (ParseException e) {
@@ -321,7 +321,7 @@ private  void endDateCalendar() {
                                                     @Override
                                                     public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
                                                         try {
-                                                            if (df1.parse(bloodPressureDB.getDate()).before(df1.parse(t1.getDate()))){
+                                                            if (Objects.requireNonNull(df1.parse(bloodPressureDB.getDate())).before(df1.parse(t1.getDate()))){
                                                                 return -1;
                                                             }
                                                         } catch (ParseException e) {

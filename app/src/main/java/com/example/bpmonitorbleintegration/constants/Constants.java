@@ -1,6 +1,8 @@
 package com.example.bpmonitorbleintegration.constants;
 
 public class Constants {
+
+    //Connection parameter
     public final static String ACTION_GATT_CONNECTED =
             "android-er.ACTION_GATT_CONNECTED";
     public final static String ACTION_GATT_CONNECTING =
@@ -14,10 +16,12 @@ public class Constants {
     public final static String EXTRA_DATA =
             "android-er.EXTRA_DATA";
 
+    //Connection states
     public static final int STATE_DISCONNECTED = 0;
     public static final int STATE_CONNECTING = 1;
     public static final int STATE_CONNECTED = 2;
 
+    // Values to be sent
     public static byte[] deviceId = {0x00,0x00,0x00,0x01};
 //    public static final byte[] startValue = {0x7B,deviceId[0],deviceId[1],deviceId[2],deviceId[3],0x10,0x0A,0x00,0x01,0x00,0x1C,0x7D};
 //    public static final byte[] checkSumError = {0x7B,deviceId[0],deviceId[1],deviceId[2],deviceId[3],0x14,0x0A,0x00,0x0E ,0x00,0x1C,0x7D};
@@ -31,20 +35,26 @@ public class Constants {
     public static byte[] cancelValue = {0x7B,deviceId[0],deviceId[1],deviceId[2],deviceId[3],0x10,0x0A,0x00,0x02,0x00,0x1C,0x7D};
     public static byte[] resetValue = {0x7B,deviceId[0],deviceId[1],deviceId[2],deviceId[3],0x02,0x0A,0x00,0x01,0x00,0x1C,0x7D};
     public static byte[] noResetValue = {0x7B,deviceId[0],deviceId[1],deviceId[2],deviceId[3],0x02,0x0A,0x00,0x00,0x00,0x1C,0x7D};
+
+    //Command ids
     public static final int RAW_COMMANDID = 17;
     public static final int RESULT_COMMANDID = 18;
     public static final int ERROR_COMMANDID = 19;
     public static final int ACK_COMMANDID = 20;
     public static final int DEVICE_COMMANDID = 01;
     public static final int BATTERY_COMMANDID = 21;
-    public static boolean is_resultReceived = false;
+
+    //Battery values
     public static final int HIGH_BATTERY = 51;
     public static final int MID_BATTERY = 34;
     public static final int LOW_BATTERY = 17;
     public static final int HIGH_EXCEEDED = 170; // 120
+
+    // Flags
     public static boolean is_batterValueReceived = false;
     public static boolean is_batteryReceivedAtReading = false;
     public static boolean is_ackReceived = false;
+    public static boolean is_resultReceived = false;
     public static boolean is_readingStarted = false;
     public static boolean is_cuffReplaced = false;
     public static boolean is_finalResult = false;
@@ -52,7 +62,6 @@ public class Constants {
     public static boolean is_errorReceived = false;
     public static boolean is_irregularHB = false;
     public static boolean is_stopButton = false;
-
     public static boolean cuffPop = false;
     public static boolean heartbeatPop = false;
     public static boolean batteryPop = false;

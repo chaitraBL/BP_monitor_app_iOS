@@ -726,10 +726,7 @@ public class ReadingData extends AppCompatActivity {
                                                                                 public void onClick(DialogInterface dialog, int which) {
                                                                                     Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
                                                                                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-                                                                                    startBtn.setEnabled(true);
-                                                                                    startBtn.setVisibility(View.VISIBLE);
-                                                                                    stopBtn.setVisibility(View.INVISIBLE);
-                                                                                    stopBtn.setEnabled(false);
+                                                                                    startBtnEnable();
                                                                                     Constants.is_buttonStarted = false;
                                                                                     progressText.setText("---");
 //                                                    dialog.dismiss();
@@ -772,10 +769,7 @@ public class ReadingData extends AppCompatActivity {
                                             if (!Constants.is_ackReceived){
                                                 mCountDownTimer.cancel();
                                                 toastMsgInReading(getApplicationContext().getResources().getString(R.string.please_start_again));
-                                                startBtn.setEnabled(true);
-                                                startBtn.setVisibility(View.VISIBLE);
-                                                stopBtn.setVisibility(View.INVISIBLE);
-                                                stopBtn.setEnabled(false);
+                                                startBtnEnable();
                                             }
                                         }
                                         else {
@@ -792,10 +786,7 @@ public class ReadingData extends AppCompatActivity {
                     else if (Constants.is_buttonStarted == false) {
                         Log.d(TAG, "displayData: start button not selected");
                         if (Constants.is_ackReceived == true) {
-                            startBtn.setEnabled(true);
-                            startBtn.setVisibility(View.VISIBLE);
-                            stopBtn.setVisibility(View.INVISIBLE);
-                            stopBtn.setEnabled(false);
+                            startBtnEnable();
                             progressText.setText("---");
                         }
                         else if (Constants.is_ackReceived == false) {
@@ -846,10 +837,7 @@ public class ReadingData extends AppCompatActivity {
                                                                                     if (Constants.is_ackReceived == true) {
                                                                                         mTimerRunning = false;
                                                                                         mCountDownTimer.cancel();
-                                                                                        startBtn.setEnabled(true);
-                                                                                        startBtn.setVisibility(View.VISIBLE);
-                                                                                        stopBtn.setVisibility(View.INVISIBLE);
-                                                                                        stopBtn.setEnabled(false);
+                                                                                        startBtnEnable();
 //                                                                            Constants.is_readingStarted = false;
                                                                                         progressText.setText("---");
                                                                                         Constants.is_buttonStarted = false;
@@ -881,10 +869,7 @@ public class ReadingData extends AppCompatActivity {
 //                                                                    Log.d(TAG, "run: timer off");
                                                                                         Constants.is_ackReceived = false;
                                                                                         progressText.setText("---");
-                                                                                        startBtn.setEnabled(true);
-                                                                                        startBtn.setVisibility(View.VISIBLE);
-                                                                                        stopBtn.setVisibility(View.INVISIBLE);
-                                                                                        stopBtn.setEnabled(false);
+                                                                                        startBtnEnable();
                                                                                         Constants.is_buttonStarted = false;
 //                                                                            dialog1.dismiss();
                                                                                     }
@@ -963,10 +948,7 @@ public class ReadingData extends AppCompatActivity {
                                                                                 dialog1.dismiss();
 //                                                                    Constants.is_readingStarted = false;
                                                                                 progressText.setText("---");
-                                                                                startBtn.setEnabled(true);
-                                                                                startBtn.setVisibility(View.VISIBLE);
-                                                                                stopBtn.setVisibility(View.INVISIBLE);
-                                                                                stopBtn.setEnabled(false);
+                                                                                startBtnEnable();
                                                                             }
                                                                         }
                                                                     });
@@ -994,10 +976,7 @@ public class ReadingData extends AppCompatActivity {
 //                                                                    Log.d(TAG, "run: timer off");
 //                                                                                Constants.is_ackReceived = false;
                                                                                 progressText.setText("---");
-                                                                                startBtn.setEnabled(true);
-                                                                                startBtn.setVisibility(View.VISIBLE);
-                                                                                stopBtn.setVisibility(View.INVISIBLE);
-                                                                                stopBtn.setEnabled(false);
+                                                                                startBtnEnable();
 //                                                                    Constants.is_stopButton = false;
                                                                                 dialog1.dismiss();
                                                                             }
@@ -1033,10 +1012,7 @@ public class ReadingData extends AppCompatActivity {
                                                                                 dialogInterface.dismiss();
                                                                                 dialog1.dismiss();
                                                                                 progressText.setText("---");
-                                                                                startBtn.setEnabled(true);
-                                                                                startBtn.setVisibility(View.VISIBLE);
-                                                                                stopBtn.setVisibility(View.INVISIBLE);
-                                                                                stopBtn.setEnabled(false);
+                                                                                startBtnEnable();
 //                                    Log.i(TAG, "run: ack in cancel condition " + Constants.is_ackReceived);
                                                                             }
                                                                         }
@@ -1065,10 +1041,7 @@ public class ReadingData extends AppCompatActivity {
 //                                                                    Log.d(TAG, "run: timer off");
                                                                                 Constants.is_ackReceived = false;
                                                                                 progressText.setText("---");
-                                                                                startBtn.setEnabled(true);
-                                                                                startBtn.setVisibility(View.VISIBLE);
-                                                                                stopBtn.setVisibility(View.INVISIBLE);
-                                                                                stopBtn.setEnabled(false);
+                                                                                startBtnEnable();
 //                                                                    Constants.is_stopButton = false;
                                                                                 dialog1.dismiss();
                                                                             }
@@ -1137,10 +1110,7 @@ public class ReadingData extends AppCompatActivity {
                             mTimerRunning = false;
                             mCountDownTimer.cancel();
                             Log.d(TAG, "run: ack received while stop");
-                            startBtn.setEnabled(true);
-                            startBtn.setVisibility(View.VISIBLE);
-                            stopBtn.setVisibility(View.INVISIBLE);
-                            stopBtn.setEnabled(false);
+                            startBtnEnable();
                             Constants.is_buttonStarted = false;
                             progressText.setText("---");
 //                            Constants.is_stopButton = false;
@@ -1279,6 +1249,7 @@ public class ReadingData extends AppCompatActivity {
 
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
+                toastMsgInReading("Unable to initialize Bluetooth");
                 finish();
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -1302,8 +1273,15 @@ public class ReadingData extends AppCompatActivity {
         }
     };
 
-    public void toastMsgInReading(String msg) {
+    private void toastMsgInReading(String msg) {
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+    private void startBtnEnable() {
+        startBtn.setEnabled(true);
+        startBtn.setVisibility(View.VISIBLE);
+        stopBtn.setVisibility(View.INVISIBLE);
+        stopBtn.setEnabled(false);
     }
 
     //Updating connection status through text field. if disconnected, status navigating to mainActivity through alert dialog.
