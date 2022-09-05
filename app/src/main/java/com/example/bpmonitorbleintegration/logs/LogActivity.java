@@ -453,7 +453,6 @@ private  void endDateCalendar() {
             holder.textViewSysta.setText(String.valueOf(t.getSystolic()));
             holder.textViewDiasta.setText(String.valueOf(t.getDystolic()));
             holder.textViewRate.setText(String.valueOf(t.getHeartRate()));
-
         }
 
         @Override
