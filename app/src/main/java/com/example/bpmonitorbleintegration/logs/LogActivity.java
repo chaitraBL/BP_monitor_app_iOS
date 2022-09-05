@@ -263,6 +263,7 @@ private  void endDateCalendar() {
                         logRecycleView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
+//                        To filter data with 2 dates
                     selectBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
