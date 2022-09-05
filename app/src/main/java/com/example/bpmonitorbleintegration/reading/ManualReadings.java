@@ -114,7 +114,6 @@ public class ManualReadings extends AppCompatActivity {
                 }
             }
         });
-
     }
     
     private void toastMsg(String msg) {
