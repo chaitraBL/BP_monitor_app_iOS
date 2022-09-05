@@ -312,10 +312,6 @@ public class ReadingData extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        finish();
-//        mBluetoothLeService.disconnect();
-//        mBluetoothLeService.close();
-//        mBluetoothLeService.stopSelf();
         Intent intent1 = new Intent(ReadingData.this, MainActivity.class);
         startActivity(intent1);
     }
