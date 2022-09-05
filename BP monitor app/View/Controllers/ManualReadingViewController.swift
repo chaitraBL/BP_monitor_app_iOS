@@ -32,40 +32,27 @@ class ManualReadingViewController: UIViewController {
     @IBAction func saveToDatabse(_ sender: UIButton) {
         if systolicText.text == "" {
 //           self.showToast(message: "Please enter systolic value", font: .systemFont(ofSize: 12.0))
-            let alert = UIAlertController(title: "Alert!", message: "Please enter systolic value", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            alert(title: "Alert!", msg: "Please enter systolic value")
+            
         }
         else if diastolicText.text == "" {
 //        self.showToast(message: "Please enter diastolic value", font: .systemFont(ofSize: 12.0))
-            let alert = UIAlertController(title: "Alert!", message: "Please enter diastolic value", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            alert(title: "Alert!", msg: "Please enter diastolic value")
+            
         }
         else if heartRateText.text == "" {
 //            self.showToast(message: "Please enter heart rate value", font: .systemFont(ofSize: 12.0))
-            let alert = UIAlertController(title: "Alert!", message: "SPlease enter heart rate value", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            alert(title: "Alert!", msg: "Please enter heart rate value")
+            
         }
         else {
             if ((Int(systolicText.text!)! < 30) || (Int(systolicText.text!)! > 200)) {
-                let alert = UIAlertController(title: "Alert!", message: "Systolic range should be between 30 to 200,\n Please check the readings...", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    self.systolicText.text = ""
-                    self.diastolicText.text = ""
-                    self.heartRateText.text = ""
-                }))
-                self.present(alert, animated: true)
+                alert(title: "Alert!", msg: "Systolic range should be between 30 to 200,\n Please check the readings...")
+                
             }
             else if ((Int(diastolicText.text!)! < 40) || (Int(diastolicText.text!)! > 120)) {
-                let alert = UIAlertController(title: "Alert!", message: "Diastolic range should be between 40 to 120,\n Please check the readings...", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    self.systolicText.text = ""
-                    self.diastolicText.text = ""
-                    self.heartRateText.text = ""
-                }))
-                self.present(alert, animated: true)
+                alert(title: "Alert!", msg: "Diastolic range should be between 40 to 120,\n Please check the readings...")
+               
             }
             else {
                 let mapText = bleManagerReading.calculateMap(systa: Int(systolicText.text!)!, diasta: Int(diastolicText.text!)!)
@@ -73,25 +60,24 @@ class ManualReadingViewController: UIViewController {
                 let isSuccess = localDB.save(name: "Chaitra", systolic: systolicText.text!, diastolic: diastolicText.text!, heartRate: heartRateText.text!, map: String(describing: mapText))
                 
                 if isSuccess == true {
-                    let alert = UIAlertController(title: "Success", message: "Saved successfully", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        self.systolicText.text = ""
-                        self.diastolicText.text = ""
-                        self.heartRateText.text = ""
-                    }))
-                    self.present(alert, animated: true)
+                    alert(title: "Success", msg: "Saved successfully")
                 }
                 else {
-                    let alert = UIAlertController(title: "Unsuccess", message: "Failed to save", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        self.systolicText.text = ""
-                        self.diastolicText.text = ""
-                        self.heartRateText.text = ""
-                    }))
-                    self.present(alert, animated: true)
+                    alert(title: "Unsuccess", msg: "Failed to save")
+                    
                 }
             }
         }
+    }
+    
+    func alert(title:String, msg:String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.systolicText.text = ""
+            self.diastolicText.text = ""
+            self.heartRateText.text = ""
+        }))
+        self.present(alert, animated: true)
     }
 }
 

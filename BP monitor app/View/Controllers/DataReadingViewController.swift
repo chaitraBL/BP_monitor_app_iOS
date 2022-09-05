@@ -235,6 +235,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         constantValue.is_batterystatus = false
         constantValue.cuffPop = false
         constantValue.heartbeatPop = false
+        constantValue.batteryPop = false
         
         systolicLabel.text = "-"
         diastolicLab.text = "-"
@@ -279,7 +280,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             let msg = decoderVal.changeStatus(systolic: Int(self.systolicVal), diastolic: Int(self.diastolicVal))
             self.mapLabel.text = msg
             constantValue.is_finalResultReceived = false
-            constantValue.batteryPop = false
+//            constantValue.batteryPop = false
             }
         
         if periperalData.state == .disconnected {
