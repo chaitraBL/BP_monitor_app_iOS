@@ -64,6 +64,7 @@ public class ManualReadings extends AppCompatActivity {
         actioBar.setDisplayShowHomeEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#151B54")));
 
+//        To save the data to DB
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +132,7 @@ public class ManualReadings extends AppCompatActivity {
 //        startActivity(getIntent());
     }
 
+//    Menu item.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

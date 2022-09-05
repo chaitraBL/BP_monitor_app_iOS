@@ -142,6 +142,7 @@ public class ReadingData extends AppCompatActivity {
             }
         }
 
+//        Sending stop command to  stop the receiving readings
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,6 +178,7 @@ public class ReadingData extends AppCompatActivity {
             }
         });
 
+//        Send start command to receive readings.
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,6 +209,7 @@ public class ReadingData extends AppCompatActivity {
             }
         });
 
+//        To save the data to DB.
         saveReadingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,6 +227,7 @@ public class ReadingData extends AppCompatActivity {
                     toastMsgInReading(getApplication().getResources().getString(R.string.check_value));
                     progress.setVisibility(View.GONE);
                 } else {
+//                    Save to local DB
                     localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, ReadingData.this);
 //                    localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, ReadingData.this); Integer.parseInt(mapText.getText().toString())
                     systolicText.setText("");
@@ -243,6 +247,7 @@ public class ReadingData extends AppCompatActivity {
         registerReceiver(broadCastReceiver, GattUpdateIntentFilter());
     }
 
+//    Performing background tasks - disconnect BLE services.
     @Override
     protected void onPause() {
         super.onPause();

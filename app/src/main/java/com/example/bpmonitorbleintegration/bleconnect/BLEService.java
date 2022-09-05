@@ -147,6 +147,7 @@ public class BLEService extends Service implements DecodeListener {
     // BluetoothGatt callback to connect, discover services, read and write the characteristics and data etc...
     private final BluetoothGattCallback bluetoothGattCallback = new BluetoothGattCallback() {
         @SuppressLint("MissingPermission")
+//        Changes in connection state is specified here.
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             super.onConnectionStateChange(gatt, status, newState);
@@ -186,6 +187,7 @@ public class BLEService extends Service implements DecodeListener {
         }
 
         @SuppressLint("MissingPermission")
+//        To specify the data size.
         @Override
         public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
             super.onMtuChanged(gatt, mtu, status);
@@ -202,6 +204,7 @@ public class BLEService extends Service implements DecodeListener {
         }
 
         @SuppressLint("MissingPermission")
+//        To discover the services and characteristics
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             super.onServicesDiscovered(gatt, status);
@@ -236,6 +239,7 @@ public class BLEService extends Service implements DecodeListener {
             }
         }
 
+//        To read the characteristics
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicRead(gatt, characteristic, status);
@@ -248,12 +252,14 @@ public class BLEService extends Service implements DecodeListener {
             }
         }
 
+//        To write the characteristics
         @Override
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicWrite(gatt, characteristic, status);
             //  Toast.makeText(BLEService.this, "onCharacteristicWrite", Toast.LENGTH_SHORT).show();
         }
 
+//        To read the changes in characteristics
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             super.onCharacteristicChanged(gatt, characteristic);
@@ -584,6 +590,7 @@ public class BLEService extends Service implements DecodeListener {
     }
 
     @SuppressLint("MissingPermission")
+//    Close att services
     public void close() {
         if (mBluetoothGatt == null) {
             return;
@@ -594,6 +601,7 @@ public class BLEService extends Service implements DecodeListener {
     }
 
     @SuppressLint("MissingPermission")
+//    Disconnect from gatt
     public void disconnect() {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
             Log.d(TAG, "Bluetooth adapter not initialize");
@@ -735,6 +743,7 @@ public class BLEService extends Service implements DecodeListener {
         }
     }
 
+//    Thread call
     private class ConnectionThread extends Thread {
         @Override
         public void run() {

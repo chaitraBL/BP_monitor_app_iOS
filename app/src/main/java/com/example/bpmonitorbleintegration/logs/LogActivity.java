@@ -121,6 +121,7 @@ public class LogActivity extends AppCompatActivity implements BottomNavigationVi
     }
 
     //Formatting the dates.
+//    Start date calendar
     private void startDateCalendar(){
         Calendar c=Calendar.getInstance();
         int month=c.get(Calendar.MONTH);
@@ -158,6 +159,7 @@ public class LogActivity extends AppCompatActivity implements BottomNavigationVi
         datePickerDialog.show();
 }
 
+//End date calendar
 private  void endDateCalendar() {
     Calendar c=Calendar.getInstance();
     int month=c.get(Calendar.MONTH);
@@ -195,6 +197,7 @@ private  void endDateCalendar() {
     datePickerDialog.show();
 }
 
+//bottom bar item
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
