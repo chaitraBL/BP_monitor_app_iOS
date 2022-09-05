@@ -236,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     @SuppressLint({"ObsoleteSdkInt", "MissingPermission"})
@@ -281,7 +280,6 @@ public class MainActivity extends AppCompatActivity {
         }
         mGatt.close();
         mGatt = null;
-
     }
 
     @Override
@@ -318,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
 //                adapterBluetoothDevice.clear();
                 mLEScanner.startScan(filters, settings, mScanCallback);
-
             }
         } else {
             if (Build.VERSION.SDK_INT < 21) {
@@ -386,5 +383,4 @@ public class MainActivity extends AppCompatActivity {
                     PERMISSIONS_REQUEST_LOCATION);
         }
     }
-
 }
