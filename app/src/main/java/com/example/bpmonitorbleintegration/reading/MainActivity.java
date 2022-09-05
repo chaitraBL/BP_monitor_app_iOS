@@ -165,13 +165,6 @@ public class MainActivity extends AppCompatActivity {
             String msg = info;
             deviceAddress = address;
 
-//            new AlertDialog.Builder(MainActivity.this)
-////                    .setTitle(bluetoothDevice.getName())
-//                    .setMessage(msg)
-//                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-
             //Navigating to next activity on tap of bluetooth device address.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Intent intent = new Intent(MainActivity.this, ReadingData.class);
@@ -179,9 +172,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("DeviceName", info);
                 startActivity(intent);
             }
-//                        }
-//                    })
-//                    .show();
         }
     };
 
