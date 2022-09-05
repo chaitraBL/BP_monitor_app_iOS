@@ -137,15 +137,19 @@ public class LogActivity extends AppCompatActivity implements BottomNavigationVi
                     Log.d(TAG,"day:::"+day);
                     if(get_month < 10){
                         startDate.setText(day+"-"+"0"+get_month+"-"+year);
+                        startDate.setTextColor(getResources().getColor(R.color.black));
                     }else {
 
                         startDate.setText(day+"-"+get_month+"-"+year);
+                        startDate.setTextColor(getResources().getColor(R.color.black));
                     }
                 }else {
                     if(get_month < 10){
                         startDate.setText(dayOfMonth+"-"+"0"+get_month+"-"+year);
+                        startDate.setTextColor(getResources().getColor(R.color.black));
                     }else {
                         startDate.setText(dayOfMonth+"-"+get_month+"-"+year);
+                        startDate.setTextColor(getResources().getColor(R.color.black));
                     }
                 }
             }
@@ -170,15 +174,19 @@ private  void endDateCalendar() {
                 Log.d(TAG,"day:::"+day);
                 if(get_month < 10){
                     endDate.setText(day+"-"+"0"+get_month+"-"+year);
+                    endDate.setTextColor(getResources().getColor(R.color.black));
                 }else {
 
                     endDate.setText(day+"-"+get_month+"-"+year);
+                    endDate.setTextColor(getResources().getColor(R.color.black));
                 }
             }else {
                 if(get_month < 10){
                     endDate.setText(dayOfMonth+"-"+"0"+get_month+"-"+year);
+                    endDate.setTextColor(getResources().getColor(R.color.black));
                 }else {
                     endDate.setText(dayOfMonth+"-"+get_month+"-"+year);
+                    endDate.setTextColor(getResources().getColor(R.color.black));
                 }
             }
         }
