@@ -131,9 +131,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         pulseText = findViewById(R.id.pulse);
         combinedChart = findViewById(R.id.reading_list);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-//        candleStick = findViewById(R.id.reading_list);
-//        nextDateBtn = findViewById(R.id.next_btn);
-//        previousDateBtn = findViewById(R.id.previous_btn);
         progressBar1 = findViewById(R.id.pb_systa);
         progressBar2 = findViewById(R.id.pb_diasta);
         bottomNavigationView.setOnNavigationItemSelectedListener(HomePage.this);
@@ -508,7 +505,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                             @Override
                             public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
                                 try {
-                                    if (df1.parse(bloodPressureDB.getDate()).before(df1.parse(t1.getDate()))){
+                                    if (Objects.requireNonNull(df1.parse(bloodPressureDB.getDate())).before(df1.parse(t1.getDate()))){
                                         return -1;
                                     }
                                 } catch (ParseException e) {
