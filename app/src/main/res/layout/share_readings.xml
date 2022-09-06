@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -28,7 +29,8 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="left"/>
+            android:gravity="left"
+            tools:ignore="RtlHardcoded" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +38,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
             android:gravity="left"
-            android:id="@+id/reading_sys_txt"/>
+            android:id="@+id/reading_sys_txt"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
     <LinearLayout
@@ -52,7 +55,8 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="left"/>
+            android:gravity="left"
+            tools:ignore="RtlHardcoded" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +64,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
             android:gravity="left"
-            android:id="@+id/reading_dia_txt"/>
+            android:id="@+id/reading_dia_txt"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
     <LinearLayout
@@ -76,7 +81,8 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="left"/>
+            android:gravity="left"
+            tools:ignore="RtlHardcoded" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +90,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
             android:gravity="left"
-            android:id="@+id/reading_rate_txt"/>
+            android:id="@+id/reading_rate_txt"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
 
@@ -101,7 +108,8 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="left"/>
+            android:gravity="left"
+            tools:ignore="RtlHardcoded" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +117,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
             android:gravity="left"
-            android:id="@+id/reading_status_txt"/>
+            android:id="@+id/reading_status_txt"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
 
@@ -126,7 +135,8 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="left"/>
+            android:gravity="left"
+            tools:ignore="RtlHardcoded" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,7 +144,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
             android:gravity="left"
-            android:id="@+id/reading_date_txt"/>
+            android:id="@+id/reading_date_txt"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
     <LinearLayout
@@ -152,7 +163,8 @@
             android:id="@+id/btn_share_reading_cancel"
             android:text="@string/cancel"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="ButtonStyle" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,7 +174,8 @@
             android:text="@string/share"
             android:id="@+id/btn_share_reading"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
 
