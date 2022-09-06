@@ -42,7 +42,7 @@
     <string name="reset">reset</string>
     <string name="dashboard">DashBoard</string>
     <string name="welcome">Welcome</string>
-    <string name="manual_reading">Manual Readings</string>
+    <string name="manual_reading">Manual Reading</string>
     <string name="readings">Readings</string>
     <string name="connect_device">Connect Device</string>
     <string name="ok">OK</string>
@@ -125,7 +125,7 @@
     <string name="device_not_found">Device not found </string>
     <string name="battery_limit_exceeds">Battery limit exceeds, Please change the battery!!!</string>
     <string name="Heartbeat_vary">Heart beat varies please try again</string>
-    <string name="check_value">Please check the values in textfield</string>
+    <string name="check_value">Please check the values in text-field</string>
     <string name="empty_val">---</string>
     <string name="space" />
     <string name="save_final_reading">Do you want to save final readings before disconnect</string>

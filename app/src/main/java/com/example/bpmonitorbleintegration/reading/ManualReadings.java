@@ -119,6 +119,9 @@ public class ManualReadings extends AppCompatActivity {
     
     private void toastMsg(String msg) {
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+        systolic.setText("");
+        diastolic.setText("");
+        heartRate.setText("");
     }
 
     @Override
