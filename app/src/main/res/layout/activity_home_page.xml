@@ -336,75 +336,6 @@
 
     </LinearLayout>
 
-<!--    <TextView-->
-<!--        android:id="@+id/analytics_home"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/linear_layout2"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:fontFamily="@font/arial"-->
-<!--        android:text="@string/analytics"-->
-<!--        android:textColor="?android:textColorPrimary"-->
-<!--        android:textStyle="bold" />-->
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/next_btn"-->
-<!--        android:layout_width="20dp"-->
-<!--        android:layout_height="20dp"-->
-<!--        android:layout_below="@+id/linear_layout2"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginEnd="15dp"-->
-<!--        android:background="#000000"-->
-<!--        android:src="@drawable/ic_baseline_arrow_forward_ios_24" />-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:layout_marginBottom="5dp"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/previous_btn"-->
-<!--            android:layout_width="20dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:layout_marginEnd="15dp"-->
-<!--            android:layout_marginStart="90dp"-->
-<!--            android:src="@drawable/ic_baseline_arrow_back_ios_24"-->
-<!--            android:background="#000000"/>-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="-"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="14sp"-->
-<!--            android:id="@+id/date_text"-->
-<!--            android:textColor="?android:textColorPrimary"-->
-<!--            android:fontFamily="@font/arial"-->
-<!--            android:layout_marginEnd="15dp"/>-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/next_btn"-->
-<!--            android:layout_width="20dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:background="#000000"-->
-<!--            android:src="@drawable/ic_baseline_arrow_forward_ios_24" />-->
-
-<!--        <Button-->
-<!--            android:layout_width="70dp"-->
-<!--            android:layout_height="35dp"-->
-<!--            android:text="@string/all"-->
-<!--            android:textColor="?android:textColorPrimary"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="10sp"-->
-<!--            android:id="@+id/all_values"-->
-<!--            android:fontFamily="@font/arial"-->
-<!--            android:background="@drawable/bg_transparent"-->
-<!--            android:layout_marginStart="30dp"-->
-<!--            tools:ignore="SmallSp" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -459,26 +390,6 @@
 
     </RelativeLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginBottom="5dp"-->
-<!--        android:gravity="center">-->
-
-<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--            android:id="@+id/bottomNavigationView"-->
-<!--            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:background="@color/white"-->
-<!--            app:itemIconTint="@drawable/navigation_item_color"-->
-<!--            app:itemTextColor="@drawable/navigation_item_color"-->
-<!--            app:menu="@menu/bottom_nav_menu" />-->
-<!--        &lt;!&ndash;    android:background="#151B54"&ndash;&gt;-->
-
-<!--    </RelativeLayout>-->
-
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -489,7 +400,6 @@
         android:background="@color/progress_back_color">
 
     </View>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

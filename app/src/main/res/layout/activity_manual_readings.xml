@@ -116,7 +116,6 @@
 
     </LinearLayout>
 
-
     <Button
         android:id="@+id/save_manual"
         android:layout_width="wrap_content"
@@ -130,102 +129,5 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="8dp"
         android:text="@string/save"/>
-
-<!--        android:backgroundTint="@android:color/transparent"/>-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:weightSum="1"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:layout_marginRight="5dp"-->
-<!--        android:layout_below="@+id/save_manual"-->
-<!--        android:id="@+id/ll_list">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/date"-->
-<!--            android:textSize="12sp"-->
-<!--            android:layout_weight="0.17"-->
-<!--            android:gravity="center"-->
-<!--            android:textStyle="bold"/>-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/manual_time"-->
-<!--            android:text="@string/time"-->
-<!--            android:textSize="12sp"-->
-<!--            android:layout_weight="0.17"-->
-<!--            android:gravity="center"-->
-<!--            android:textStyle="bold"/>-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/sys"-->
-<!--            android:textSize="12sp"-->
-<!--            android:layout_weight="0.17"-->
-<!--            android:gravity="center"-->
-<!--            android:textStyle="bold"/>-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/dya"-->
-<!--            android:textSize="12sp"-->
-<!--            android:layout_weight="0.17"-->
-<!--            android:gravity="center"-->
-<!--            android:textStyle="bold"/>-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/rate"-->
-<!--            android:textSize="12sp"-->
-<!--            android:layout_weight="0.17"-->
-<!--            android:gravity="center"-->
-<!--            android:textStyle="bold"/>-->
-
-<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text="MAP"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:textSize="12sp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_weight="0.17"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:textStyle="bold"/>&ndash;&gt;-->
-
-<!--    </LinearLayout>-->
-
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@+id/ll_list">-->
-<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_centerInParent="true"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/txt_no_data_found"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:textSize="18sp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text="No Data Found"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:visibility="invisible"></TextView>&ndash;&gt;-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/recyclerview_list"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:background="#ECEFF1"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="5dp"-->
-<!--            android:layout_marginBottom="10dp">-->
-
-<!--        </androidx.recyclerview.widget.RecyclerView>-->
-<!--    </RelativeLayout>-->
 
 </RelativeLayout>

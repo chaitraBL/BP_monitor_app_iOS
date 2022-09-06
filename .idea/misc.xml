@@ -7,16 +7,19 @@
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/drawable/filled_bg_circle.xml" value="0.124" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/drawable/start_btn.xml" value="0.2595" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/font/arial_font.xml" value="0.14322916666666666" />
-        <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_data_transfer.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_data_transfer.xml" value="0.2" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_home_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_manual_readings.xml" value="0.11302083333333333" />
-        <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_reading_data1.xml" value="0.4" />
+        <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_reading_data1.xml" value="0.2" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_statistics.xml" value="0.2" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_statistics2.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/custom_popup_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/fragment_first.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/fragment_second.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/fragment_third.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/list_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/marker_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/layout/share_readings.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/drawable/background_drawable.xml" value="0.5061538461538462" />
         <entry key="app/src/main/res/drawable/background_drawable1.xml" value="0.25" />

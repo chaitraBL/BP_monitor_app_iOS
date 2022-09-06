@@ -299,9 +299,9 @@ public class ReadingData extends AppCompatActivity {
 
                 }
         }
-
     }
 
+//    Background services
     public boolean isApplicationSentToBackground(final Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);

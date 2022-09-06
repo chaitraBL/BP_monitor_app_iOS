@@ -28,14 +28,14 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"/>
+            android:gravity="left"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/reading_sys_txt"/>
 
     </LinearLayout>
@@ -52,14 +52,14 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"/>
+            android:gravity="left"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/reading_dia_txt"/>
 
     </LinearLayout>
@@ -76,14 +76,14 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"/>
+            android:gravity="left"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/reading_rate_txt"/>
 
     </LinearLayout>
@@ -101,14 +101,14 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"/>
+            android:gravity="left"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/reading_status_txt"/>
 
     </LinearLayout>
@@ -126,14 +126,14 @@
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"/>
+            android:gravity="left"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/reading_date_txt"/>
 
     </LinearLayout>
