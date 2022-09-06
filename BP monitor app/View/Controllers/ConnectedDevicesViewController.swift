@@ -141,6 +141,7 @@ extension ConnectedDevicesViewController:CBCentralManagerDelegate, CBPeripheralD
         }
     }
     
+//    Scan bluetooth enabled device
     func startScanning() {
         if cManager.isScanning {
             showToast(message: "Scanning...", font: .systemFont(ofSize: 12))
@@ -151,6 +152,7 @@ extension ConnectedDevicesViewController:CBCentralManagerDelegate, CBPeripheralD
 //        scanTB.reloadData()
     }
     
+//    Stop scannning
     func stopScanning() {
         cManager.stopScan()
     }

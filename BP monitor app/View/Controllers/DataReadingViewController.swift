@@ -65,6 +65,7 @@ class DataReadingViewController: UIViewController {
         centralManagerInAppdelegate = centralManager
         
         periperalData.delegate = self
+        // Connection status
         connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
         statusLabel.text = connStatus
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
@@ -72,6 +73,7 @@ class DataReadingViewController: UIViewController {
 //        print ("perpheral data \(periperalData)")
         constantValue.is_finalResultReceived = false
         
+        // Start btn and stop btn design layout
         startbtn.layer.cornerRadius = 0.5 * startbtn.bounds.size.width
         startbtn.clipsToBounds = true
         
@@ -93,12 +95,14 @@ class DataReadingViewController: UIViewController {
         statusLabel.text = connStatus
         constantValue.is_finalResultReceived = false
         
+        // Background services
 //        print ("perpheral data in view will appear \(periperalData)")
         let notificationCenter = NotificationCenter.default
             notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
    
     }
   
+    //Background Services
     @objc func appMovedToBackground() {
         print("App moved to background!")
         
@@ -118,47 +122,10 @@ class DataReadingViewController: UIViewController {
                             self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
                         }
                         else {
-//                            if self.constantValue.is_finalResultReceived == true {
-//                                self.centralManager.cancelPeripheralConnection(self.periperalData)
-//            //                    self.periperalData = nil
-//                                let alert = UIAlertController(title: "Alert!!!", message: "Do you want save the result and disconnect", preferredStyle: .alert)
-//
-//                                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
-//                                    let isSuccess = localDB.save(name: periperalData.name!, systolic: "\(systolicVal)", diastolic: "\(diastolicVal)", heartRate: "\(heartRateVal)", map: "\(map)")
-//
-//                                    constantValue.is_finalResultReceived = false
-//
-//                                    if isSuccess == true {
-//                                        constantValue.is_finalResultReceived = false
-//
-//                                        self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
-//                                    }
-//                                    else {
-//                                        constantValue.is_finalResultReceived = false
-//                                        showToast(message: "Failed to save", font: .systemFont(ofSize: 12))
-////                                        self.centralManager.cancelPeripheralConnection(self.periperalData)
-//                    //                    self.periperalData = nil
-//
-//                                        self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
-//                                    }
-//                                }))
-//                                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
-////                                    self.centralManager.cancelPeripheralConnection(self.periperalData)
-//                //                    self.periperalData = nil
-//
-//                                    self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
-//                                }))
-//                                self.present(alert, animated: true)
-//
-//                            }
-//                            else if self.constantValue.is_finalResultReceived == false {
-                                
                                 self.centralManager.cancelPeripheralConnection(self.periperalData)
                                 //                    self.periperalData = nil
 
                                 self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
-//                            }
-                          
                         }
                         
                     }
@@ -166,15 +133,6 @@ class DataReadingViewController: UIViewController {
         }
         else {
             print("power off")
-//            centralManager.cancelPeripheralConnection(periperalData)
-////            periperalData = nil
-//
-//            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyboard.instantiateViewController(withIdentifier: "dashboardVc") as! ViewController
-//
-//            let navigationController = UINavigationController(rootViewController: vc)
-//
-//            self.present(navigationController, animated: true, completion: nil)
         }
       
     }
@@ -198,7 +156,7 @@ class DataReadingViewController: UIViewController {
         imgView.image = img
     }
     
-    
+//    Disable bluetooth
     @IBAction func disableBluetooth(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Alert!!!", message: "Are you sure, do you want to disconnect.", preferredStyle: .alert)
 
@@ -211,6 +169,7 @@ class DataReadingViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
+//    Navigating from one vc to another
 override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if (segue.identifier == "disconnectPeripheral") {
         self.tabBarController?.tabBar.isHidden = false
@@ -220,6 +179,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }
   
+//    Sending start command to receive readings
     @IBAction func startReading(_ sender: Any) {
         
         constantValue.is_startTapped = true
@@ -254,6 +214,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     
+//    Sending stop commands to stop receiving the readings
     @IBAction func stopReading(_ sender: UIButton) {
         constantValue.is_startTapped = false
         constantValue.is_stopTapped = true
@@ -289,6 +250,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     
+//    Save the values to db.
     @IBAction func saveToLocal(_ sender: UIButton) {
         activityView.isHidden = false
         constantValue.batteryPop = false
@@ -336,6 +298,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             }
     }
     
+//    Display battery status
     func showBattery() {
         if batteryVal == constantValue.HIGH_BATTERY {
             activityView.isHidden = true
@@ -373,6 +336,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         }
     }
     
+//    Alert messages.
     func alert2(msg:String) {
         let alert = UIAlertController(title: "Alert!!!", message: msg, preferredStyle: .alert)
 
@@ -404,6 +368,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 extension DataReadingViewController: CBPeripheralDelegate {
   
+//    Checking the peripheral state
         func decodePeripheralState(peripheralState: CBPeripheralState, peripheral:CBPeripheral) -> String{
             var msg:String = ""
                 
@@ -444,6 +409,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
             return msg
         }
        
+//    Service discovery
         func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
             if ((error) != nil) {
                 print("Error discovering services: \(error!.localizedDescription)")
@@ -456,6 +422,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
             }
         }
         
+//    Characteristics discovery
         func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
             guard let characteristic = service.characteristics else { return}
             
@@ -473,6 +440,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
             }
         }
         
+//    Updating notification state
         func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
             if (error != nil) {
                 print("error reading characteristics \(String(describing: error?.localizedDescription))")
@@ -482,6 +450,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
             }
         }
         
+//    Receiving values
         func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
             if characteristic.uuid == ParticlePeripheral.BLECharacteristicUUID {
                 print("characteristc value \(characteristic)")
@@ -693,8 +662,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                             }))
                                             self.present(alert, animated: true)
                                         }
-                                        
-                    
+                                       
                                         break
                     
                                     case 6:
@@ -909,6 +877,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
             }
         }
         
+//    Write values to the device
         func writeOutGoingValue(data:[UInt8]) {
             
             let data1 = Data(bytesNoCopy: UnsafeMutableRawPointer(mutating: data), count: data.count, deallocator: .none)
@@ -933,42 +902,25 @@ extension DataReadingViewController:CBPeripheralManagerDelegate {
             constantValue.is_poweroff = true
             
             if periperalData != nil {
-//                let alert = UIAlertController(title: "Alert!!!", message: "Connection terminated!, Please turn on bluetooth", preferredStyle: .alert)
-//
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
                     
                     centralManager.cancelPeripheralConnection(periperalData)
                     periperalData = nil
                     performSegue(withIdentifier: "toHome", sender: self)
-   
-//                }))
-//                self.present(alert, animated: true)
             }
             
             else {
                 dismiss(animated: true)
             }
-         
-          
-//            self.performSegue(withIdentifier: "disconnectPeripheral", sender: self)
-//            connStatus = decodePeripheralState(peripheralState: periperalData.state, peripheral: periperalData)
-//            statusLabel.text = connStatus
             return
             
         case .resetting:
             print("Resetting")
             constantValue.is_poweroff = true
             if periperalData != nil {
-//                let alert = UIAlertController(title: "Alert!!!", message: "Connection terminated!, Please turn on bluetooth", preferredStyle: .alert)
-//
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
                     
                     centralManager.cancelPeripheralConnection(periperalData)
                     periperalData = nil
                     performSegue(withIdentifier: "toHome", sender: self)
-             
-//                }))
-//                self.present(alert, animated: true)
             }
             
             else {
@@ -982,8 +934,6 @@ extension DataReadingViewController:CBPeripheralManagerDelegate {
             return
         }
     }
-    
-   
 }
     
 //Convert UInt8 to hexdecimal.

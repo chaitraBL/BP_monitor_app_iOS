@@ -169,7 +169,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    // Calendar popup
+    // Calendar popup - Start date calendar
     @IBAction func startCalendar(_ sender: UIButton) {
         
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -187,6 +187,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+//    End date calendar
     @IBAction func endCalendar(_ sender: UIButton) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let popover = storyboard.instantiateViewController(withIdentifier: "calendarView") as! CalendarSelectViewController
