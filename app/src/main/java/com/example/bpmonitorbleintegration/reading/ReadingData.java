@@ -1079,7 +1079,7 @@ public class ReadingData extends AppCompatActivity {
             mBluetoothLeService = ((BLEService.LocalBinder) service).getService();
 
             if (!mBluetoothLeService.initialize()) {
-                Log.e(TAG, "Unable to initialize Bluetooth");
+//                Log.e(TAG, "Unable to initialize Bluetooth");
                 toastMsgInReading("Unable to initialize Bluetooth");
                 finish();
             }
