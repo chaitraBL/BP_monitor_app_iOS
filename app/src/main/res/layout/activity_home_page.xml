@@ -184,31 +184,6 @@
                     android:max="200"
                     android:progress="0"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/arial"
-                        android:text="@string/range_120_80"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="35dp"
-                        android:src="@drawable/ic_baseline_arrow_forward_24"
-                        app:tint="@color/black" />
-
-                </LinearLayout>
-
                 <TextView
                     android:id="@+id/diasta_pbText"
                     android:layout_width="wrap_content"
@@ -219,6 +194,31 @@
                     android:fontFamily="@font/arial"
                     android:textSize="10sp"
                     tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/arial"
+                    android:text="@string/range_120_80"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="35dp"
+                    android:src="@drawable/ic_baseline_arrow_forward_24"
+                    app:tint="@color/black" />
 
             </LinearLayout>
 

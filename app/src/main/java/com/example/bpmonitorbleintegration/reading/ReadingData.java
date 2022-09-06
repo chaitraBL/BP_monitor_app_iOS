@@ -496,6 +496,7 @@ public class ReadingData extends AppCompatActivity {
 
 //                                 To display raw readings
                                             if (Constants.is_readingStarted == true) {
+                                                Log.d(TAG, "run: inside row reading");
                                                 progressText.setText(data);
 //                                progressText.setText(mBluetoothLeService.rawReadings);
                                                 Constants.is_readingStarted = false;
@@ -617,7 +618,7 @@ public class ReadingData extends AppCompatActivity {
                         Log.d(TAG, "displayData: start button not selected");
                         if (Constants.is_ackReceived == true) {
                             startBtnEnable();
-                            progressText.setText("---");
+//                            progressText.setText("---");
                         }
                         else if (Constants.is_ackReceived == false) {
                             Log.d(TAG, "run: ack not received");
