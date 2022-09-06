@@ -542,49 +542,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         gt.execute();
     }
 
-    /**
-     * Get next date from current selected date
-     *
-     * @param date date
-     */
-    @SuppressLint("SimpleDateFormat")
-    public Date incrementDateByOne(String date) {
-        Date date1= null;
-        try {
-            date1 = new SimpleDateFormat("dd-MM-yyyy").parse(date);
-//            date1 = new SimpleDateFormat("MMM-dd").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar c = Calendar.getInstance();
-        c.setTime(Objects.requireNonNull(date1));
-        c.add(Calendar.DATE, 1);
-        Date nextDate = c.getTime();
-        return nextDate;
-    }
-
-    /**
-     * Get previous date from current selected date
-     *
-     * @param date date
-     */
-    @SuppressLint("SimpleDateFormat")
-    public Date decrementDateByOne(String date) {
-        Date date1= null;
-
-        try {
-            date1 = new SimpleDateFormat("dd-MM-yyyy").parse(date);
-//            date1 = new SimpleDateFormat("MMM-dd").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar c = Calendar.getInstance();
-        c.setTime(Objects.requireNonNull(date1));
-        c.add(Calendar.DATE, -1);
-        Date previousDate = c.getTime();
-        return previousDate;
-    }
-
     // Specifying date format
     private String changeDateFormat(String date) {
         String[] showDate = date.split("-");
