@@ -48,26 +48,26 @@
                                 <rect key="frame" x="0.0" y="141" width="375" height="190"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImg" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-Wm-1Ot">
-                                        <rect key="frame" x="28" y="5" width="150" height="180"/>
+                                        <rect key="frame" x="23" y="5" width="155" height="180"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blood-pressure" translatesAutoresizingMaskIntoConstraints="NO" id="W7X-vw-cyK">
-                                        <rect key="frame" x="35" y="12" width="20" height="20"/>
+                                        <rect key="frame" x="28.5" y="12" width="20" height="20"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blood Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gC-8l-zSG">
-                                        <rect key="frame" x="61" y="12" width="110" height="21"/>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="14"/>
+                                        <rect key="frame" x="56" y="12" width="115" height="21"/>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kze-tL-CFx">
                                         <rect key="frame" x="34" y="40" width="140" height="32"/>
-                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Systolic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-Ye-cDu">
-                                        <rect key="frame" x="125" y="86" width="50" height="21"/>
+                                        <rect key="frame" x="125" y="82.5" width="50" height="21"/>
                                         <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -88,22 +88,22 @@
                                         <rect key="frame" x="151" y="160" width="15" height="15"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImg" translatesAutoresizingMaskIntoConstraints="NO" id="oAn-Pf-OvP">
-                                        <rect key="frame" x="197" y="5" width="150" height="180"/>
+                                        <rect key="frame" x="192" y="5" width="155" height="180"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart-rate" translatesAutoresizingMaskIntoConstraints="NO" id="Beh-Ho-cTB">
-                                        <rect key="frame" x="204" y="15" width="20" height="20"/>
+                                        <rect key="frame" x="197.5" y="15" width="20" height="20"/>
                                         <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heart Rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJH-ZY-lAd">
-                                        <rect key="frame" x="230" y="15" width="110" height="21"/>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="14"/>
+                                        <rect key="frame" x="225" y="15" width="115" height="21"/>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aim-8j-3yd">
-                                        <rect key="frame" x="204" y="44" width="120" height="32"/>
-                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="20"/>
+                                        <rect key="frame" x="204" y="43.5" width="120" height="32"/>
+                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -162,14 +162,14 @@
                                     <constraint firstItem="W7X-vw-cyK" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="20:375" id="Bq1-Wv-pzL"/>
                                     <constraint firstItem="TOP-zr-piB" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.564211" id="Bu6-rX-quM"/>
                                     <constraint firstItem="PJH-ZY-lAd" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.906667" id="Cae-gs-ms4"/>
-                                    <constraint firstItem="Beh-Ho-cTB" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.597333" id="CyY-kb-WSb"/>
+                                    <constraint firstItem="Beh-Ho-cTB" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.58" id="CyY-kb-WSb"/>
                                     <constraint firstItem="hqm-Wm-1Ot" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="180:190" id="DHT-aj-AfS"/>
                                     <constraint firstItem="TOP-zr-piB" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="30:190" id="ELI-Pr-eWb"/>
-                                    <constraint firstItem="hqm-Wm-1Ot" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="150:375" id="FPU-hS-4ZJ"/>
+                                    <constraint firstItem="hqm-Wm-1Ot" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="155:375" id="FPU-hS-4ZJ"/>
                                     <constraint firstItem="PJH-ZY-lAd" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.189474" id="FbQ-ho-Wnq"/>
                                     <constraint firstItem="oAn-Pf-OvP" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="180:190" id="Gru-df-jHh"/>
                                     <constraint firstItem="sKe-Dq-PCC" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="90:375" id="JKa-xr-CJD"/>
-                                    <constraint firstItem="2gC-8l-zSG" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="110:375" id="JQm-R3-kuU"/>
+                                    <constraint firstItem="2gC-8l-zSG" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="115:375" id="JQm-R3-kuU"/>
                                     <constraint firstItem="oAn-Pf-OvP" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.973684" id="Jbt-Gu-2m3"/>
                                     <constraint firstItem="kze-tL-CFx" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.464" id="KEI-iJ-qb6"/>
                                     <constraint firstItem="73G-tD-KMJ" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.9" id="KuX-IT-E3e"/>
@@ -187,11 +187,11 @@
                                     <constraint firstItem="jh4-Ye-cDu" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.466667" id="WGp-Ga-O7x"/>
                                     <constraint firstItem="sKe-Dq-PCC" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.736842" id="Waz-yP-Qrk"/>
                                     <constraint firstItem="Uqr-Fk-UaJ" firstAttribute="leading" secondItem="cRS-mF-ZIp" secondAttribute="leading" constant="166" id="Yfz-l8-2O8"/>
-                                    <constraint firstItem="W7X-vw-cyK" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.146667" id="Yz1-3J-qSt"/>
+                                    <constraint firstItem="W7X-vw-cyK" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.129" id="Yz1-3J-qSt"/>
                                     <constraint firstItem="KZp-wF-6cU" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.341333" id="a3X-dQ-d8E"/>
                                     <constraint firstItem="Beh-Ho-cTB" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.184211" id="aPh-W6-gea"/>
                                     <constraint firstItem="aim-8j-3yd" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="32:190" id="bMD-hy-b8Q"/>
-                                    <constraint firstItem="aim-8j-3yd" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.4" id="dN4-5U-b5F"/>
+                                    <constraint firstItem="aim-8j-3yd" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.398" id="dN4-5U-b5F"/>
                                     <constraint firstItem="oAn-Pf-OvP" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.925333" id="eCq-a9-pcr"/>
                                     <constraint firstItem="2gC-8l-zSG" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.173684" id="eDK-Yq-wPF"/>
                                     <constraint firstItem="aim-8j-3yd" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.864" id="h6k-60-f1u"/>
@@ -202,18 +202,18 @@
                                     <constraint firstItem="aim-8j-3yd" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="120:375" id="jVz-Xc-KU8"/>
                                     <constraint firstItem="kze-tL-CFx" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.378947" id="jt4-1Z-0f2"/>
                                     <constraint firstItem="73G-tD-KMJ" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="136:385" id="kHd-WU-NGu"/>
-                                    <constraint firstItem="jh4-Ye-cDu" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.563158" id="kMt-a9-Vxr"/>
+                                    <constraint firstItem="jh4-Ye-cDu" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.545" id="kMt-a9-Vxr"/>
                                     <constraint firstItem="2gC-8l-zSG" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.456" id="lh6-zA-NFN"/>
                                     <constraint firstItem="73G-tD-KMJ" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="15:190" id="nQs-SW-kcG"/>
                                     <constraint firstItem="2US-xh-JYh" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="50:375" id="neP-81-xKS"/>
                                     <constraint firstItem="sKe-Dq-PCC" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.325333" id="okB-h0-b5D"/>
                                     <constraint firstItem="GOO-nH-9Mp" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.921053" id="q2C-Co-dka"/>
                                     <constraint firstItem="nGg-sV-Ajs" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="136:375" id="t6n-bL-jcM"/>
-                                    <constraint firstItem="oAn-Pf-OvP" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="150:375" id="uC7-TI-evB"/>
+                                    <constraint firstItem="oAn-Pf-OvP" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="155:375" id="uC7-TI-evB"/>
                                     <constraint firstAttribute="trailing" secondItem="Uqr-Fk-UaJ" secondAttribute="trailing" constant="166" id="uCv-Xj-zTA"/>
                                     <constraint firstItem="sKe-Dq-PCC" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="30:190" id="vkc-YY-guY"/>
                                     <constraint firstItem="TOP-zr-piB" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.325333" id="whJ-tr-VUo"/>
-                                    <constraint firstItem="PJH-ZY-lAd" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="110:375" id="xnB-ov-FVx"/>
+                                    <constraint firstItem="PJH-ZY-lAd" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="115:375" id="xnB-ov-FVx"/>
                                     <constraint firstItem="2US-xh-JYh" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.715789" id="zQf-LE-6aO"/>
                                 </constraints>
                             </view>
@@ -225,7 +225,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Chaitra" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUh-oH-fW2">
                                         <rect key="frame" x="88" y="19" width="200" height="30"/>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1591,7 +1591,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Cw8-5M-mE5"/>
+        <segue reference="C7l-YZ-w0w"/>
         <segue reference="uKu-op-Ffa"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -23,6 +23,7 @@
 		1762D6482874111400EA0BE0 /* ParticlePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762D6472874111400EA0BE0 /* ParticlePeripheral.swift */; };
 		1762D64A2874407500EA0BE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762D6492874407400EA0BE0 /* Constants.swift */; };
 		1762D64C2874413000EA0BE0 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1762D64B2874413000EA0BE0 /* BLEManager.swift */; };
+		176ECFDD28C766A9002E7F5A /* ChartMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176ECFDC28C766A8002E7F5A /* ChartMarker.swift */; };
 		179F742D28698F0300CE83ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F742C28698F0300CE83ED /* AppDelegate.swift */; };
 		179F742F28698F0300CE83ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F742E28698F0300CE83ED /* ViewController.swift */; };
 		179F743228698F0400CE83ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 179F743028698F0400CE83ED /* Main.storyboard */; };
@@ -74,6 +75,7 @@
 		1762D6492874407400EA0BE0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1762D64B2874413000EA0BE0 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		1762D64F2874463C00EA0BE0 /* BP monitor app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BP monitor app.entitlements"; sourceTree = "<group>"; };
+		176ECFDC28C766A8002E7F5A /* ChartMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMarker.swift; sourceTree = "<group>"; };
 		179F742928698F0300CE83ED /* BP monitor app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BP monitor app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		179F742C28698F0300CE83ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		179F742E28698F0300CE83ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				17AA6169286C4A9D00B01BF5 /* CalendarSelectViewController.swift */,
 				17444614286C5F2800917C61 /* CalendarStartDateSelectViewController.swift */,
 				17444619286C793800917C61 /* ShareReadingsViewController.swift */,
+				176ECFDC28C766A8002E7F5A /* ChartMarker.swift */,
 			);
 			path = PopUps;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				175C9960286B2AC60073D324 /* LogsViewController.swift in Sources */,
 				17444617286C66D400917C61 /* DataModel.swift in Sources */,
 				175AF6A22872FCE600472566 /* CustomMarkerView.swift in Sources */,
+				176ECFDD28C766A9002E7F5A /* ChartMarker.swift in Sources */,
 				1711EAC1288E63D200A001DC /* Reading+CoreDataClass.swift in Sources */,
 				179F742F28698F0300CE83ED /* ViewController.swift in Sources */,
 				179F743528698F0400CE83ED /* BP_monitor_app.xcdatamodeld in Sources */,

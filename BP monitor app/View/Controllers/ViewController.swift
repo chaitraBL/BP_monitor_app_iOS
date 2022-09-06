@@ -540,6 +540,9 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             combinedChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 8.0, weight: UIFont.Weight.regular)
             combinedChart.leftAxis.labelPosition = .outsideChart
             combinedChart.leftAxis.labelTextColor = .black
+            let marker = ChartMarker()
+            marker.chartView = combinedChart
+            combinedChart.marker = marker
             
             combinedChart.pinchZoomEnabled = true
             combinedChart.dragEnabled = true
@@ -675,6 +678,10 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             combinedChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 8.0, weight: UIFont.Weight.regular)
             combinedChart.leftAxis.labelPosition = .outsideChart
             combinedChart.leftAxis.labelTextColor = .black
+            
+            let marker = ChartMarker()
+            marker.chartView = combinedChart
+            combinedChart.marker = marker
             
             combinedChart.pinchZoomEnabled = true
             combinedChart.dragEnabled = true
