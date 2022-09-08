@@ -518,7 +518,7 @@ public class ReadingData extends AppCompatActivity {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 mTimeLeftInMillis = millisUntilFinished;
-
+                                Log.d(TAG, "onTick: count " + mTimeLeftInMillis);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -586,6 +586,7 @@ public class ReadingData extends AppCompatActivity {
                                                                 batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
                                                                 progressText.setText("---");
 
+                                                                Log.d(TAG, "run: battery popup " + Constants.batteryPop);
                                                                 if (Constants.batteryPop == false) {
                                                                     if ((dialog == null) || !dialog.isShowing()) {
                                                                         dialog = new AlertDialog.Builder(ReadingData.this)
@@ -598,6 +599,7 @@ public class ReadingData extends AppCompatActivity {
                                                                                         Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
                                                                                         mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
                                                                                         startBtnEnable();
+                                                                                        Constants.batteryPop = true;
 //                                                                                        Constants.is_buttonStarted = false;
                                                                                         progressText.setText("---");
 //                                                    dialog.dismiss();
@@ -623,6 +625,7 @@ public class ReadingData extends AppCompatActivity {
                                                                                         Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
                                                                                         mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
                                                                                         startBtnEnable();
+                                                                                        Constants.batteryPop = true;
                                                                                         Constants.is_buttonStarted = false;
                                                                                         progressText.setText("---");
 //                                                    dialog.dismiss();
@@ -662,19 +665,20 @@ public class ReadingData extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (mTimerRunning) {
-                                            if (!Constants.is_ackReceived){
+//                                        if (mTimerRunning) {
+                                        Log.d(TAG, "run: inside finish");
+                                            if (Constants.is_ackReceived == false){
+                                                Log.d(TAG, "run: inside ack false");
                                                 mCountDownTimer.cancel();
                                                 toastMsgInReading(getApplicationContext().getResources().getString(R.string.please_start_again));
                                                 startBtnEnable();
                                             }
-                                        }
-                                        else {
+//                                        }
+                                         if (mTimerRunning == true) {
                                             mCountDownTimer.cancel();
                                             Constants.is_ackReceived = false;
                                             Constants.is_buttonStarted = false;
                                         }
-
                                     }
                                 });
                             }
@@ -767,7 +771,6 @@ public class ReadingData extends AppCompatActivity {
                                                                 .show();
                                                     }
                                                 }
-
                                             }
                                         }
                                     });
@@ -971,8 +974,6 @@ public class ReadingData extends AppCompatActivity {
                 else {
                     startTimer();
                 }
-//            }
-//        }, 500);
     }
 
     private void stopBtnTap() {

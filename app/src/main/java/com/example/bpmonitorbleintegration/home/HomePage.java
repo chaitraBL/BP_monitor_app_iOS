@@ -441,9 +441,9 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
-//                startActivity(new Intent(HomePage.this, MainActivity.class));
-                break;
+//            case R.id.home:
+////                startActivity(new Intent(HomePage.this, MainActivity.class));
+//                break;
             case R.id.profile:
 //                startActivity(new Intent(HomePage.this, LogActivity.class));
                 break;
