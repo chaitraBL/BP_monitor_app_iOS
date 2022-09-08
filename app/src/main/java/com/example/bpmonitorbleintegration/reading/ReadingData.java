@@ -681,63 +681,8 @@ public class ReadingData extends AppCompatActivity {
                         }.start();
                     }
                     else if (Constants.is_buttonStarted == false) {
-//                        Log.d(TAG, "displayData: start button not selected");
-//                        if (Constants.is_ackReceived == true) {
-//                            startBtnEnable();
-//                            progressText.setText("---");
-//                        }
-//                        else if (Constants.is_ackReceived == false) {
-//                            Log.d(TAG, "run: ack not received");
-//                            progressText.setText(data);
-//                            startBtn.setEnabled(false);
-//                            startBtn.setVisibility(View.INVISIBLE);
-//                            stopBtn.setVisibility(View.VISIBLE);
-//                            stopBtn.setEnabled(true);
-//                        }
-
 
                         if (Constants.is_stopButton == true) {
-//                        stopBtnTap();
-
-//                        mCountDownTimer = new CountDownTimer(300, 50) {
-//                            @Override
-//                            public void onTick(long l) {
-//                                Log.d(TAG, "onTick: on tick");
-//                                runOnUiThread(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//
-//                                        Log.i(TAG, "run: ack in stop " + Constants.is_ackReceived);
-//                                        if (Constants.is_ackReceived == true) {
-//                                            mTimerRunning = false;
-//                                            mCountDownTimer.cancel();
-//                                            Log.d(TAG, "run: ack received while stop");
-//                                            startBtnEnable();
-//                                            Constants.is_buttonStarted = false;
-//                                            progressText.setText("---");
-////                            Constants.is_stopButton = false;
-//                                        }
-//
-////                                        startBtnEnable();
-////                                        Constants.is_buttonStarted = false;
-////                                        progressText.setText("---");
-//                                    }
-//                                });
-//                            }
-//
-//                            @Override
-//                            public void onFinish() {
-//
-//                                if (Constants.is_ackReceived == false) {
-//                                    Log.i(TAG, "ack not received while stop");
-//                                    Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
-//                                    mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
-//                                    start();
-//                                }
-//                            }
-//                        }.start();
-
-//                Constants.is_stopButton = false;
                             // To display irregular heartbeat popup.
                             mCountDownTimer = new CountDownTimer(50, 10) {
                                 @Override
