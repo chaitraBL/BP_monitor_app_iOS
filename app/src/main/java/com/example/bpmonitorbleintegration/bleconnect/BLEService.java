@@ -415,9 +415,9 @@ public class BLEService extends Service implements DecodeListener {
 
                             case 5:
                                 Constants.is_batteryReceivedAtReading = true;
-                                msg = getString(R.string.low_battery);
-                                errorMessage = msg + "\n" + getString(R.string.try_again);
-                                intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
+                                msg = getString(R.string.battery_low);
+                                errorMessage = msg;
+                                intent.putExtra(Constants.EXTRA_DATA, msg);
                                 break;
 
                             case 6:
