@@ -424,7 +424,7 @@ public class BLEService extends Service implements DecodeListener {
                                 Constants.is_cuffReplaced = true;
                                 msg = getString(R.string.cuff_replacement);
                                 Log.d(TAG, "broadcastUpdate: cuff replaced ");
-//                                errorMessage = msg ;
+                                errorMessage = msg ;
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
                                 break;
 
