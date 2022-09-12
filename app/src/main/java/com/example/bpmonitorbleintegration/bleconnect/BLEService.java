@@ -1,6 +1,5 @@
 package com.example.bpmonitorbleintegration.bleconnect;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -11,11 +10,8 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.Build;
 
@@ -28,15 +24,11 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
 
 import com.example.bpmonitorbleintegration.R;
 import com.example.bpmonitorbleintegration.constants.BLEGattAttributes;
 import com.example.bpmonitorbleintegration.constants.Constants;
-import com.example.bpmonitorbleintegration.reading.MainActivity;
-import com.example.bpmonitorbleintegration.reading.ReadingData;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +58,8 @@ public class BLEService extends Service implements DecodeListener {
     public String errorMessage;
     public String rawReadings;
     public String finalResult;
+    public int irregularHB;
+    public int cuffReplace;
 
     //    Decoder mDecoder;
     Handler mHandler;
@@ -315,13 +309,13 @@ public class BLEService extends Service implements DecodeListener {
             int length = data[6];
 //            Log.d(TAG, "broadcastUpdate: length " + length);
 
-            int[] value = new int[20];
+            int[] value = new int[25];
 
             Arrays.fill(value, (byte) 0);
 
 //            Log.d(TAG, "broadcastUpdate: value cleared " + Arrays.toString(value));
             for (int i = 0; i <= length; ++i) {
-                //    Log.i("Decoder", "values " + i + " " + data[i])
+//                    Log.i("Decoder", "values " + i + " " + data[i]);
                 value[i] = (int) (data[i] & 0xff);
 //               Log.i("Decoder", "new values " + value[i]);
             }
@@ -331,7 +325,7 @@ public class BLEService extends Service implements DecodeListener {
             // Check for checksum
             boolean checkSumVal = decoder.checkSumValidation(value, characteristic);
 
-            // Log.i("Decoder", "checksum " + checkSumVal);
+             Log.i("Decoder", "checksum " + checkSumVal);
             decoder.add1(value, action);
             if (checkSumVal) {
                 // Log.d(TAG, "broadcastUpdate: Checksum verified ");
@@ -362,17 +356,21 @@ public class BLEService extends Service implements DecodeListener {
 
                     case Constants.RESULT_COMMANDID:
                         Constants.is_finalResult = true;
-//                        Log.d(TAG, "broadcastUpdate: final " + value);
+                        Log.d(TAG, "broadcastUpdate: final " + Arrays.toString(value));
                         int systolic = value[8] * 256 + value[9];
                         int dystolic = value[10] * 256 + value[11];
                         int heartRateValue = value[12];
+                        rate = heartRateValue;
+                        irregularHB = value[14];
+                        cuffReplace = value[15];
+                        Log.d(TAG, "broadcastUpdate: cuff " + cuffReplace);
 
-                        finalResult = systolic + " / " + dystolic + " / " + heartRateValue;
+                        finalResult = systolic + " / " + dystolic + " mmHg";
                         // Log.d(TAG, "broadcastUpdate: raw readings " + systolic + " / " + dystolic + " / " + heartRateValue);
-                        intent.putExtra(Constants.EXTRA_DATA, systolic + " / " + dystolic + " / " + heartRateValue);
+                        intent.putExtra(Constants.EXTRA_DATA, systolic + " / " + dystolic + " mmHg");
 //                        int rangeValue = value[13];
-                        Constants.ack = decoder.computeCheckSum(Constants.ack);
-                        writeCharacteristics(characteristic, Constants.ack);
+                        Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                        writeCharacteristics(characteristic, Constants.cancelValue);
                         break;
 
                     case Constants.ERROR_COMMANDID:
@@ -382,35 +380,37 @@ public class BLEService extends Service implements DecodeListener {
                             case 1:
                                 Constants.is_errorReceived = true;
                                 msg = getString(R.string.cuff_fitment);
-                                errorMessage = msg + "\n" + getString(R.string.try_again);
-                                intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
-                                Constants.ack = decoder.computeCheckSum(Constants.ack);
-                                writeCharacteristics(characteristic, Constants.ack);
+                                errorMessage = msg;
+                                intent.putExtra(Constants.EXTRA_DATA, msg );
+                                Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                                writeCharacteristics(characteristic, Constants.cancelValue);
                                 break;
 
                             case 2:
                                 Constants.is_errorReceived = true;
                                 msg = getString(R.string.hand_movement);
-                                errorMessage = msg + "\n" + getString(R.string.try_again);
-                                intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
-                                Constants.ack = decoder.computeCheckSum(Constants.ack);
-                                writeCharacteristics(characteristic, Constants.ack);
+                                errorMessage = msg;
+                                intent.putExtra(Constants.EXTRA_DATA, msg);
+                                Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                                writeCharacteristics(characteristic, Constants.cancelValue);
                                 break;
 
-                            case 3:
-                                Constants.is_irregularHB = true;
-                                msg = getString(R.string.irregular_heartbeat);
-                                errorMessage = msg + "\n" + getString(R.string.try_again);
-                                intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
-                                break;
+//                            case 3:
+//                                Constants.is_irregularHB = true;
+//                                msg = getString(R.string.irregular_heartbeat);
+//                                errorMessage = msg;
+//                                intent.putExtra(Constants.EXTRA_DATA, msg);
+//                                Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+//                                writeCharacteristics(characteristic, Constants.cancelValue);
+//                                break;
 
                             case 4:
                                 Constants.is_errorReceived = true;
                                 msg = getString(R.string.cuff_over_pressured);
-                                intent.putExtra(Constants.EXTRA_DATA, msg + "\n" + getString(R.string.try_again));
-                                errorMessage = msg + "\n" + getString(R.string.try_again);
-                                Constants.ack = decoder.computeCheckSum(Constants.ack);
-                                writeCharacteristics(characteristic, Constants.ack);
+                                intent.putExtra(Constants.EXTRA_DATA, msg);
+                                errorMessage = msg;
+                                Constants.cancelValue = decoder.computeCheckSum(Constants.cancelValue);
+                                writeCharacteristics(characteristic, Constants.cancelValue);
                                 break;
 
                             case 5:
@@ -420,20 +420,20 @@ public class BLEService extends Service implements DecodeListener {
                                 intent.putExtra(Constants.EXTRA_DATA, msg);
                                 break;
 
-                            case 6:
-                                Constants.is_cuffReplaced = true;
-                                msg = getString(R.string.cuff_replacement);
-                                Log.d(TAG, "broadcastUpdate: cuff replaced ");
-                                errorMessage = msg ;
-                                intent.putExtra(Constants.EXTRA_DATA, msg);
-                                break;
-
-                            case 7:
-                                Constants.is_irregularHB = true;
-                                msg = getString(R.string.Heartbeat_vary);
-                                errorMessage = msg;
-                                intent.putExtra(Constants.EXTRA_DATA, msg);
-                                break;
+//                            case 6:
+//                                Constants.is_cuffReplaced = true;
+//                                msg = getString(R.string.cuff_replacement);
+//                                Log.d(TAG, "broadcastUpdate: cuff replaced ");
+//                                errorMessage = msg ;
+//                                intent.putExtra(Constants.EXTRA_DATA, msg);
+//                                break;
+//
+//                            case 7:
+//                                Constants.is_irregularHB = true;
+//                                msg = getString(R.string.Heartbeat_vary);
+//                                errorMessage = msg;
+//                                intent.putExtra(Constants.EXTRA_DATA, msg);
+//                                break;
 
                             case 8:
                                 Constants.is_batteryReceivedAtReading = true;
@@ -464,8 +464,8 @@ public class BLEService extends Service implements DecodeListener {
 
                         batteryLevel = value[8];
                         intent.putExtra(Constants.EXTRA_DATA, batteryLevel);
-//                        Constants.ack = decoder.computeCheckSum(Constants.ack);
-//                        writeCharacteristics(characteristic, Constants.ack);
+                        Constants.ack = decoder.computeCheckSum(Constants.ack);
+                        writeCharacteristics(characteristic, Constants.ack);
 //                        Log.d(TAG, "broadcastUpdate: battery " + batteryLevel);
                         break;
                 }

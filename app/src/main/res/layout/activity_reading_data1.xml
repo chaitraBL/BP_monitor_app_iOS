@@ -63,38 +63,94 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/progress_layout"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_margin="10dp"
-            android:layout_gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <!--progress bar implementation-->
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/circular_shape"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:textAlignment="center" />
+            <RelativeLayout
+                android:id="@+id/progress_layout1"
+                android:layout_width="127dp"
+                android:layout_height="127dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp">
 
-            <!--Text implementation in center of the progress bar-->
-            <TextView
-                android:id="@+id/progress_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:text="@string/empty_val"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                <!--progress bar implementation-->
+                <ProgressBar
+                    android:id="@+id/progress_bar1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circular_shape"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    android:textAlignment="center" />
+
+                <!--Text implementation in center of the progress bar-->
+                <TextView
+                    android:id="@+id/issues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/empty_val"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/progress_layout"
+                android:layout_width="127dp"
+                android:layout_height="127dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp">
+
+                <!--progress bar implementation-->
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circular_shape"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    android:textAlignment="center" />
+
+                <!--Text implementation in center of the progress bar-->
+                <TextView
+                    android:id="@+id/progress_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="45dp"
+                    android:gravity="center"
+                    android:text="@string/empty_val"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/progress_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/progress_text"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/empty_val"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="100dp"
@@ -133,37 +189,6 @@
             <!--                android:background="@drawable/filled_bg_circle" />-->
 
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/do_you_want_to_save_result"
-                android:textSize="13sp"
-                android:id="@+id/result_txt"
-                android:textStyle="normal"
-                android:fontFamily="@font/arial"
-                android:textColor="?android:textColorPrimary"/>
-            <Button
-                android:id="@+id/save_result1"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:background="@drawable/bg_transparent"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/arial"
-                android:text="@string/save"
-                android:textColor="@color/medium_blue"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -295,6 +320,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/range_val"
+            android:textColor="?android:textColorPrimary"
+            android:fontFamily="@font/arial"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_transparent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alert:"
+            android:fontFamily="@font/arial"
+            android:textColor="?android:textColorPrimary"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/error_val"
             android:textColor="?android:textColorPrimary"
             android:fontFamily="@font/arial"
             android:layout_marginStart="8dp"

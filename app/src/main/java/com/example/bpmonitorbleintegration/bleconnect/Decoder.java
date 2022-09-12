@@ -105,7 +105,7 @@ public class Decoder
                 break;
 
             case Constants.RESULT_COMMANDID:
-                checkSum = data[14] * 256 + data[15];
+                checkSum = data[17] * 256 + data[18]; //Changed
                 break;
 
             case Constants.ERROR_COMMANDID:
@@ -124,14 +124,14 @@ public class Decoder
                 Log.i("Decoder", "Command ID not match");
                 checkSum = data[9] * 256 + data[10];
         }
-//        Log.i("Decoder", "checkSum val " + checkSum);
+        Log.i("Decoder", "checkSum val sent " + checkSum);
         int checkSumVerified = 0;
 
         int length = data[6];
         for (int i = 1; i <= length - 2; ++i) {
             checkSumVerified += data[i];
         }
-//            Log.i("Decoder", "checkSumVerified " + checkSumVerified);
+            Log.i("Decoder", "checkSumVerified " + checkSumVerified);
 
         return checkSum == checkSumVerified;
 

@@ -49,6 +49,8 @@ public class Constants {
     public static final int MID_BATTERY = 34;
     public static final int LOW_BATTERY = 17;
     public static final int HIGH_EXCEEDED = 170; // 120
+//    public static final int variedHB = ;
+//    public static final int irregularHB = ;
 
     // Flags
     public static boolean is_batterValueReceived = false;
@@ -61,7 +63,6 @@ public class Constants {
     public static boolean is_buttonStarted = false;
     public static boolean is_errorReceived = false;
     public static boolean is_irregularHB = false;
-    public static boolean is_stopButton = false;
     public static boolean cuffPop = false;
     public static boolean heartbeatPop = false;
     public static boolean batteryPop = false;
