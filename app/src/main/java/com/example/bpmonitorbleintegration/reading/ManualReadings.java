@@ -105,7 +105,7 @@ public class ManualReadings extends AppCompatActivity {
                     }
                     else {
                         //Saves to local database.
-                        database.saveTask("No device",Integer.parseInt(systolic.getText().toString()),Integer.parseInt(diastolic.getText().toString()),Integer.parseInt(heartRate.getText().toString()),map,ManualReadings.this);
+                        database.saveTask("No device",Integer.parseInt(systolic.getText().toString()),Integer.parseInt(diastolic.getText().toString()),Integer.parseInt(heartRate.getText().toString()),map, "0",ManualReadings.this);
                         //After saving data make textfield empty.
                         systolic.setText("");
                         diastolic.setText("");

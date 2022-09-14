@@ -399,7 +399,7 @@ public class DataTransferActivity extends AppCompatActivity{
                 }
                 else {
 
-                    localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, DataTransferActivity.this);
+                    localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, "0",DataTransferActivity.this);
 
                 }
                 progress.setVisibility(View.GONE);

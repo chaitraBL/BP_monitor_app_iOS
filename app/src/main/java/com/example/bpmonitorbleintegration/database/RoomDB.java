@@ -18,7 +18,7 @@ public class RoomDB {
     public RoomDB() {
     }
     //     Save to the Local Room DB.
-    public void saveTask(String address, int systolic, int dystolic, int heartRate, int range, Context context) {
+    public void saveTask(String address, int systolic, int dystolic, int heartRate, int range, String irregularHB, Context context) {
         final String sAddress = address.trim();
 
 //        DateFormat df = new SimpleDateFormat("HH:mm a"); // Format time
@@ -48,7 +48,7 @@ public class RoomDB {
                 reading.setSystolic(systolic);
                 reading.setHeartRate(heartRate);
                 reading.setRange(range);
-
+                reading.setIrregular(irregularHB);
                 DatabaseClient.getInstance(context).getAppDatabase().bpReadingsDao().insert(reading);
                 return null;
             }

@@ -104,6 +104,33 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Irregular heartbeat:"
+            android:layout_weight="0.5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title_size"
+            android:gravity="left"
+            tools:ignore="RtlHardcoded" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title_size"
+            android:gravity="left"
+            android:id="@+id/irregular"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/status_1"
             android:layout_weight="0.5"
             android:textColor="@color/black"

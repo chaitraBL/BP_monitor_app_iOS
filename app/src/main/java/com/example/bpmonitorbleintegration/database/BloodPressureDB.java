@@ -30,6 +30,9 @@ public class BloodPressureDB {
     @ColumnInfo(name = "time")
     private String time;
 
+    @ColumnInfo(name = "irregularHR")
+    private String irregular;
+
     public int getId() {
         return id;
     }
@@ -94,6 +97,14 @@ public class BloodPressureDB {
         this.time = time;
     }
 
+    public String getIrregular() {
+        return irregular;
+    }
+
+    public void setIrregular(String irregular) {
+        this.irregular = irregular;
+    }
+
     @Override
     public String toString() {
         return "BloodPressureDB{" +
@@ -105,6 +116,7 @@ public class BloodPressureDB {
                 ", range=" + range +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
+                ", irregular='" + irregular + '\'' +
                 '}';
     }
 

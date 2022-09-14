@@ -583,6 +583,12 @@ public class ReadingData extends AppCompatActivity {
                                                     progressText1.setText("");
                                                     toastMsgInReading(getString(R.string.heart_rate_error));
                                                     startBtnEnable();
+                                                    systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
+                                                    diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
+                                                    heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
+                                                    String status = changeStatus(mBluetoothLeService.systalic, mBluetoothLeService.dystolic);
+                                                    mapText.setText(status);
+                                                    statusText1.setText(String.valueOf(mBluetoothLeService.range));
                                                     finalErrorMsg();
                                                 }
                                                 else {
@@ -591,7 +597,7 @@ public class ReadingData extends AppCompatActivity {
                                                     progressText1.setText(mBluetoothLeService.rate + " bpm"); //Changes
                                                     // Changed
                                                     startBtnEnable();
-                                                    saveData();
+//                                                    saveData();
                                                     systolicText.setText(String.valueOf(mBluetoothLeService.systalic));
                                                     diastolicText.setText(String.valueOf(mBluetoothLeService.dystolic));
                                                     heartRateText.setText(String.valueOf(mBluetoothLeService.rate));
@@ -743,17 +749,19 @@ public class ReadingData extends AppCompatActivity {
         switch (mBluetoothLeService.irregularHB){
             case 0:
                 Log.d(TAG, "run: no irregular hb error");
+                saveData("0");
                 break;
             case 3:
                 msg = getString(R.string.irregular_heartbeat);
                 issueStatus.setText(msg);
                 alertText.setText(msg);
+                saveData(msg);
                 break;
             case 7:
-                msg = getString(R.string.cuff_replacement);
+                msg = "Heart beat varied";
                 issueStatus.setText(msg);
                 alertText.setText(msg);
-
+                saveData(msg);
                 break;
             default:
                 Log.d(TAG, "run: default");
@@ -943,7 +951,7 @@ public class ReadingData extends AppCompatActivity {
         return msg;
     }
 
-    private void saveData() {
+    private void saveData(String irregular) {
         if (Constants.heartbeatPop == false) {
             if ((dialog == null) || !dialog.isShowing()) {
                 dialog = new AlertDialog.Builder(ReadingData.this)
@@ -981,14 +989,15 @@ public class ReadingData extends AppCompatActivity {
                                         toastMsgInReading(getApplicationContext().getResources().getString(R.string.diastolic_range_fault));
 //                                        progressBar.setVisibility(View.GONE);
                                     }
-                                    else if ((Integer.parseInt(heartRateText.getText().toString()) < 60) || (Integer.parseInt(heartRateText.getText().toString()) > 100)) {
-                                        progressText.setText("---");
-                                        progressText1.setText("");
-                                        toastMsgInReading(getString(R.string.heart_rate_fault));
-                                    }
+//                                    else if ((Integer.parseInt(heartRateText.getText().toString()) < 60) || (Integer.parseInt(heartRateText.getText().toString()) > 100)) {
+//                                        progressText.setText("---");
+//                                        progressText1.setText("");
+//                                        toastMsgInReading(getString(R.string.heart_rate_fault));
+//                                    }
                                     else {
                                         //                    Save to local DB
-                                        localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, ReadingData.this);
+                                        localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, irregular, ReadingData.this);
+
 //                    localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, ReadingData.this); Integer.parseInt(mapText.getText().toString())
 //
 //                                        Constants.heartbeatPop = true;

@@ -488,6 +488,7 @@ private  void endDateCalendar() {
                 TextView systolicText = shareDialog.findViewById(R.id.reading_sys_txt);
                 TextView diastolicText = shareDialog.findViewById(R.id.reading_dia_txt);
                 TextView heartRateText = shareDialog.findViewById(R.id.reading_rate_txt);
+                TextView irregularText = shareDialog.findViewById(R.id.irregular);
                 TextView statusText = shareDialog.findViewById(R.id.reading_status_txt);
                 TextView dateText = shareDialog.findViewById(R.id.reading_date_txt);
                 Button btnShare = shareDialog.findViewById(R.id.btn_share_reading);
@@ -498,6 +499,13 @@ private  void endDateCalendar() {
                 String status = changeStatus(task.getSystolic(),task.getDystolic());
                 statusText.setText(status);
                 dateText.setText(task.getDate());
+
+                if (task.getIrregular().equals("0")){
+                    irregularText.setText("");
+                }
+                else {
+                    irregularText.setText(task.getIrregular());
+                }
                 btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -507,6 +515,7 @@ private  void endDateCalendar() {
                 btnShare.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         shareDialog.dismiss();
                         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
@@ -515,7 +524,7 @@ private  void endDateCalendar() {
                                 getString(R.string.log_time)+ "              " + task.getTime()+"\r \n"+
                                 getString(R.string.systolic_log) + "         " + systolicText.getText().toString() + "\r \n" +
                                 getString(R.string.diastolic_log) +"        " + diastolicText.getText().toString() + "\r \n" +
-                                getString(R.string.heartrate_log) +"     " + heartRateText.getText().toString() +"\r \n"+
+                                getString(R.string.heartrate_log) +"     " + heartRateText.getText().toString() + " " + "(" + irregularText.getText().toString() +")" +"\r \n"+
                                 getString(R.string.status_1)+"             " + statusText.getText().toString();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.bp_for)+ "   " + task.getName() +"\n");
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
