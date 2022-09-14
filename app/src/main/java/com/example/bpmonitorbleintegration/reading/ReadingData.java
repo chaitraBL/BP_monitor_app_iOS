@@ -908,7 +908,6 @@ public class ReadingData extends AppCompatActivity {
                         dialog1.show();
                     }
                 }
-
                 break;
 
             default:
@@ -954,6 +953,7 @@ public class ReadingData extends AppCompatActivity {
                             @SuppressLint("MissingPermission")
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                Constants.heartbeatPop = true;
 //                                                    progress.setVisibility(View.VISIBLE);
                                 if (systolicText.getText().toString().equals("")) {
                                     toastMsgInReading(getApplication().getResources().getString(R.string.check_value));
@@ -991,7 +991,7 @@ public class ReadingData extends AppCompatActivity {
                                         localDB.saveTask(deviceAddress, Integer.parseInt(systolicText.getText().toString()), Integer.parseInt(diastolicText.getText().toString()), Integer.parseInt(heartRateText.getText().toString()), mBluetoothLeService.range, ReadingData.this);
 //                    localDB.saveTask(deviceAddress, mBluetoothLeService.systalic, mBluetoothLeService.dystolic, mBluetoothLeService.rate, mBluetoothLeService.range, ReadingData.this); Integer.parseInt(mapText.getText().toString())
 //
-                                        Constants.heartbeatPop = true;
+//                                        Constants.heartbeatPop = true;
                                         progressText.setText("---");
                                         progressText1.setText("");
                                         issueStatus.setText("---");
