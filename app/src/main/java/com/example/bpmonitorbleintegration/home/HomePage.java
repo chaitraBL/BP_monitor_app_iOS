@@ -580,19 +580,19 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#90EE90")));
         }
-        else if (systolic <= 120) {
+        else if (systolic > 80 && systolic < 120) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#008000")));
         }
-        else if (systolic <= 139) {
+        else if (systolic > 120 && systolic < 139) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFD700")));
         }
-        else if (systolic <= 159) {
+        else if (systolic > 139 && systolic < 159) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFA500")));
         }
-        else if (systolic <= 179) {
+        else if (systolic > 159 && systolic < 179) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FF8C00")));
         }
@@ -608,7 +608,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#90EE90")));
         }
-        else if (diastolic <= 80) {
+        else if (diastolic > 60 && diastolic < 80) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#008000")));
         }
