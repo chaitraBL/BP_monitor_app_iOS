@@ -612,15 +612,15 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#008000")));
         }
-        else if (diastolic <= 89) {
+        else if (diastolic > 80 && diastolic < 89) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFD700")));
         }
-        else if (diastolic <= 99) {
+        else if (diastolic > 89 && diastolic < 99) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFA500")));
         }
-        else if (diastolic <= 109) {
+        else if (diastolic > 99 && diastolic < 109) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FF8C00")));
         }
