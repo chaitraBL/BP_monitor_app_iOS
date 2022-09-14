@@ -5,6 +5,7 @@
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="diastolic" optional="YES" attributeType="String"/>
         <attribute name="heartRate" optional="YES" attributeType="String"/>
+        <attribute name="irregularHB" optional="YES" attributeType="String"/>
         <attribute name="map" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="systolic" optional="YES" attributeType="String"/>
@@ -20,8 +21,8 @@
         <attribute name="time" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Readings" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="Reading" positionX="-63" positionY="45" width="128" height="134"/>
         <element name="Entity1" positionX="-54" positionY="54" width="128" height="29"/>
+        <element name="Reading" positionX="-63" positionY="45" width="128" height="149"/>
+        <element name="Readings" positionX="-63" positionY="-18" width="128" height="150"/>
     </elements>
 </model>

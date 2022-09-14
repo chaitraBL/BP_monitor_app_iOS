@@ -57,7 +57,8 @@ class ManualReadingViewController: UIViewController {
             else {
                 let mapText = bleManagerReading.calculateMap(systa: Int(systolicText.text!)!, diasta: Int(diastolicText.text!)!)
 //                print("map  \(mapText)")
-                let isSuccess = localDB.save(name: "Chaitra", systolic: systolicText.text!, diastolic: diastolicText.text!, heartRate: heartRateText.text!, map: String(describing: mapText))
+            
+                let isSuccess = localDB.save(name: "Chaitra", systolic: systolicText.text!, diastolic: diastolicText.text!, heartRate: heartRateText.text!, map: String(describing: mapText), irregularHB: "0")
                 
                 if isSuccess == true {
                     alert(title: "Success", msg: "Saved successfully")

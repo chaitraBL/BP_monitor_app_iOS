@@ -24,5 +24,6 @@ extension Reading {
     @NSManaged public var name: String?
     @NSManaged public var systolic: String?
     @NSManaged public var time: String?
+    @NSManaged public var irregularHB: String?
 
 }

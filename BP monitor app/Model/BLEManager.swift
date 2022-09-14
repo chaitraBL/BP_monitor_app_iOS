@@ -36,7 +36,7 @@ class BLEManager: NSObject {
                 break
                 
             case UInt16(constantVal.RESULT_COMMANDID):
-                checkSum = data[14] * 256 + data[15]
+                checkSum = data[17] * 256 + data[18]       //Changes
                 break
                 
             case UInt16(constantVal.ERROR_COMMANDID):

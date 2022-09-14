@@ -14,7 +14,7 @@ class LocalNetworking: NSObject {
     var isSuccess = false
 
     // Save to coredata
-    func save(name:String,systolic:String,diastolic:String,heartRate:String,map:String) -> Bool {
+    func save(name:String,systolic:String,diastolic:String,heartRate:String,map:String,irregularHB:String) -> Bool {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         let context = appDelegate.persistentContainer.viewContext
@@ -39,6 +39,7 @@ class LocalNetworking: NSObject {
         newReadings.setValue(diastolic, forKey: "diastolic")
         newReadings.setValue(heartRate, forKey: "heartRate")
         newReadings.setValue(map, forKey: "map")
+        newReadings.setValue(irregularHB, forKey: "irregularHB")
         newReadings.setValue(format.string(from: mytime), forKey: "date")
         //        format.string(from: "mytime")
         newReadings.setValue(format1.string(from: mytime1), forKey: "time")
