@@ -923,17 +923,20 @@ public class ReadingData extends AppCompatActivity {
         if ((systolic < 80) || (diastolic < 60)) {
             msg = getString(R.string.low_bp);
         }
-        else if ((systolic > 120 && systolic < 139) || (diastolic > 80 && diastolic < 89)) {
+        else if ((systolic > 80 && systolic < 120) || (diastolic > 60 && diastolic < 80)) {
             msg = getString(R.string.normal_bp);
         }
-        else if ((systolic > 139 && systolic < 159) || (diastolic > 89 && diastolic < 99)) {
+        else if ((systolic > 120 && systolic < 139) || (diastolic > 80 && diastolic < 89)) {
             msg = getString(R.string.high_normal_bp);
         }
-        else if ((systolic > 159 && systolic < 179) || (diastolic > 99 && diastolic < 109)) {
+        else if ((systolic > 139 && systolic < 159) || (diastolic > 89 && diastolic < 99)) {
             msg = getString(R.string.hypertension_stage_1);
         }
-        else if ((systolic > 179 && systolic < 189) || (diastolic > 109 && diastolic < 119)) {
+        else if ((systolic > 159 && systolic < 179) || (diastolic > 99 && diastolic < 109)) {
             msg = getString(R.string.hypertension_stage_2);
+        }
+        else if ((systolic > 179 && systolic < 189) || (diastolic > 109 && diastolic < 119)) {
+            msg = getString(R.string.hypertension_stage_3);
         }
         else {
             msg = getString(R.string.high_bp_crisis);
