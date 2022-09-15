@@ -568,17 +568,19 @@ public class ReadingData extends AppCompatActivity {
                                                 if ((mBluetoothLeService.systalic < 60) || (mBluetoothLeService.systalic > 230)) {
                                                     progressText.setText("---");
                                                     progressText1.setText("");
+                                                    issueStatus.setText("---");
                                                     toastMsgInReading(getApplication().getResources().getString(R.string.systolic_error));
                                                     startBtnEnable();
-                                                    finalErrorMsg();
+//                                                    finalErrorMsg();
                                                 } else if ((mBluetoothLeService.dystolic < 40) || (mBluetoothLeService.dystolic > 130)) {
                                                     progressText.setText("---");
                                                     progressText1.setText("");
+                                                    issueStatus.setText("---");
                                                     toastMsgInReading(getApplication().getResources().getString(R.string.diastolic_error));
                                                     startBtnEnable();
-                                                    finalErrorMsg();
+//                                                    finalErrorMsg();
                                                 }
-                                                else if ((mBluetoothLeService.rate < 60) || (mBluetoothLeService.rate >120)){
+                                                else if ((mBluetoothLeService.rate < 60) || (mBluetoothLeService.rate > 120)){
                                                     progressText.setText("---");
                                                     progressText1.setText("");
                                                     toastMsgInReading(getString(R.string.heart_rate_error));
@@ -628,6 +630,8 @@ public class ReadingData extends AppCompatActivity {
                                                             if (mBluetoothLeService.errorMessage.equals(getString(R.string.battery_limit_exceeds))) {
                                                                 batteryText.setBackgroundColor(Color.parseColor("#A41E22"));
                                                                 progressText.setText("---");
+                                                                progressText1.setText("");
+                                                                issueStatus.setText("---");
 
                                                                 Log.d(TAG, "run: battery popup " + Constants.batteryPop);
                                                                 if (Constants.batteryPop == false) {
@@ -645,6 +649,8 @@ public class ReadingData extends AppCompatActivity {
                                                                                         Constants.batteryPop = true;
 //                                                                                        Constants.is_buttonStarted = false;
                                                                                         progressText.setText("---");
+                                                                                        progressText1.setText("");
+                                                                                        issueStatus.setText("---");
 //                                                    dialog.dismiss();
                                                                                     }
                                                                                 })
@@ -671,6 +677,8 @@ public class ReadingData extends AppCompatActivity {
                                                                                         Constants.batteryPop = true;
 //                                                                                        Constants.is_buttonStarted = false;
                                                                                         progressText.setText("---");
+                                                                                        progressText1.setText("");
+                                                                                        issueStatus.setText("---");
 //                                                    dialog.dismiss();
                                                                                     }
                                                                                 })
@@ -731,6 +739,8 @@ public class ReadingData extends AppCompatActivity {
                                          if (mTimerRunning == false) {
                                             mCountDownTimer.cancel();
                                             Constants.is_ackReceived = false;
+                                            Constants.is_errorReceived = false;
+                                            Constants.is_finalResult = false;
                                             Constants.is_buttonStarted = false;
                                         }
                                     }
@@ -979,6 +989,7 @@ public class ReadingData extends AppCompatActivity {
                                     if ((Integer.parseInt(systolicText.getText().toString()) < 30) || (Integer.parseInt(systolicText.getText().toString()) > 200)){
                                         progressText.setText("---");
                                         progressText1.setText("");
+                                        issueStatus.setText("---");
                                         toastMsgInReading(getApplicationContext().getResources().getString(R.string.systolic_range_fault));
 
 //                                        progressBar.setVisibility(View.GONE);
@@ -986,6 +997,7 @@ public class ReadingData extends AppCompatActivity {
                                     else if ((Integer.parseInt(diastolicText.getText().toString()) < 40) || (Integer.parseInt(diastolicText.getText().toString()) > 120)) {
                                         progressText.setText("---");
                                         progressText1.setText("");
+                                        issueStatus.setText("---");
                                         toastMsgInReading(getApplicationContext().getResources().getString(R.string.diastolic_range_fault));
 //                                        progressBar.setVisibility(View.GONE);
                                     }
