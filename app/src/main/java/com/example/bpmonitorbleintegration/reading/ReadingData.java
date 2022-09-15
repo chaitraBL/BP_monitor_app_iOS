@@ -179,7 +179,7 @@ public class ReadingData extends AppCompatActivity {
 //                            Log.i(TAG, "Force stop value after checksum " + Arrays.toString(Constants.startValue) + " " + Constants.startValue);
                     mBluetoothLeService.writeCharacteristics(mNotifyCharacteristic, Constants.cancelValue);
 
-                    mCountDownTimer = new CountDownTimer(500, 500) { //500 500
+                    mCountDownTimer = new CountDownTimer(500, 500) {
                         @Override
                         public void onTick(long l) {
                             Log.d(TAG, "onTick: on tick");
@@ -196,6 +196,8 @@ public class ReadingData extends AppCompatActivity {
                                         startBtnEnable();
 //                                        Constants.is_buttonStarted = false;
                                         progressText.setText("---");
+                                        issueStatus.setText("---");
+                                        progressText1.setText("");
                                     }
 
                                 }
@@ -284,6 +286,8 @@ public class ReadingData extends AppCompatActivity {
                 alertText.setText("");
                 statusText1.setText("");
                 issueStatus.setText("---");
+                progressText.setText("---");
+                progressText.setText("");
 
             }
         });
@@ -754,8 +758,10 @@ public class ReadingData extends AppCompatActivity {
                 }
     }
 
+    //Cuff replace and irregular error display - new Changes
     private void finalErrorMsg() {
         String msg = "";
+        //Irregular HB display
         switch (mBluetoothLeService.irregularHB){
             case 0:
                 Log.d(TAG, "run: no irregular hb error");
@@ -778,6 +784,7 @@ public class ReadingData extends AppCompatActivity {
                 break;
         }
 
+        //Alert popup for cuff replacement
         switch (mBluetoothLeService.cuffReplace) {
             case 0:
                 Log.d(TAG, "run: no cuff replace error");
@@ -961,6 +968,7 @@ public class ReadingData extends AppCompatActivity {
         return msg;
     }
 
+//    Save data to database - added irregular HB to log - new changes
     private void saveData(String irregular) {
         if (Constants.heartbeatPop == false) {
             if ((dialog == null) || !dialog.isShowing()) {
