@@ -818,9 +818,6 @@ public class ReadingData extends AppCompatActivity {
                                                     mCountDownTimer.cancel();
                                                     dialogInterface.dismiss();
                                                     dialog1.dismiss();
-//                                                                    Constants.is_readingStarted = false;
-//                                                                                    progressText.setText("---");
-//                                                                                    progressText1.setText("");
                                                     startBtnEnable();
                                                 }
                                             }
