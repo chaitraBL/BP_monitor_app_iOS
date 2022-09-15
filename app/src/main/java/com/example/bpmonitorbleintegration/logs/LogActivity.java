@@ -386,7 +386,6 @@ private  void endDateCalendar() {
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(Objects.requireNonNull(date1));
 
-
         Calendar cal2 = Calendar.getInstance();
         cal2.setTime(Objects.requireNonNull(date2));
 
