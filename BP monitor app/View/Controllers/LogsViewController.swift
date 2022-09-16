@@ -319,6 +319,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
         popover.selectedSystolic = logObj[index].systolic
         popover.selectedDiastolic = logObj[index].diastolic
         popover.selectedHeartRate = logObj[index].heartRate
+        popover.selectedIrregular = logObj[index].irregularHB
         popover.modalPresentationStyle = UIModalPresentationStyle.popover
         //        popover.popoverPresentationController?.backgroundColor = UIColor.green
         popover.popoverPresentationController?.delegate = self

@@ -46,12 +46,12 @@ class DataReadingViewController: UIViewController {
     var localDB = LocalNetworking()
     var bleManagerReading = BLEManager()
     var peripheralManager:CBPeripheralManager!
-    var secondsRemaining = 5
+    var secondsRemaining = 20
     var secondsRemainingInReadings = 90
     @IBOutlet var activityView: UIView!
     let app = UIApplication.shared
     @IBOutlet var mapVal1: UILabel!
-    
+    @IBOutlet var alertLabel: UILabel!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -199,25 +199,28 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         constantValue.is_errorReceived = false
         constantValue.is_rawResultReceived = false
         constantValue.is_batterystatus = false
-        constantValue.cuffPop = false
-        constantValue.heartbeatPop = false
+        
         constantValue.batteryPop = false
         
-        systolicLabel.text = "-"
-        diastolicLab.text = "-"
-        heartRateLabel.text = "-"
-        mapLabel.text = "-"
+        systolicLabel.text = " "
+        diastolicLab.text = " "
+        heartRateLabel.text = " "
+        mapLabel.text = " "
         readingLab1.text = "---"
-        readingLab2.text = ""
+        readingLab2.text = " "
         readingsLabel.text = "---"
+        alertLabel.text = " "
         
         constantValue.startValue = bleManagerReading.computeCheckSum(data: constantValue.startValue)
 //        print("checksum updated \(constantValue.startValue)")
         writeOutGoingValue(data: constantValue.startValue)
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.09, repeats: true) { (Timer) in
                 if self.secondsRemaining > 0 {
-                    print ("\(self.secondsRemaining) seconds")
+                    print ("\(self.secondsRemaining) seconds on start")
+                    if self.constantValue.is_ackReceived == true {
+                        Timer.invalidate()
+                    }
                     self.secondsRemaining -= 1
                 } else if self.secondsRemaining == 0 {
                     if self.constantValue.is_ackReceived == false {
@@ -248,34 +251,30 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         constantValue.is_errorReceived = false
         constantValue.is_rawResultReceived = false
         constantValue.is_batterystatus = false
+//        constantValue.cuffPop = false
+//        constantValue.heartbeatPop = false
+        
+        readingLab2.text = ""
+        readingLab1.text = "---"
+        readingsLabel.text = "---"
         
         constantValue.cancelValue = bleManagerReading.computeCheckSum(data: constantValue.cancelValue)
 //        print("checksum updated \(constantValue.cancelValue)")
         writeOutGoingValue(data: constantValue.cancelValue)
-        
-        
-        if self.constantValue.is_finalResultReceived == true {
-            self.systolicLabel.text = "\(self.systolicVal)"
-            self.diastolicLab.text = "\(self.diastolicVal)"
-            self.heartRateLabel.text = "\(self.heartRateVal)"
-            self.mapVal1.text = "\(self.map)"
-            let msg = decoderVal.changeStatus(systolic: Int(self.systolicVal), diastolic: Int(self.diastolicVal))
-            self.mapLabel.text = msg
-            constantValue.is_finalResultReceived = false
-//            constantValue.batteryPop = false
-            }
- 
     
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.09, repeats: true) { (Timer) in
                 if self.secondsRemaining > 0 {
                     print ("\(self.secondsRemaining) seconds")
+                    if self.constantValue.is_ackReceived == true {
+                        Timer.invalidate()
+                    }
                     self.secondsRemaining -= 1
                 } else if self.secondsRemaining == 0 {
                     if self.constantValue.is_ackReceived == false {
                         self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
                 //        print("checksum updated \(constantValue.cancelValue)")
                         self.writeOutGoingValue(data: self.constantValue.cancelValue)
-                        self.secondsRemaining = 3
+                        self.secondsRemaining = 20
                     }
                 }
             }
@@ -288,66 +287,147 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
 //    Save the values to db.
     func saveData(irregular : String) {
-        
-        let alert = UIAlertController(title: "Alert!!!", message: "Do you want to save the readings", preferredStyle: .alert)
+        print("to save \(constantValue.heartbeatPop)")
+        if constantValue.heartbeatPop == false {
+            
+            let alert = UIAlertController(title: "Alert!!!", message: "Do you want to save the readings", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
-            if ((systolicLabel.text == "-") || (diastolicLab.text == "-") || (heartRateLabel.text == "-") || (mapLabel.text == "-")) {
-                readingsLabel.text = "---"
-                readingLab1.text = "---"
-                readingLab2.text = ""
-                self.alert(title: "Alert!", msg: "Please check the reading value...", buttonName: "OK")
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self] action in
+                self.constantValue.heartbeatPop = true
+                if ((systolicLabel.text == "-") || (diastolicLab.text == "-") || (heartRateLabel.text == "-") || (mapLabel.text == "-")) {
+                    readingsLabel.text = "---"
+                    readingLab1.text = "---"
+                    readingLab2.text = ""
+                    self.alert(title: "Alert!", msg: "Please check the reading value...", buttonName: "OK")
+               }
+           else if ((systolicLabel.text == " ") || (diastolicLab.text == " ") || (heartRateLabel.text == " ") || (mapLabel.text == " ")) {
+               readingsLabel.text = "---"
+               readingLab1.text = "---"
+               readingLab2.text = ""
+               self.alert(title: "Alert!", msg: "Please check the reading value...", buttonName: "OK")
            }
-       else if ((systolicLabel.text == " ") || (diastolicLab.text == " ") || (heartRateLabel.text == " ") || (mapLabel.text == " ")) {
-           readingsLabel.text = "---"
-           readingLab1.text = "---"
-           readingLab2.text = ""
-           self.alert(title: "Alert!", msg: "Please check the reading value...", buttonName: "OK")
-       }
-           else {
-               
-               if ((Int(systolicLabel.text!)! < 60) || (Int(systolicLabel.text!)! > 240)) {
-                   readingsLabel.text = "---"
-                   readingLab1.text = "---"
-                   readingLab2.text = ""
-                   self.alert(title: "Alert!", msg: "Systolic range should be between 60 to 240,\n Please check the readings...", buttonName: "OK")
-               }
-               else if ((Int(diastolicLab.text!)! < 40) || (Int(diastolicLab.text!)! > 130)) {
-                   readingsLabel.text = "---"
-                   readingLab1.text = "---"
-                   readingLab2.text = ""
-                   self.alert(title: "Alert!" , msg: "Diastolic range should be between 40 to 130,\n Please check the readings...", buttonName: "OK")
-               }
-//               else if((Int(heartRateLabel.text!)! < 60) || (Int(heartRateLabel.text!)! > 120)) {
-//                   readingsLabel.text = "---"
-//                   readingLab1.text = "---"
-//                   readingLab2.text = ""
-//                   self.alert(title: "Alert!" , msg: "Heart rate range should be between 60 to 120,\n Please check the readings...", buttonName: "OK")
-//               }
                else {
-                  
-                   print("peripheral name = \(String(describing: periperalData.name))")
-                   readingsLabel.text = "---"
-                   readingLab1.text = "---"
-                   readingLab2.text = ""
-                   let isSuccess = localDB.save(name: periperalData.name!, systolic: systolicLabel.text!, diastolic: diastolicLab.text!, heartRate: heartRateLabel.text!, map: mapLabel.text!,irregularHB: irregular)
                    
-                   if isSuccess == true {
-                       self.alert(title: "Success", msg: "Saved successfully", buttonName: "OK")
+                   if ((Int(systolicLabel.text!)! < 60) || (Int(systolicLabel.text!)! > 240)) {
+                       readingsLabel.text = "---"
+                       readingLab1.text = "---"
+                       readingLab2.text = ""
+                       self.alert(title: "Alert!", msg: "Systolic range should be between 60 to 240,\n Please check the readings...", buttonName: "OK")
                    }
+                   else if ((Int(diastolicLab.text!)! < 40) || (Int(diastolicLab.text!)! > 130)) {
+                       readingsLabel.text = "---"
+                       readingLab1.text = "---"
+                       readingLab2.text = ""
+                       self.alert(title: "Alert!" , msg: "Diastolic range should be between 40 to 130,\n Please check the readings...", buttonName: "OK")
+                   }
+    
                    else {
-                       self.alert(title: "Unsuccess", msg: "Failed to save", buttonName: "OK")
+                      
+                       print("peripheral name = \(String(describing: periperalData.name))")
+                       readingsLabel.text = "---"
+                       readingLab1.text = "---"
+                       readingLab2.text = ""
+                       let isSuccess = localDB.save(name: periperalData.name!, systolic: systolicLabel.text!, diastolic: diastolicLab.text!, heartRate: heartRateLabel.text!, map: mapLabel.text!,irregularHB: irregular)
+                       
+                       if isSuccess == true {
+                           self.alert(title: "Success", msg: "Saved successfully", buttonName: "OK")
+                       }
+                       else {
+                           self.alert(title: "Unsuccess", msg: "Failed to save", buttonName: "OK")
+                       }
                    }
                }
-           }
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+                self.constantValue.heartbeatPop = true
+                self.readingsLabel.text = "---"
+                self.readingLab1.text = "---"
+                self.readingLab2.text = ""
+            }))
+            self.present(alert, animated: true)
+        }
+//        else if constantValue.heartbeatPop == true {
+//            self.stopBtn.isHidden = false
+//            self.startbtn.isHidden = true
+//            self.stopBtn.isEnabled = true
+//            self.startbtn.isEnabled = false
+//        }
+    }
+    
+    func cuffReplace(irregular:String) {
+        self.constantValue.heartbeatPop = false
+        switch self.cuffval {
+        case 0:
+            print("not an cuff replacement error")
+            saveData(irregular: irregular)
+            break
+        case 6:
+            print("cuff replace detected")
+//                                        msg = "Please replace to new cuff!!!"
             self.readingsLabel.text = "---"
             self.readingLab1.text = "---"
             self.readingLab2.text = ""
-        }))
-        self.present(alert, animated: true)
-       
+
+            if self.constantValue.cuffPop == false {
+                let alert = UIAlertController(title: "Alert!!!", message: "Please replace to new cuff!!!", preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { [self] action in
+                    self.constantValue.cuffPop = true
+                    self.constantValue.is_ackInCuff = true
+                    self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
+    //                print("checksum updated \(self.constantValue.ack)")
+                    self.writeOutGoingValue(data: self.constantValue.resetValue)
+                    
+                    Timer.scheduledTimer(withTimeInterval: 0.09, repeats: true) { (Timer) in
+                            if self.secondsRemaining > 0 {
+                                print ("\(self.secondsRemaining) seconds")
+                                if self.constantValue.is_ackReceived == true {
+                                    self.saveData(irregular: irregular)
+                                    
+                                }
+                                self.secondsRemaining -= 1
+                            } else if self.secondsRemaining == 0 {
+                                if self.constantValue.is_ackReceived == false {
+                                    self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
+                    //                print("checksum updated \(self.constantValue.ack)")
+                                    self.writeOutGoingValue(data: self.constantValue.resetValue)
+                                    self.secondsRemaining = 20
+                                }
+                            }
+                        }
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                    self.constantValue.cuffPop = true
+                    self.constantValue.is_ackInCuff = true
+                    self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
+    //                print("checksum updated \(self.constantValue.ack)")
+                    self.writeOutGoingValue(data: self.constantValue.noResetValue)
+                    
+                    Timer.scheduledTimer(withTimeInterval: 0.09, repeats: true) { (Timer) in
+                            if self.secondsRemaining > 0 {
+                                print ("\(self.secondsRemaining) seconds")
+                                if self.constantValue.is_ackReceived == true {
+                                    self.saveData(irregular: irregular)
+                                    
+                                }
+                                self.secondsRemaining -= 1
+                            } else if self.secondsRemaining == 0 {
+                                if self.constantValue.is_ackReceived == false {
+                                    self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
+                    //                print("checksum updated \(self.constantValue.ack)")
+                                    self.writeOutGoingValue(data: self.constantValue.noResetValue)
+                                    self.secondsRemaining = 20
+                                }
+                            }
+                        }
+                }))
+                self.present(alert, animated: true)
+            }
+            break
+        default:
+            print("Other cases")
+            break
+        }
     }
     
 //    Display battery status
@@ -375,7 +455,15 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             activityView.isHidden = true
             activityIndicator.stopAnimating()
             batteryLabel.backgroundColor = UIColor(hexString: "#FF0000")
-            alert2(msg: "Battery is low, Please charge and reconnect")
+            
+            let alert = UIAlertController(title: "Alert!!!", message: "Battery is low, Please charge and reconnect", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                self.constantValue.ack = self.bleManagerReading.computeCheckSum(data: self.constantValue.ack)
+    //                print("checksum updated \(self.constantValue.ack)")
+                writeOutGoingValue(data: self.constantValue.ack)
+            }))
+            self.present(alert, animated: true)
             
         }
         else{
@@ -384,7 +472,15 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             batteryLabel.backgroundColor = UIColor(hexString: "#a41e22")
 //            showToast(message: "Battery level exceeded, Please change the battery", font: .systemFont(ofSize: 12))
             
-            alert2(msg:  "Battery level exceeded, Please change the battery")
+//            alert2(msg:  "Battery level exceeded, Please change the battery")
+            let alert = UIAlertController(title: "Alert!!!", message: "Battery level exceeded, Please change the battery", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                self.constantValue.ack = self.bleManagerReading.computeCheckSum(data: self.constantValue.ack)
+    //                print("checksum updated \(self.constantValue.ack)")
+                writeOutGoingValue(data: self.constantValue.ack)
+            }))
+            self.present(alert, animated: true)
         }
     }
     
@@ -394,7 +490,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
             self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
-//                print("checksum updated \(self.constantValue.ack)")
+                print("checksum updated")
             writeOutGoingValue(data: self.constantValue.cancelValue)
         }))
         self.present(alert, animated: true)
@@ -513,10 +609,23 @@ extension DataReadingViewController: CBPeripheralDelegate {
                             if characteristic.value != nil {
                                
                                 self.broadcastUpdate(characteristic: characteristic)
+ 
                             }
                             else {
                                 print("empty")
-//                                self.showToast(message: "Something went wrong, please try to reconnect again", font: .systemFont(ofSize: 12))
+                                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (Timer) in
+                                        if self.secondsRemaining > 0 {
+                                            print ("\(self.secondsRemaining) seconds")
+                                            self.secondsRemaining -= 1
+                                        } else if self.secondsRemaining == 0 {
+                                            if self.constantValue.is_battery_received == false {
+                                                self.alert(title: "alert!!!", msg: "Something went wrong, Please reconnect again", buttonName: "Ok")
+                                                Timer.invalidate()
+//                                                self.secondsRemaining = 20
+                                            }
+                                            
+                                        }
+                                    }
                             }
                 }
             }
@@ -563,7 +672,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.constantValue.deviceId.insert(byteArray[3], at: 2)
                                     self.constantValue.deviceId.remove(at: 3)
                                     self.constantValue.deviceId.insert(byteArray[4], at: 3)
-                    
+        
                     
                     //                    print("new device id \(constantValue.deviceId)")
                     
@@ -574,6 +683,24 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.constantValue.resetValue = self.bleManagerReading.replaceDeviceVal(value: self.constantValue.resetValue, value1: self.constantValue.deviceId)
                                     self.constantValue.noResetValue = self.bleManagerReading.replaceDeviceVal(value: self.constantValue.noResetValue, value1: self.constantValue.deviceId)
                                     self.constantValue.checkSumError = self.bleManagerReading.replaceDeviceVal(value: self.constantValue.checkSumError, value1: self.constantValue.deviceId)
+                                    
+                                    Timer.scheduledTimer(withTimeInterval: 0.09, repeats: true) { (Timer) in
+                                            if self.secondsRemaining > 0 {
+                                                print ("\(self.secondsRemaining) seconds")
+                                                if self.constantValue.is_battery_received == true {
+                                                    Timer.invalidate()
+                                                }
+                                                self.secondsRemaining -= 1
+                                            } else if self.secondsRemaining == 0 {
+                                                if self.constantValue.is_battery_received == false {
+                                                    self.alert(title: "alert!!!", msg: "Something went wrong, Please reconnect again", buttonName: "Ok")
+                                                    Timer.invalidate()
+    //                                                self.secondsRemaining = 20
+                                                }
+                                                
+                                            }
+                                        }
+                                    
                                     break
                     
                                 case self.constantValue.BATTERY_COMMANDID:
@@ -590,28 +717,22 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                 case self.constantValue.RAW_COMMANDID:
                                     timer.invalidate()
 //                                    self.secondsRemaining = 2
-                    //                        print("raw value: \(byteArray)")
-                    //                    let readArray = byteArray.map { UInt16($0) }
                                     self.constantValue.is_rawResultReceived = true
                                     self.cuffval = newArray[8] * 256 + newArray[9]
                                     print("cuff value \(self.cuffval)")
                                     self.pulseVal = newArray[10] * 256 + newArray[11]
                                     print("pulse value \(self.pulseVal)")
                     
-                    //                        if constantValue.is_ackReceived == true {
                                     self.readingLab1.text = "\(self.cuffval)" + " / " + "\(self.pulseVal)"
-                    //                                    self.constantValue.is_rawResultReceived = false
-                    //                        }
                     
                                     break
                     
                                 case self.constantValue.RESULT_COMMANDID:
-                                    print("result value: \(byteArray)")
+//                                    print("result value: \(byteArray)")
                                     
                                     timer.invalidate()
 //                                    self.secondsRemaining = 2
                                     self.constantValue.is_finalResultReceived = true
-                    //                                    self.constantValue.is_rawResultReceived = false
                                     
                                     self.systolicVal = newArray[8] * 256 + newArray[9]
                                     self.diastolicVal = newArray[10] * 256 + newArray[11]
@@ -619,12 +740,9 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.map = newArray[13]
                                     self.irregularHR = newArray[14]
                                     self.cuffval = newArray[15]
-                                    
                     
                                     print("final result: \(self.systolicVal) / \(self.diastolicVal) / \(self.heartRateVal) / \(self.map)")
                                     
-                                   
-                    
                                     self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
                         //            print("checksum updated \(constantValue.ack)")
                                     self.writeOutGoingValue(data: self.constantValue.cancelValue)
@@ -633,6 +751,8 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.startbtn.isHidden = false
                                     self.stopBtn.isEnabled = false
                                     self.startbtn.isEnabled = true
+                                    self.constantValue.cuffPop = false
+                                    self.constantValue.heartbeatPop = false
                                     
                                     if (self.systolicVal < 60) || (self.systolicVal > 240) {
                                         self.readingLab1.text = "---"
@@ -647,190 +767,83 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.alert(title: "Alert!!!", msg: "Diastolic value is out of range, Please try again", buttonName: "Ok")
                                     }
                                     else if (self.heartRateVal < 60) || (self.heartRateVal > 130) {
-                                        self.readingLab1.text = "---"
-                                        self.readingLab2.text = ""
-                                        self.readingsLabel.text = "---"
-                                        self.alert(title: "Alert!!!", msg: "Heart rate value is out of range, Please try again", buttonName: "Ok")
                                         
-                                        self.readingLab1.text = "\(self.systolicVal) / \(self.diastolicVal)"
-                                        self.readingLab2.text = "\(self.heartRateVal)"
-                                        
-                                        switch self.irregularHR {
-                                        case 0:
-                                            print("Not an irregular HB")
-                                            self.saveData(irregular: "0")
-                                            break
-                                        case 3:
-                                            self.readingsLabel.text = "Irregular heart rate while measurement"
-                                            self.saveData(irregular: self.readingsLabel.text!)
-                                            break
-                                        case 7:
-                                            self.readingsLabel.text = "Heart rate varied"
-                                            self.saveData(irregular: self.readingsLabel.text!)
-                                            break
-                                        default:
-                                            print("Other cases")
-                                            break
-                                        }
-                                        
-                                        switch self.cuffval {
-                                        case 0:
-                                            print("not an cuff replacement error")
-                                            break
-                                        case 6:
-    //                                        msg = "Please replace to new cuff!!!"
-                                            self.readingsLabel.text = "---"
-                        
-                                            if self.constantValue.cuffPop == false {
-                                                let alert = UIAlertController(title: "Alert!!!", message: "Please replace to new cuff!!!", preferredStyle: .alert)
-                            
-                                                alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { [self] action in
-                                                    self.constantValue.cuffPop = true
-                                                    self.constantValue.is_ackInCuff = true
-                                                    self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
-                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                    self.writeOutGoingValue(data: self.constantValue.resetValue)
-                                                    
-                                                    
-                                                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-                                                            if self.secondsRemaining > 0 {
-                                                                print ("\(self.secondsRemaining) seconds")
-                                                                self.secondsRemaining -= 1
-                                                            } else if self.secondsRemaining == 0 {
-                                                                if self.constantValue.is_ackReceived == false {
-                                                                    self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
-                                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                                    self.writeOutGoingValue(data: self.constantValue.resetValue)
-                                                                    self.secondsRemaining = 5
-                                                                }
-                                                                
-                                                            }
-                                                        }
-                            //                                            self.constantValue.is_cuffReplaced = false
-                            //                                readingsLabel.text = "---"
-                                                }))
-                                                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-                                                    self.constantValue.cuffPop = true
-                                                    self.constantValue.is_ackInCuff = true
-                                                    self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
-                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                    self.writeOutGoingValue(data: self.constantValue.noResetValue)
-                                                    
-                                                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-                                                            if self.secondsRemaining > 0 {
-                                                                print ("\(self.secondsRemaining) seconds")
-                                                                self.secondsRemaining -= 1
-                                                            } else if self.secondsRemaining == 0 {
-                                                                if self.constantValue.is_ackReceived == false {
-                                                                    self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
-                                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                                    self.writeOutGoingValue(data: self.constantValue.noResetValue)
-                                                                    self.secondsRemaining = 5
-                                                                }
-                                                            }
-                                                        }
-                            //                                            self.constantValue.is_cuffReplaced = false
-                                                }))
-                                                self.present(alert, animated: true)
+                                        let alert = UIAlertController(title: "Alert!!!", message: "Heart rate value is out of range, Please try again", preferredStyle: .alert)
+
+                                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
+                                           
+                                            self.readingLab1.text = "\(self.systolicVal) / \(self.diastolicVal) mmHg"
+                                            self.readingLab2.text = "\(self.heartRateVal) bpm"
+                                            
+                                            self.systolicLabel.text = "\(self.systolicVal)"
+                                            self.diastolicLab.text = "\(self.diastolicVal)"
+                                            self.heartRateLabel.text = "\(self.heartRateVal)"
+                                            self.mapVal1.text = "\(self.map)"
+                                            let msg = self.decoderVal.changeStatus(systolic: Int(self.systolicVal), diastolic: Int(self.diastolicVal))
+                                            self.mapLabel.text = msg
+                                            
+                                            print("irregular hb \(self.irregularHR)")
+                                            
+                                            switch self.irregularHR {
+                                            case 0:
+                                                print("Not an irregular HB")
+                                                self.cuffReplace(irregular: "0")
+                                                break
+                                            case 3:
+                                                print("irregular hb detected")
+                                                self.readingsLabel.text = "Irregular heart rate while measurement"
+                                                self.alertLabel.text = "Irregular heart rate while measurement"
+                                                self.cuffReplace(irregular: self.alertLabel.text!)
+                                                break
+                                            case 7:
+                                                print("hb varied detected")
+                                                self.readingsLabel.text = "Heart rate varied"
+                                                self.alertLabel.text = "Heart rate varied"
+                                                self.cuffReplace(irregular: self.alertLabel.text!)
+                                                break
+                                            default:
+                                                print("Other cases")
+                                                break
                                             }
-                                            break
-                                        default:
-                                            print("Other cases")
-                                            break
-                                        }
+                                              
+                                        }))
+                                        self.present(alert, animated: true)
+                                        
                                     }
                                     else {
-                                        self.readingLab1.text = "\(self.systolicVal) / \(self.diastolicVal)"
-                                        self.readingLab2.text = "\(self.heartRateVal)"
+                                        self.readingLab1.text = "\(self.systolicVal) / \(self.diastolicVal) mmHg"
+                                        self.readingLab2.text = "\(self.heartRateVal) bpm"
                                         
-                                      
+                                        self.systolicLabel.text = "\(self.systolicVal)"
+                                        self.diastolicLab.text = "\(self.diastolicVal)"
+                                        self.heartRateLabel.text = "\(self.heartRateVal)"
+                                        self.mapVal1.text = "\(self.map)"
+                                        let msg = self.decoderVal.changeStatus(systolic: Int(self.systolicVal), diastolic: Int(self.diastolicVal))
+                                        self.mapLabel.text = msg
                                         
                                         switch self.irregularHR {
                                         case 0:
                                             print("Not an irregular HB")
-                                            self.saveData(irregular: "0")
+                                            
+                                            self.cuffReplace(irregular: "0")
                                             break
                                         case 3:
                                             self.readingsLabel.text = "Irregular heart rate while measurement"
-                                            self.saveData(irregular: self.readingsLabel.text!)
+                                            self.alertLabel.text = "Irregular heart rate while measurement"
+                                            self.cuffReplace(irregular: self.alertLabel.text!)
                                             break
                                         case 7:
                                             self.readingsLabel.text = "Heart rate varied"
-                                            self.saveData(irregular: self.readingsLabel.text!)
-                                            break
+                                            self.alertLabel.text = "Heart rate varied"
+                                            self.cuffReplace(irregular: self.alertLabel.text!)
+//                                            break
                                         default:
                                             print("Other cases")
                                             break
                                         }
                                         
-                                        switch self.cuffval {
-                                        case 0:
-                                            print("not an cuff replacement error")
-                                            break
-                                        case 6:
-    //                                        msg = "Please replace to new cuff!!!"
-                                            self.readingsLabel.text = "---"
-                        
-                                            if self.constantValue.cuffPop == false {
-                                                let alert = UIAlertController(title: "Alert!!!", message: "Please replace to new cuff!!!", preferredStyle: .alert)
-                            
-                                                alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { [self] action in
-                                                    self.constantValue.cuffPop = true
-                                                    self.constantValue.is_ackInCuff = true
-                                                    self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
-                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                    self.writeOutGoingValue(data: self.constantValue.resetValue)
-                                                    
-                                                    
-                                                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-                                                            if self.secondsRemaining > 0 {
-                                                                print ("\(self.secondsRemaining) seconds")
-                                                                self.secondsRemaining -= 1
-                                                            } else if self.secondsRemaining == 0 {
-                                                                if self.constantValue.is_ackReceived == false {
-                                                                    self.constantValue.resetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.resetValue)
-                                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                                    self.writeOutGoingValue(data: self.constantValue.resetValue)
-                                                                    self.secondsRemaining = 5
-                                                                }
-                                                                
-                                                            }
-                                                        }
-                            //                                            self.constantValue.is_cuffReplaced = false
-                            //                                readingsLabel.text = "---"
-                                                }))
-                                                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-                                                    self.constantValue.cuffPop = true
-                                                    self.constantValue.is_ackInCuff = true
-                                                    self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
-                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                    self.writeOutGoingValue(data: self.constantValue.noResetValue)
-                                                    
-                                                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-                                                            if self.secondsRemaining > 0 {
-                                                                print ("\(self.secondsRemaining) seconds")
-                                                                self.secondsRemaining -= 1
-                                                            } else if self.secondsRemaining == 0 {
-                                                                if self.constantValue.is_ackReceived == false {
-                                                                    self.constantValue.noResetValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.noResetValue)
-                                                    //                print("checksum updated \(self.constantValue.ack)")
-                                                                    self.writeOutGoingValue(data: self.constantValue.noResetValue)
-                                                                    self.secondsRemaining = 5
-                                                                }
-                                                            }
-                                                        }
-                            //                                            self.constantValue.is_cuffReplaced = false
-                                                }))
-                                                self.present(alert, animated: true)
-                                            }
-                                            break
-                                        default:
-                                            print("Other cases")
-                                            break
-                                        }
                                     }
-                                    
-
+                                    self.constantValue.is_finalResultReceived = false
                                     break
                     
                                 case self.constantValue.ERROR_COMMANDID:
@@ -849,7 +862,10 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
                             //            print("checksum updated \(constantValue.ack)")
                                         self.writeOutGoingValue(data: self.constantValue.cancelValue)
-                
+                                        self.stopBtn.isHidden = true
+                                        self.startbtn.isHidden = false
+                                        self.stopBtn.isEnabled = false
+                                        self.startbtn.isEnabled = true
                                         break
                     
                                     case 2:
@@ -861,6 +877,10 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
                             //            print("checksum updated \(constantValue.ack)")
                                         self.writeOutGoingValue(data: self.constantValue.cancelValue)
+                                        self.stopBtn.isHidden = true
+                                        self.startbtn.isHidden = false
+                                        self.stopBtn.isEnabled = false
+                                        self.startbtn.isEnabled = true
                                         break
                     
                                     case 4:
@@ -872,11 +892,16 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
                             //            print("checksum updated \(constantValue.ack)")
                                         self.writeOutGoingValue(data: self.constantValue.cancelValue)
+                                        self.stopBtn.isHidden = true
+                                        self.startbtn.isHidden = false
+                                        self.stopBtn.isEnabled = false
+                                        self.startbtn.isEnabled = true
                                         break
                     
                                     case 5:
                                         timer.invalidate()
 //                                        self.secondsRemaining = 2
+                                        self.constantValue.batteryPop = false
                                         msg = "Low battery, Please charge the batteries"
                                         self.batteryLabel.backgroundColor = UIColor(hexString: "#FF0000")
                                         self.readingsLabel.text = "---"
@@ -890,6 +915,10 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                                 self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
                                 //                print("checksum updated \(self.constantValue.ack)")
                                                 writeOutGoingValue(data: self.constantValue.cancelValue)
+                                                self.stopBtn.isHidden = true
+                                                self.startbtn.isHidden = false
+                                                self.stopBtn.isEnabled = false
+                                                self.startbtn.isEnabled = true
     
                                             }))
                                             self.present(alert, animated: true)
@@ -899,6 +928,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                     
                                     case 8:
                                         self.constantValue.is_batterystatus = true
+                                        self.constantValue.batteryPop = false
                                         timer.invalidate()
 //                                        self.secondsRemaining = 2
                                         msg = "Battery level exceeded, Please change the battery"
@@ -915,6 +945,10 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                                 self.constantValue.cancelValue = self.bleManagerReading.computeCheckSum(data: self.constantValue.cancelValue)
                             
                                                 writeOutGoingValue(data: self.constantValue.cancelValue)
+                                                self.stopBtn.isHidden = true
+                                                self.startbtn.isHidden = false
+                                                self.stopBtn.isEnabled = false
+                                                self.startbtn.isEnabled = true
     
                                             }))
                                             self.present(alert, animated: true)
@@ -926,8 +960,12 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     case 11:
                                         self.constantValue.is_batterystatus = true
                                         timer.invalidate()
-                                        self.secondsRemaining = 2
+//                                        self.secondsRemaining = 2
                                         self.batteryLabel.backgroundColor = UIColor(hexString: "#FF0000")
+                                        self.stopBtn.isHidden = true
+                                        self.startbtn.isHidden = false
+                                        self.stopBtn.isEnabled = false
+                                        self.startbtn.isEnabled = true
                     //                                        self.constantValue.is_batterystatus = false
                                         break
                     
@@ -935,13 +973,14 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         break
                     
                                     }
+                                    self.constantValue.is_errorReceived = false
                                     break
                     
                                 case self.constantValue.ACK_COMMANDID:
                                     print("ack: \(byteArray)")
                                     
                                     timer.invalidate()
-                                    self.secondsRemaining = 2
+//                                    self.secondsRemaining = 10
                                     self.constantValue.is_ackReceived = true
                                     
                                     if self.constantValue.is_stopTapped == true {
@@ -951,7 +990,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.startbtn.isEnabled = true
                                         self.readingsLabel.text = "---"
                                         self.constantValue.is_stopTapped = false
-                                 
                                     }
                                     
                                     else if self.constantValue.is_startTapped == true {
@@ -963,31 +1001,14 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     }
                                     
                                     else if self.constantValue.is_ackInCuff == true {
-                                        self.stopBtn.isHidden = true
-                                        self.startbtn.isHidden = false
-                                        self.stopBtn.isEnabled = false
-                                        self.startbtn.isEnabled = true
                                         self.readingsLabel.text = "---"
+                                        self.readingLab1.text = "---"
+                                        self.readingLab2.text = ""
                                         self.constantValue.is_ackInCuff = false
-                                        
-//
                                     }
                                     
-                                    else if self.constantValue.is_ackInIrregularHB == true {
-                                        self.stopBtn.isHidden = true
-                                        self.startbtn.isHidden = false
-                                        self.stopBtn.isEnabled = false
-                                        self.startbtn.isEnabled = true
-                                        self.readingsLabel.text = "---"
-                                        self.constantValue.is_ackInIrregularHB = false
-                              
-                                    }
                                     
                                     else if self.constantValue.is_ackInBattery == true {
-                                        self.stopBtn.isHidden = true
-                                        self.startbtn.isHidden = false
-                                        self.stopBtn.isEnabled = false
-                                        self.startbtn.isEnabled = true
                                         self.readingsLabel.text = "---"
                                         self.constantValue.is_ackInBattery = false
                                     }
@@ -1004,18 +1025,18 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                 default:
                                     break
                                 }
-                                self.secondsRemaining -= 1
+                                self.secondsRemainingInReadings -= 1
                     //                                self.constantValue.is_ackReceived = false
-                            } else if self.secondsRemaining == 0 {
+                            } else if self.secondsRemainingInReadings == 0 {
                                 if self.constantValue.is_finalResultReceived == false {
                                     timer.invalidate()
-                                    self.secondsRemaining = 2
+                                    self.secondsRemainingInReadings = 90
                                     self.alert2(msg: "Please start again")
                                     
                                 }
                                 else if self.constantValue.is_errorReceived == false {
                                             timer.invalidate()
-                                            self.secondsRemaining = 2
+                                            self.secondsRemainingInReadings = 90
                                     self.alert2(msg: "Please start again")
                                         }
                                     }

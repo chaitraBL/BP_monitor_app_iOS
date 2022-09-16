@@ -48,9 +48,9 @@ class Constants: NSObject {
     var is_ackInCuff = false
     var is_ackInBattery = false
     var is_poweroff = false
-    var cuffPop = false
-    var heartbeatPop = false
-    var batteryPop = false
+    var cuffPop = true
+    var heartbeatPop = true
+    var batteryPop = true
     
     
     override init() {

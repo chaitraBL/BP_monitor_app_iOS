@@ -46,13 +46,17 @@ class ManualReadingViewController: UIViewController {
             
         }
         else {
-            if ((Int(systolicText.text!)! < 30) || (Int(systolicText.text!)! > 200)) {
-                alert(title: "Alert!", msg: "Systolic range should be between 30 to 200,\n Please check the readings...")
+            if ((Int(systolicText.text!)! < 60) || (Int(systolicText.text!)! > 240)) {
+                alert(title: "Alert!", msg: "Systolic range should be between 60 to 240,\n Please check the readings...")
                 
             }
-            else if ((Int(diastolicText.text!)! < 40) || (Int(diastolicText.text!)! > 120)) {
-                alert(title: "Alert!", msg: "Diastolic range should be between 40 to 120,\n Please check the readings...")
+            else if ((Int(diastolicText.text!)! < 40) || (Int(diastolicText.text!)! > 130)) {
+                alert(title: "Alert!", msg: "Diastolic range should be between 40 to 130,\n Please check the readings...")
                
+            }
+            else if ((Int(heartRateText.text!)! < 60) || (Int(heartRateText.text!)! > 140))
+            {
+                alert(title: "Alert!", msg: "Heartrate range should be between 60 to 140,\n Please check the readings...")
             }
             else {
                 let mapText = bleManagerReading.calculateMap(systa: Int(systolicText.text!)!, diasta: Int(diastolicText.text!)!)
