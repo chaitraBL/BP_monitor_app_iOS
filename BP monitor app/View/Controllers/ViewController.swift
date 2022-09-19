@@ -349,9 +349,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //                         xVal = dateInNewStringFormat + "\n" + i.time!
                     dateChangeLabel.text = dateInNewStringFormat
                 }
-                
             }
-            
             
             for i in filteredObj {
                 var xVal:String?
@@ -682,6 +680,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             let marker = ChartMarker()
             marker.chartView = combinedChart
             combinedChart.marker = marker
+//            self.dateChangeLabel.text = marker.text1
             
             combinedChart.pinchZoomEnabled = true
             combinedChart.dragEnabled = true

@@ -150,7 +150,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
 //                    print("name \(i.name)")
                     self.logTableView.isHidden = false
                     self.errorLabel.isHidden = true
-                    let obj = readingData(myname: i.name!, mysysta: i.systolic!, myDiasta: i.diastolic!, myRate: i.heartRate!, mymap: i.map!, myDate: i.date!, myTime: i.time!)
+                    let obj = readingData(myname: i.name!, mysysta: i.systolic!, myDiasta: i.diastolic!, myRate: i.heartRate!, mymap: i.map!, myDate: i.date!, myTime: i.time!, myIrregular: i.irregularHB!)
                     localReadingList.append(obj)
 //                    print("count \(localReadingList.count)")
                     self.logTableView.reloadData()
@@ -260,7 +260,7 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
 //                               print("name \(i.name)")
                                 self.errorLabel.isHidden = true
                                 self.logTableView.isHidden = false
-                                let obj = filteredData(myname: i.name!, mysysta: i.systa!, myDiasta: i.diasta!, myRate: i.heartRate!, mymap: i.map!, myDate: i.date!, myTime: i.time!)
+                                let obj = filteredData(myname: i.name!, mysysta: i.systa!, myDiasta: i.diasta!, myRate: i.heartRate!, mymap: i.map!, myDate: i.date!, myTime: i.time!, myIrregular: i.irregular!)
                                 filteredArray.append(obj)
 //                                print("filter array \(filteredArray)")
                                 
@@ -314,12 +314,22 @@ class LogsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let index = indexPath.row
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let popover = storyboard.instantiateViewController(withIdentifier: "shareReadings") as! ShareReadingsViewController
+        if filteredArray.count > 0 {
+            popover.selectedDate = filteredArray[index].date
+            popover.selectedSystolic = filteredArray[index].systa
+            popover.selectedDiastolic = filteredArray[index].diasta
+            popover.selectedHeartRate = filteredArray[index].heartRate
+            popover.selectedIrregular = filteredArray[index].irregular
+        }
+        else {
+            popover.selectedDate = logObj[index].date
+            popover.selectedSystolic = logObj[index].systolic
+            popover.selectedDiastolic = logObj[index].diastolic
+            popover.selectedHeartRate = logObj[index].heartRate
+            popover.selectedIrregular = logObj[index].irregularHB
+            }
 //        popover.delegate = self
-        popover.selectedDate = logObj[index].date
-        popover.selectedSystolic = logObj[index].systolic
-        popover.selectedDiastolic = logObj[index].diastolic
-        popover.selectedHeartRate = logObj[index].heartRate
-        popover.selectedIrregular = logObj[index].irregularHB
+        
         popover.modalPresentationStyle = UIModalPresentationStyle.popover
         //        popover.popoverPresentationController?.backgroundColor = UIColor.green
         popover.popoverPresentationController?.delegate = self

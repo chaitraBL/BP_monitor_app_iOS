@@ -39,19 +39,16 @@ class Constants: NSObject {
     var is_rawResultReceived = false
     var is_errorReceived = false
     var is_battery_received = false
-    var is_cuffReplaced = false
-    var is_irregularHB = false
     var is_batterystatus = false
     var is_startTapped = false
     var is_stopTapped = false
-    var is_ackInIrregularHB = false
     var is_ackInCuff = false
     var is_ackInBattery = false
     var is_poweroff = false
     var cuffPop = true
     var heartbeatPop = true
     var batteryPop = true
-    
+    var is_deviceReceived = false
     
     override init() {
         super .init()

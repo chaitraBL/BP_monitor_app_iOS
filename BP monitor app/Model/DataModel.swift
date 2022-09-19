@@ -18,9 +18,10 @@ struct filteredData
     var heartRate:String?
     var map:String?
     var date:String?
+    var irregular:String?
     var time:String?
     
-    init(myname:String,mysysta:String,myDiasta:String,myRate:String,mymap:String,myDate:String,myTime:String){
+    init(myname:String,mysysta:String,myDiasta:String,myRate:String,mymap:String,myDate:String,myTime:String, myIrregular:String){
         //        uid = uuid
         name = myname
         systa = mysysta
@@ -29,6 +30,7 @@ struct filteredData
         map = mymap
         date = myDate
         time = myTime
+        irregular = myIrregular
     }
     
     init(mydate:String) {
@@ -47,8 +49,9 @@ struct readingData
     var map:String?
     var date:String?
     var time:String?
+    var irregular:String?
     
-    init(myname:String,mysysta:String,myDiasta:String,myRate:String,mymap:String,myDate:String,myTime:String){
+    init(myname:String,mysysta:String,myDiasta:String,myRate:String,mymap:String,myDate:String,myTime:String, myIrregular:String){
         //        uid = uuid
         name = myname
         systa = mysysta
@@ -57,6 +60,7 @@ struct readingData
         map = mymap
         date = myDate
         time = myTime
+        irregular = myIrregular
     }
     
     init(mydate:String) {
