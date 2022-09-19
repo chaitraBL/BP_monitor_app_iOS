@@ -332,6 +332,7 @@ public class BLEService extends Service implements DecodeListener {
                 //Command Id wise receiving data.
                 switch (value[5]) {
                     case Constants.DEVICE_COMMANDID:
+                        Constants.is_deviceReceived = true;
                         Constants.deviceId = new byte[]{(byte) value[1], (byte) value[2], (byte) value[3], (byte) value[4]};
 //                        Log.i(TAG, "broadcastUpdate: device byte " + (byte) value[1] + (byte) value[2] + (byte) value[3] + (byte) value[4]);
 //                        Log.d(TAG, "broadcastUpdate: device id " + Arrays.toString(Constants.deviceId));

@@ -58,7 +58,7 @@ public class Constants {
     public static boolean is_ackReceived = false;
     public static boolean is_resultReceived = false;
     public static boolean is_readingStarted = false;
-    public static boolean is_cuffReplaced = false;
+    public static boolean is_deviceReceived = false;
     public static boolean is_finalResult = false;
     public static boolean is_buttonStarted = false;
     public static boolean is_errorReceived = false;

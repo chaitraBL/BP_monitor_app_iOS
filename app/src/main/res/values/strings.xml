@@ -138,4 +138,5 @@
     <string name="heart_rate_home">Heart Rate</string>
     <string name="heart_rate_error">Heart rate reading is out of range, Please check again</string>
     <string name="heart_rate_fault">Heart rate range should be between 60 to 100, Please check the readings…</string>
+    <string name="device_fault">Something went wrong, Please check again the connection</string>
 </resources>

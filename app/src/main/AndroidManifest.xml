@@ -54,9 +54,6 @@
             android:name=".reading.ManualReadings"
             android:exported="false" />
         <activity
-            android:name=".reading.DataTransferActivity"
-            android:exported="false" />
-        <activity
             android:name=".home.HomePage"
             android:exported="true">
             <intent-filter>

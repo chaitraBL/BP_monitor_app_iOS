@@ -166,7 +166,7 @@ public class ReadingData extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Constants.is_buttonStarted = false;
-                Constants.is_cuffReplaced = false;
+//                Constants.is_cuffReplaced = false;
                 Constants.is_irregularHB = false;
                 Constants.is_ackReceived = false;
                 Constants.is_readingStarted = false;
@@ -238,7 +238,7 @@ public class ReadingData extends AppCompatActivity {
             public void onClick(View view) {
 
                 Constants.is_buttonStarted = true;
-                Constants.is_cuffReplaced = false;
+//                Constants.is_cuffReplaced = false;
                 Constants.is_irregularHB = false;
                 Constants.is_ackReceived = false;
                 Constants.is_readingStarted = false;
@@ -502,6 +502,8 @@ public class ReadingData extends AppCompatActivity {
 //                                Log.i(TAG, gattCharacteristic.getUuid().toString());
                                 mNotifyCharacteristic = gattCharacteristic;
                                 mBluetoothLeService.setCharacteristicNotification(gattCharacteristic,true);
+
+                                startTimer();
                                 return;
                             }
                         }
@@ -535,6 +537,8 @@ public class ReadingData extends AppCompatActivity {
                                     public void run() {
                                         progress.setVisibility(View.GONE);
                                         Log.d(TAG, "displayData: ack in start " + Constants.is_ackReceived);
+
+//                                        Check whether ack is received or not after start cmd.
                                         if (Constants.is_ackReceived == true) {
                                             Log.d(TAG, "run: ack in start btn");
                                             mCountDownTimer.cancel();
@@ -567,7 +571,7 @@ public class ReadingData extends AppCompatActivity {
 
                                             Log.d(TAG, "run: final result flag " + Constants.is_finalResult);
 
-                                            // To display final results.
+                                            // To display final results with conditions.
                                             if (Constants.is_finalResult == true) {
                                                 if ((mBluetoothLeService.systalic < 60) || (mBluetoothLeService.systalic > 230)) {
                                                     progressText.setText("---");
@@ -617,8 +621,8 @@ public class ReadingData extends AppCompatActivity {
 
                                         // To display battery status popup while receiving the data
                                         Log.d(TAG, "run: battry status while reading " + Constants.is_batteryReceivedAtReading);
-                                        //  If battery low popup alert messages.
 
+                                        //  If battery low popup alert messages.
                                         mCountDownTimer = new CountDownTimer(50, 10) {
                                             @Override
                                             public void onTick(long l) {
@@ -721,6 +725,8 @@ public class ReadingData extends AppCompatActivity {
                                     public void run() {
                                         if (mTimerRunning == true) {
                                         Log.d(TAG, "run: inside finish");
+
+                                        // If final results or error message didnt received then alert popup shown.
                                             if (Constants.is_finalResult == false || Constants.is_errorReceived == false) {
                                                 mCountDownTimer.cancel();
                                                 if ((dialog == null) || !dialog.isShowing()) {
@@ -997,7 +1003,6 @@ public class ReadingData extends AppCompatActivity {
                                         issueStatus.setText("---");
                                         toastMsgInReading(getApplicationContext().getResources().getString(R.string.systolic_range_fault));
 
-//                                        progressBar.setVisibility(View.GONE);
                                     }
                                     else if ((Integer.parseInt(diastolicText.getText().toString()) < 40) || (Integer.parseInt(diastolicText.getText().toString()) > 120)) {
                                         progressText.setText("---");
@@ -1054,12 +1059,17 @@ public class ReadingData extends AppCompatActivity {
 
                         if (Constants.is_batterValueReceived == true)
                         {
-
                             mTimerRunning = false;
-//                            mCountDownTimer.cancel();
-                            cancel();
+                            mCountDownTimer.cancel();
+//                            cancel();
                             // Showing battery level using color code.
                             showBattery();
+                        }
+                        else if (Constants.is_deviceReceived == true) {
+                            //Checking device id is received or not
+                            Log.d(TAG, "run: device id received");
+                            mTimerRunning = false;
+                            mCountDownTimer.cancel();
                         }
                     }
                 });
@@ -1070,15 +1080,22 @@ public class ReadingData extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (mTimerRunning == true) {
-                            if (!Constants.is_batterValueReceived) {
+                            // if battery status or device id didnt received within 500ms message will popup
+                            if (!Constants.is_batterValueReceived){
                                 mCountDownTimer.cancel();
                                 toastMsgInReading(getApplicationContext().getResources().getString(R.string.please_connect_again));
+                            }
+                            else if (Constants.is_deviceReceived == false) {
+                                Log.d(TAG, "run: device id not found");
+                                mCountDownTimer.cancel();
+                                toastMsgInReading(getString(R.string.device_fault));
                             }
                         }
                         else if (mTimerRunning == false){
                             mCountDownTimer.cancel();
                             Log.d(TAG, "run: timer off");
 //                            Constants.is_batterValueReceived = false;
+                            Constants.is_deviceReceived = false;
                         }
                     }
                 });
@@ -1162,10 +1179,12 @@ public class ReadingData extends AppCompatActivity {
         }
     };
 
+    // Toast message to display
     private void toastMsgInReading(String msg) {
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
+//    To transit start and stop buttons
     private void startBtnEnable() {
         progressText.setText("---");
         startBtn.setEnabled(true);
