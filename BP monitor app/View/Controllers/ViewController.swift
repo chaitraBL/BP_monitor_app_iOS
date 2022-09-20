@@ -693,18 +693,24 @@ extension UIColor {
     }
 }
 
-class CustomXAxisRenderer: XAxisRenderer {
-    var scrollDate:String?
-    override init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?) {
-        super.init(viewPortHandler: viewPortHandler, xAxis: xAxis, transformer: transformer)
-    }
+extension ViewController {
+    
+    class CustomXAxisRenderer: XAxisRenderer {
+        var scrollDate:String?
+        override init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?) {
+            super.init(viewPortHandler: viewPortHandler, xAxis: xAxis, transformer: transformer)
+        }
 
-    override func drawLabel(context: CGContext, formattedLabel: String, x: CGFloat, y: CGFloat, attributes: [NSAttributedString.Key : Any], constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat) {
-        let line = formattedLabel.split(separator: "\n")
-        print("formatted label \(formattedLabel) after split \(String(line[0]))")
-        scrollDate = String(line[0])
+        override func drawLabel(context: CGContext, formattedLabel: String, x: CGFloat, y: CGFloat, attributes: [NSAttributedString.Key : Any], constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat) {
+            let line = formattedLabel.split(separator: "\n")
+            print("formatted label \(formattedLabel) after split \(String(line[0]))")
+            scrollDate = String(line[0])
+            print("scroll date \(scrollDate)")
+//            dateChangeLabel.text = String(line[0])
+        }
     }
 }
+
 
 extension UINavigationController {
     var canHideBottomForNextPush:Bool {
