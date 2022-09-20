@@ -40,7 +40,7 @@ class ShareReadingsViewController: UIViewController {
             irregular.text = " "
         }
         else {
-            irregular.text = "(" + selectedIrregular! + ")"
+            irregular.text = selectedIrregular
 //            irregularHB = "(" + selectedIrregular! + ")"
         }
         
@@ -59,7 +59,7 @@ class ShareReadingsViewController: UIViewController {
 //        statusLabel.text = selectedStatus
         print("status \( statusLabel.text)")
         
-        let text = "Blood Pressure Reading: \n\n\n" + "Systolic:           \(systolicLabel.text!)\nDiastolic:         \(diastolicLabel.text!)\nHeartRate:       \(heartRateLabel.text!) \(irregular.text!)\nStatus:            \(statusLabel.text!)\nDate:              \(dateLabel.text!)"
+        let text = "Blood Pressure Reading: \n\n\n" + "Systolic:           \(systolicLabel.text!)\nDiastolic:         \(diastolicLabel.text!)\nHeartRate:       \(heartRateLabel.text!) (\(irregular.text!))\nStatus:            \(statusLabel.text!)\nDate:              \(dateLabel.text!)"
         
         // set up activity view controller
         let textToShare = [ text ]

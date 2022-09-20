@@ -7,7 +7,6 @@
 //
 //https://medium.com/@amilaindrajithkarunaratne/ios-swift-5-get-click-event-for-uiimageview-6d0f331c3bca - imageview tapguesture
 //https://www.raywenderlich.com/25358187-spinner-and-progress-bar-in-swift-getting-started - progress view
-//https://stackoverflow.com/questions/32622415/how-to-create-a-floating-graph-marker-with-ios-charts - markerview
 
 
 import UIKit
@@ -90,25 +89,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-    }
-    
-//    https://medium.com/geekculture/swift-ios-charts-tutorial-highlight-selected-value-with-a-custom-marker-30ccbf92aa1b
-    
-    //Marker view
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-//        guard
-        let dataSet = chartView.data?.dataSets[highlight.dataSetIndex]
-//        else{ return }
-        let entryIndex = dataSet?.entryIndex(entry: entry)
-
-        markerView.systolic.text = "\(sysList[entryIndex!])"
-        markerView.diastolic.text = "\(diaList[entryIndex!])"
-//        let markerPosition = chartView.getMarkerPosition(highlight: highlight)
-        
-//        markerView.systolic.text = entry.description
-//        markerView.diastolic.text = entry.debugDescription
-//        markerView.center = CGPoint(x: markerPosition.x, y: markerView.center.y)
-//        markerView.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -212,7 +192,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //                        print("dateInNewStringFormat\(dateInNewStringFormat)")
 //                        logData.date.text = dateInNewStringFormat
                          xVal = dateInNewStringFormat + "\n" + i.time!
-//                        dateChangeLabel.text = "27 - Aug"
+                        dateChangeLabel.text = "16 - Sep"
                     }
                     
 //                    print("xVal = \(xVal)")
@@ -240,8 +220,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
     
     //Updating progress bar according to systolic and diastolic readings
     func changeSystolicProgress(systolic1:Int) {
-//        print("systolic in progress \(systolic1)")
-//        progress1.set_max(200)
     
         if (systolic1 < 80) {
             progress1.value = Float(systolic1)
@@ -249,25 +227,25 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 <= 120) {
+        else if (systolic1 >= 80 && systolic1 <= 120) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#008000")
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 <= 139) {
+        else if (systolic1 >= 120 && systolic1 <= 139) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FFD700")
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 <= 159) {
+        else if (systolic1 >= 139 && systolic1 <= 159) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FFA500")
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 <= 179) {
+        else if (systolic1 >= 159 && systolic1 <= 179) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FF8C00")
             
@@ -283,34 +261,32 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
     }
     
     func changeDiastolicProgress(diastolic1:Int) {
-//         print("diastolic in progress \(diastolic1)")
-//        progress2.set_max(150)
         if diastolic1 < 60 {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#90EE90")
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if diastolic1 <= 80 {
+        else if (diastolic1 >= 60 && diastolic1 <= 80) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#008000")
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if diastolic1 <= 89 {
+        else if (diastolic1 >= 80 && diastolic1 <= 89) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#FFD700")
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if diastolic1 <= 99 {
+        else if (diastolic1 >= 89 && diastolic1 <= 99) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#FFA500")
 //                "#FFA500")
 //            activityView1.isHidden = true
 //            activityIndicator1.stopAnimating()
         }
-        else if diastolic1 <= 109 {
+        else if (diastolic1 >= 99 && diastolic1 <= 109) {
             progress2.value = Float(diastolic1)
             progress2.tintColor = UIColor(hexString: "#FF8C00")
 //            activityView1.isHidden = true
@@ -361,9 +337,9 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
                 if let date: Date = originalDateFormatter.date(from: i.date!) {
                     let dateInNewStringFormat: String = newDateFormatter.string(from: date)
 //                    print("dateInNewStringFormat\(dateInNewStringFormat)")
-                    //                        logData.date.text = dateInNewStringFormat
+//                    logData.date.text = dateInNewStringFormat
                     xVal = dateInNewStringFormat + "\n" + i.time!
-//                    dateChangeLabel.text = "27 - Aug"
+                    dateChangeLabel.text = "16 - Sep"
                 }
                 datelist.append(xVal!)
                 sysList.append(Int(i.systolic!)!)
@@ -395,7 +371,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         popover.popoverPresentationController?.sourceView = view
         popover.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
         self.present(popover, animated: true)
-
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -404,12 +379,9 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
     
     // Combinedchart with Line and candlestick
     func convertCombines(dataEntryX forX:[String],dataEntryY forY: [Int], dataEntryZ forZ: [Int]) {
-        
-//        https://stackoverflow.com/questions/44048608/ios-charts-single-values-not-showing-swift
     
         activityView1.isHidden = true
         activityIndicator1.stopAnimating()
-//        var dataEntries: [BarChartDataEntry] = []
         var dataEntries: [CandleChartDataEntry] = []
         var dataEntrieszor: [ChartDataEntry] = [ChartDataEntry]()
         var dataEntries1: [ChartDataEntry] = [ChartDataEntry]()
@@ -417,7 +389,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         
         if forX.count == 1 {
             for (i, v) in forY.enumerated() {
-    //            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(v), data: forX as AnyObject?)
                 let dataEntry = CandleChartDataEntry(x: Double(i), shadowH: Double(v), shadowL: Double(diaList[i]), open: Double(v), close: Double(diaList[i]), data: forX as AnyObject?)
                 dataEntries.append(dataEntry)
             }
@@ -427,7 +398,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
                 dataEntrieszor.append(dataEntry)
                 let dataEntry1 = ChartDataEntry(x: Double(i), y: Double(forZ[i]), data: forX as AnyObject?)
                 dataEntries1.append(dataEntry1)
-    //            print("entries \( dataEntrieszor) \( dataEntries1)")
             }
             
             
@@ -436,13 +406,11 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             let lineChartSet1 = LineChartDataSet(entries: dataEntries1)
             data.addDataSet(lineChartSet1)
      
-    //        let barChartSet = BarChartDataSet(entries: dataEntries, label: "Bar Data")
-    //        let barChartData = BarChartData(dataSets: [barChartSet])
+            //Ui
             let candleChartSet = CandleChartDataSet(entries: dataEntries)
             let candleChartData = CandleChartData(dataSet: candleChartSet)
             candleChartSet.drawValuesEnabled = false
             candleChartSet.barSpace = 10
-//            candleChartSet.barWidth = 1
             candleChartSet.shadowColor = UIColor.darkGray
             candleChartSet.decreasingColor = UIColor(hexString: "#FFA500")
             candleChartSet.decreasingFilled = true
@@ -550,7 +518,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             
             combinedChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInCirc)
             
-            //https://medium.com/geekculture/swift-ios-charts-tutorial-highlight-selected-value-with-a-custom-marker-30ccbf92aa1b - marker view
         }
         else {
             for (i, v) in forY.enumerated() {
@@ -680,7 +647,11 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             let marker = ChartMarker()
             marker.chartView = combinedChart
             combinedChart.marker = marker
-//            self.dateChangeLabel.text = marker.text1
+            
+            let xRenderer = CustomXAxisRenderer(viewPortHandler: combinedChart.viewPortHandler, xAxis: combinedChart.xAxis,transformer: combinedChart.getTransformer(forAxis: YAxis.AxisDependency.left))
+            combinedChart.xAxisRenderer = xRenderer
+//            print("xaxis \(String(describing: xRenderer.scrollDate))")
+//            dateChangeLabel.text = xRenderer.scrollDate
             
             combinedChart.pinchZoomEnabled = true
             combinedChart.dragEnabled = true
@@ -689,8 +660,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             combinedChart.scaleYEnabled = false
             
             combinedChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInCirc)
-            
-            //https://medium.com/geekculture/swift-ios-charts-tutorial-highlight-selected-value-with-a-custom-marker-30ccbf92aa1b - marker view
         }
     }
     }
@@ -722,9 +691,8 @@ extension UIColor {
         let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
         return String(format:"#%06x", rgb)
     }
-    
- 
 }
+
 class CustomXAxisRenderer: XAxisRenderer {
     var scrollDate:String?
     override init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?) {
@@ -733,14 +701,8 @@ class CustomXAxisRenderer: XAxisRenderer {
 
     override func drawLabel(context: CGContext, formattedLabel: String, x: CGFloat, y: CGFloat, attributes: [NSAttributedString.Key : Any], constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat) {
         let line = formattedLabel.split(separator: "\n")
-//        scrollDate = line.debugDescription
-//        let dateVal = line.startIndex
-//        let firstVal = line.first
-//        let value = line.last
-//        for i in line {
-//            print("line \(i)")
-//        }
-//        print("scrolldate \(value) \t \(dateVal) \t \(String(describing: scrollDate)) \t \(String(describing: firstVal))")
+        print("formatted label \(formattedLabel) after split \(String(line[0]))")
+        scrollDate = String(line[0])
     }
 }
 
