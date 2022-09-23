@@ -31,19 +31,13 @@ class ManualReadingViewController: UIViewController {
 
     @IBAction func saveToDatabse(_ sender: UIButton) {
         if systolicText.text == "" {
-//           self.showToast(message: "Please enter systolic value", font: .systemFont(ofSize: 12.0))
             alert(title: "Alert!", msg: "Please enter systolic value")
-            
         }
         else if diastolicText.text == "" {
-//        self.showToast(message: "Please enter diastolic value", font: .systemFont(ofSize: 12.0))
             alert(title: "Alert!", msg: "Please enter diastolic value")
-            
         }
         else if heartRateText.text == "" {
-//            self.showToast(message: "Please enter heart rate value", font: .systemFont(ofSize: 12.0))
             alert(title: "Alert!", msg: "Please enter heart rate value")
-            
         }
         else {
             if ((Int(systolicText.text!)! < 60) || (Int(systolicText.text!)! > 240)) {

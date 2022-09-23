@@ -300,28 +300,11 @@
                         <outlet property="profilePic" destination="Toj-je-hIM" id="nzn-Jf-BMf"/>
                         <outlet property="progress1" destination="TOP-zr-piB" id="iq7-Gp-Rk1"/>
                         <outlet property="progress2" destination="sKe-Dq-PCC" id="dub-qe-tKE"/>
-                        <segue destination="Q2V-mh-StP" kind="show" identifier="toDeviceConnection" id="C7l-YZ-w0w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="765.60000000000002" y="166.8665667166417"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="tpp-g1-A11">
-            <objects>
-                <viewController id="Nzq-gu-Esd" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="6OO-1f-foj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="ojz-5y-GWK"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="KPS-8l-7Jk"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="O3c-Fr-J4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-368.80000000000001" y="888.30584707646187"/>
         </scene>
         <!--Logs-->
         <scene sceneID="h5l-rY-onP">
@@ -558,7 +541,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="O0J-Vz-Cm7" kind="relationship" relationship="viewControllers" id="i11-8u-Vfd"/>
-                        <segue destination="4oT-bb-jbg" kind="relationship" relationship="viewControllers" id="WGI-91-vbh"/>
+                        <segue destination="SrB-jT-Vrz" kind="relationship" relationship="viewControllers" id="9Tq-P2-BEs"/>
                         <segue destination="nHV-zi-sJh" kind="relationship" relationship="viewControllers" id="jbp-mb-fBf"/>
                     </connections>
                 </tabBarController>
@@ -575,7 +558,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hre-ID-cKl">
-                                <rect key="frame" x="0.0" y="63" width="375" height="502"/>
+                                <rect key="frame" x="0.0" y="53" width="375" height="433"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                 <prototypes>
@@ -603,7 +586,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z53-lY-qpb">
-                                <rect key="frame" x="62.5" y="582" width="250" height="50"/>
+                                <rect key="frame" x="56" y="502.5" width="250" height="50"/>
                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                 <state key="normal" title="MANUAL MEASUREMENT" backgroundImage="backgroundShape">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -616,22 +599,17 @@
                         <viewLayoutGuide key="safeArea" id="6e9-WT-S99"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hre-ID-cKl" firstAttribute="height" secondItem="oY3-7g-TMt" secondAttribute="height" multiplier="502:667" id="0zv-1b-zCi"/>
+                            <constraint firstItem="hre-ID-cKl" firstAttribute="height" secondItem="oY3-7g-TMt" secondAttribute="height" multiplier="502:667" constant="-69" id="0zv-1b-zCi"/>
                             <constraint firstItem="Z53-lY-qpb" firstAttribute="height" secondItem="oY3-7g-TMt" secondAttribute="height" multiplier="50:667" id="2cT-N2-tAT"/>
                             <constraint firstItem="hre-ID-cKl" firstAttribute="centerX" secondItem="oY3-7g-TMt" secondAttribute="centerX" id="C1Q-Ln-OWK"/>
-                            <constraint firstItem="Z53-lY-qpb" firstAttribute="bottom" secondItem="6e9-WT-S99" secondAttribute="bottom" multiplier="0.947526" id="aO9-Z5-dUO"/>
+                            <constraint firstItem="Z53-lY-qpb" firstAttribute="bottom" secondItem="6e9-WT-S99" secondAttribute="bottom" multiplier="0.947526" constant="-32.999841999999944" id="aO9-Z5-dUO"/>
                             <constraint firstItem="Z53-lY-qpb" firstAttribute="width" secondItem="oY3-7g-TMt" secondAttribute="width" multiplier="250:375" id="jFA-pO-6Vx"/>
                             <constraint firstItem="hre-ID-cKl" firstAttribute="width" secondItem="oY3-7g-TMt" secondAttribute="width" id="o3Z-LF-KYj"/>
-                            <constraint firstItem="Z53-lY-qpb" firstAttribute="centerX" secondItem="oY3-7g-TMt" secondAttribute="centerX" id="yjH-Xl-vxj"/>
-                            <constraint firstItem="hre-ID-cKl" firstAttribute="bottom" secondItem="6e9-WT-S99" secondAttribute="bottom" multiplier="0.847076" id="zfR-nV-25y"/>
+                            <constraint firstItem="Z53-lY-qpb" firstAttribute="centerX" secondItem="oY3-7g-TMt" secondAttribute="centerX" constant="-6.5" id="yjH-Xl-vxj"/>
+                            <constraint firstItem="hre-ID-cKl" firstAttribute="bottom" secondItem="6e9-WT-S99" secondAttribute="bottom" multiplier="0.847076" constant="-37.999691999999982" id="zfR-nV-25y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Scan Device" id="HJ2-sO-VBM">
-                        <barButtonItem key="leftBarButtonItem" title="Back" image="icons8-left-50" id="1ee-aE-J9V">
-                            <connections>
-                                <action selector="backPressed:" destination="Q2V-mh-StP" id="iJF-cZ-bjD"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="bluetoothscan-1" id="vkF-2X-uEy">
                             <color key="tintColor" systemColor="darkTextColor"/>
                             <connections>
@@ -640,17 +618,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="scanTB" destination="hre-ID-cKl" id="f0Q-IZ-cTh"/>
                         <segue destination="vdS-Rl-fRF" kind="show" identifier="toManualReadings" id="iez-fa-07D"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="toHome" id="uKu-op-Ffa"/>
                         <segue destination="ku4-B1-5Tb" kind="show" identifier="toReadingVC" id="CAZ-lB-Aj1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30l-sT-hie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1512.8" y="159.67016491754123"/>
+            <point key="canvasLocation" x="2452" y="158.77061469265368"/>
         </scene>
         <!--End Calendar-->
         <scene sceneID="DXO-Nr-Yuo">
@@ -1207,7 +1184,7 @@
                     <navigationItem key="navigationItem" title="Manual Reading" id="iCg-bM-Gyh">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-left-50" id="2H6-5G-xMW">
                             <connections>
-                                <segue destination="Q2V-mh-StP" kind="show" id="Ccd-Xf-cBg"/>
+                                <segue destination="SrB-jT-Vrz" kind="show" id="Ccd-Xf-cBg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1221,7 +1198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BPg-I6-2U7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2592.8000000000002" y="859.52023988005999"/>
+            <point key="canvasLocation" x="2586" y="877"/>
         </scene>
         <!--BLE Readings-->
         <scene sceneID="2Y2-1z-buU">
@@ -1610,13 +1587,13 @@
                         <outlet property="statusLabel" destination="tSe-mH-b8d" id="8zH-UC-CvO"/>
                         <outlet property="stopBtn" destination="ek7-Ko-Xkb" id="bjT-1p-kz0"/>
                         <outlet property="systolicLabel" destination="MrS-f8-Zaq" id="V5N-EQ-w2P"/>
-                        <segue destination="Q2V-mh-StP" kind="show" identifier="disconnectPeripheral" animates="NO" id="Cw8-5M-mE5"/>
+                        <segue destination="SrB-jT-Vrz" kind="show" identifier="disconnectPeripheral" animates="NO" id="Cw8-5M-mE5"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="toHome" id="sHY-oj-f8f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYI-17-AJS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2469.5999999999999" y="158.77061469265368"/>
+            <point key="canvasLocation" x="3408.8000000000002" y="158.77061469265368"/>
         </scene>
         <!--Dashboard NV-->
         <scene sceneID="tLc-e9-Yv9">
@@ -1656,35 +1633,37 @@
             </objects>
             <point key="canvasLocation" x="324" y="888.30584707646187"/>
         </scene>
-        <!--Profile-->
-        <scene sceneID="Izu-8A-Rao">
+        <!--Readings-->
+        <scene sceneID="G5s-cJ-7f3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4oT-bb-jbg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="profile" selectedImage="profile" id="6zz-Q5-3D6"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SrB-jT-Vrz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Readings" image="blood-pressure-3" id="2N3-50-bhm"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Ec-6w-mte">
+                    <navigationItem key="navigationItem" id="lt6-mm-hfB"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EVe-u1-Mmz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Nzq-gu-Esd" kind="relationship" relationship="rootViewController" id="pW9-wg-GTx"/>
+                        <segue destination="Q2V-mh-StP" kind="relationship" relationship="rootViewController" id="gN6-l0-scE"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fun-CL-vxZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Di-MA-nPU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1308" y="888.30584707646187"/>
+            <point key="canvasLocation" x="1512.8" y="158.77061469265368"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="C7l-YZ-w0w"/>
-        <segue reference="uKu-op-Ffa"/>
+        <segue reference="Cw8-5M-mE5"/>
+        <segue reference="sHY-oj-f8f"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="backgroundImg" width="76" height="101"/>
         <image name="backgroundShape" width="122" height="29"/>
         <image name="backgroundShape1" width="182" height="28"/>
         <image name="blood-pressure" width="256" height="256"/>
+        <image name="blood-pressure-3" width="32" height="32"/>
         <image name="bluetoothDisable" width="24" height="24"/>
         <image name="bluetoothscan-1" width="24" height="24"/>
         <image name="calendar" width="32" height="32"/>
@@ -1693,7 +1672,6 @@
         <image name="icons8-left-50" width="25" height="25"/>
         <image name="list-2" width="16" height="16"/>
         <image name="notification" width="16" height="16"/>
-        <image name="profile" width="16" height="16"/>
         <image name="right-arrow" width="32" height="32"/>
         <image name="user (1)" width="32" height="32"/>
         <systemColor name="darkTextColor">

@@ -243,7 +243,6 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if periperalData.state == .disconnected {
             alert1(msg: "Connection terminated!, please check the device connectivity")
         }
-        
     }
     
 //    Sending stop commands to stop receiving the readings
@@ -590,7 +589,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                     peripheral.setNotifyValue(true, for: characteristics)
                     peripheral.readValue(for: characteristics)
 //                    print("read value \( peripheral.readValue(for: characteristics))")
-                    
                 }
             }
         }
@@ -702,10 +700,8 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.constantValue.deviceId.insert(byteArray[3], at: 2)
                                     self.constantValue.deviceId.remove(at: 3)
                                     self.constantValue.deviceId.insert(byteArray[4], at: 3)
-        
                     
                     //                    print("new device id \(constantValue.deviceId)")
-                    
                                     self.constantValue.startValue = self.bleManagerReading.replaceDeviceVal(value: self.constantValue.startValue, value1: self.constantValue.deviceId)
                     //                print("new start value \(constantValue.startValue)")
                                     self.constantValue.ack = self.bleManagerReading.replaceDeviceVal(value: self.constantValue.ack, value1: self.constantValue.deviceId)
@@ -730,8 +726,8 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                                 }
                                             }
                                         }
-                                    
                                     break
+                                    
 //                    Battery status
                                 case self.constantValue.BATTERY_COMMANDID:
                                     timer.invalidate()
@@ -741,7 +737,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.batteryVal = Int(byteArray[8])
                     //                    print("battery value: \(batteryVal)")
                                     self.showBattery()
-                    
                                     break
                     
 //                                    Raw readings
@@ -755,7 +750,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     print("pulse value \(self.pulseVal)")
                     
                                     self.readingLab1.text = "\(self.cuffval)" + " / " + "\(self.pulseVal)"
-                    
                                     break
                     
 //                                    Final results
@@ -976,7 +970,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                             self.present(alert, animated: true)
                                             self.constantValue.batteryPop = true
                                         }
-                                       
                                         break
                     
                                     case 8:
@@ -1009,10 +1002,9 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                             self.present(alert, animated: true)
                                             self.constantValue.batteryPop = true
                                         }
-                                      
-                    //
                                         break
                     
+                                        // not used
                                     case 11:
                                         self.constantValue.is_batterystatus = true
                                         timer.invalidate()
@@ -1022,7 +1014,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.startbtn.isHidden = false
                                         self.stopBtn.isEnabled = false
                                         self.startbtn.isEnabled = true
-                    //                                        self.constantValue.is_batterystatus = false
                                         break
                     
                                     default:
@@ -1032,7 +1023,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                     self.constantValue.is_errorReceived = false
                                     break
                     
-//                                    Acknowlwdgemwnt
+//                                    Acknowledgement
                                 case self.constantValue.ACK_COMMANDID:
                                     print("ack: \(byteArray)")
                                     
@@ -1040,6 +1031,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
 //                                    self.secondsRemainingInReadings = 90
                                     self.constantValue.is_ackReceived = true
                                     
+                                    // Ack received for stop command
                                     if self.constantValue.is_stopTapped == true {
                                         self.constantValue.is_ackReceived = true
                                         self.stopBtn.isHidden = true
@@ -1052,6 +1044,7 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.constantValue.is_stopTapped = false
                                     }
                                     
+                                    // Ack received for start command
                                     else if self.constantValue.is_startTapped == true {
                                         self.constantValue.is_ackReceived = true
                                         self.stopBtn.isHidden = false
@@ -1059,31 +1052,10 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.stopBtn.isEnabled = true
                                         self.startbtn.isEnabled = false
                                         self.secondsRemainingInReadings = 1000
-                                        
-//                                        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-//                                                if self.secondsRemainingInReadings > 0 {
-//                                                    print ("\(self.secondsRemainingInReadings) seconds")
-//                                                    if self.constantValue.is_rawResultReceived == true {
-//                                                        Timer.invalidate()
-//                                                        self.secondsRemainingInReadings = 90
-//                                                    }
-//                                                    self.secondsRemainingInReadings -= 1
-//                                                } else if self.secondsRemainingInReadings == 0 {
-//                                                    if self.constantValue.is_rawResultReceived == false {
-//                                                        self.alert2(msg: "Please start again")
-//                                                        self.stopBtn.isHidden = true
-//                                                        self.startbtn.isHidden = false
-//                                                        self.stopBtn.isEnabled = false
-//                                                        self.startbtn.isEnabled = true
-//                                                        Timer.invalidate()
-////                                                        self.secondsRemainingInReadings = 90
-//                                                    }
-//                                                }
-//                                            }
-//
                                         self.constantValue.is_startTapped = false
                                     }
                                     
+                                    // Ack received for cuff replacement
                                     else if self.constantValue.is_ackInCuff == true {
                                         self.constantValue.is_ackReceived = true
                                         self.readingsLabel.text = "---"
@@ -1099,7 +1071,6 @@ extension DataReadingViewController: CBPeripheralDelegate {
                                         self.readingLab2.text = ""
                                         self.constantValue.is_ackInBattery = false
                                     }
-                                  
                                     break
                     
                                 default:

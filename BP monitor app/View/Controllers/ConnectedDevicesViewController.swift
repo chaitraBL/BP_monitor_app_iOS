@@ -78,17 +78,18 @@ class ConnectedDevicesViewController: UIViewController , UITableViewDelegate, UI
         
     }
     
-    @IBAction func backPressed(_ sender: UIBarButtonItem) {
-      
-        performSegue(withIdentifier: "toHome", sender: self)
-    }
+//    @IBAction func backPressed(_ sender: UIBarButtonItem) {
+//
+//        performSegue(withIdentifier: "toHome", sender: self)
+//    }
   
     // Passing the data to VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "toHome") {
-            self.tabBarController?.tabBar.isHidden = false
-        }
-        else if (segue.identifier == "toReadingVC") {
+//        if (segue.identifier == "toHome") {
+//            self.tabBarController?.tabBar.isHidden = false
+//        }
+//        else
+        if (segue.identifier == "toReadingVC") {
             let vc = segue.destination as! DataReadingViewController
             vc.periperalData = periperalData[index]
             vc.centralManager = cManager
@@ -149,7 +150,6 @@ extension ConnectedDevicesViewController:CBCentralManagerDelegate, CBPeripheralD
         else {
             cManager.scanForPeripherals(withServices:nil, options: nil)
         }
-//        scanTB.reloadData()
     }
     
 //    Stop scannning

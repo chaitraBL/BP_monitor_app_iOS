@@ -41,17 +41,14 @@ class LocalNetworking: NSObject {
         newReadings.setValue(map, forKey: "map")
         newReadings.setValue(irregularHB, forKey: "irregularHB")
         newReadings.setValue(format.string(from: mytime), forKey: "date")
-        //        format.string(from: "mytime")
         newReadings.setValue(format1.string(from: mytime1), forKey: "time")
         
         do {
             try context.save()
             return true
-//            self.showToast(message: "Successfully saved", font: .systemFont(ofSize: 12.0))
         } catch {
             print("Failed saving")
             return false
-//            self.showToast(message: "Failed saving", font: .systemFont(ofSize: 12.0))
         }
     }
     

@@ -186,6 +186,7 @@
 		175C9916286AE5430073D324 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				175C9913286AE50D0073D324 /* Model */,
 				179F742E28698F0300CE83ED /* ViewController.swift */,
 				179F745F2869B24800CE83ED /* ConnectedDevicesViewController.swift */,
 				175C9918286AE5EA0073D324 /* ManualReadingViewController.swift */,
@@ -254,7 +255,6 @@
 				175C9917286AE5A80073D324 /* Others */,
 				175C9915286AE52D0073D324 /* View */,
 				175C9914286AE51D0073D324 /* ViewModel */,
-				175C9913286AE50D0073D324 /* Model */,
 				179F743B28698F2200CE83ED /* Info.plist */,
 				179F743328698F0400CE83ED /* BP_monitor_app.xcdatamodeld */,
 			);

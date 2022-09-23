@@ -56,38 +56,28 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         newDateFormatter.dateFormat = "dd-MMM"
         if let date: Date = originalDateFormatter.date(from: date) {
             let dateInNewStringFormat: String = newDateFormatter.string(from: date)
-//            print("dateInNewStringFormat\(dateInNewStringFormat)")
-            //                        logData.date.text = dateInNewStringFormat
             dateChangeLabel.text = dateInNewStringFormat
         }
         
         dateSelected = date
-//        print("filtered obj \(filteredObj.count)")
         
         if filteredObj.count > 0 {
             for i in filteredObj {
-//                print("local date \(i.date!) & selected date \(dateSelected!)")
                 if i.date == dateSelected {
                     datelist.append(i.time!)
                     sysList.append(Int(i.systolic!)!)
                     diaList.append(Int(i.diastolic!)!)
                     convertCombines(dataEntryX: datelist, dataEntryY: sysList, dataEntryZ: diaList)
-//                    activityView1.isHidden = true
-//                    activityIndicator1.stopAnimating()
                 }
                 else {
                     combinedChart.noDataText = "Please provide data to the chart"
                     combinedChart.notifyDataSetChanged()
-//                    activityView1.isHidden = true
-//                    activityIndicator1.stopAnimating()
                 }
             }
         }
         else {
             combinedChart.noDataText = "Please provide data to the chart"
             combinedChart.notifyDataSetChanged()
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
     }
     
@@ -106,11 +96,11 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //        activityIndicator1.startAnimating()
         getData()
          // Tap guesture to navigate to next vc from imageview
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
-        
-        backgroundImg.isUserInteractionEnabled = true
-        
-        backgroundImg.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
+//
+//        backgroundImg.isUserInteractionEnabled = true
+//
+//        backgroundImg.addGestureRecognizer(tapGestureRecognizer)
         
         profilePic.layer.masksToBounds = true
         profilePic.layer.cornerRadius = profilePic.bounds.width / 2
@@ -130,13 +120,13 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
     }
     
      // Navigate to next vc from imageview
-    @objc func imageViewTapped(_ sender:AnyObject){
-        
-//        print("imageview tapped")
-        
-        performSegue(withIdentifier: "toDeviceConnection", sender: self)
-        
-    }
+//    @objc func imageViewTapped(_ sender:AnyObject){
+//
+////        print("imageview tapped")
+//
+//        performSegue(withIdentifier: "toDeviceConnection", sender: self)
+//
+//    }
 
     // To get data from coredata and append it to model & plot the graph
     func getData() {
@@ -177,7 +167,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
                         changeSystolicProgress(systolic1: Int(lastElement.systolic!)!)
                         changeDiastolicProgress(diastolic1: Int(lastElement.diastolic!)!)
                     }
-                    
                 }
                 
                 for i in readingsObj {
@@ -220,43 +209,29 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
     
     //Updating progress bar according to systolic and diastolic readings
     func changeSystolicProgress(systolic1:Int) {
-    
         if (systolic1 < 80) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#90EE90")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 >= 80 && systolic1 <= 120) {
+        else if (systolic1 >= 80 && systolic1 < 120) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#008000")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 >= 120 && systolic1 <= 139) {
+        else if (systolic1 >= 120 && systolic1 < 139) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FFD700")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 >= 139 && systolic1 <= 159) {
+        else if (systolic1 >= 139 && systolic1 < 159) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FFA500")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (systolic1 >= 159 && systolic1 <= 179) {
+        else if (systolic1 >= 159 && systolic1 < 179) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FF8C00")
-            
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
         else {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FF0000")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
     }
     
@@ -264,41 +239,26 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         if diastolic1 < 60 {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#90EE90")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (diastolic1 >= 60 && diastolic1 <= 80) {
+        else if (diastolic1 >= 60 && diastolic1 < 80) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#008000")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (diastolic1 >= 80 && diastolic1 <= 89) {
+        else if (diastolic1 >= 80 && diastolic1 < 89) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#FFD700")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (diastolic1 >= 89 && diastolic1 <= 99) {
+        else if (diastolic1 >= 89 && diastolic1 < 99) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#FFA500")
-//                "#FFA500")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
         }
-        else if (diastolic1 >= 99 && diastolic1 <= 109) {
+        else if (diastolic1 >= 99 && diastolic1 < 109) {
             progress2.value = Float(diastolic1)
             progress2.tintColor = UIColor(hexString: "#FF8C00")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
-            
         }
         else {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#FF0000")
-//            activityView1.isHidden = true
-//            activityIndicator1.stopAnimating()
-
         }
     }
     
@@ -421,7 +381,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             candleChartSet.setColor(UIColor.init(red: 80, green: 80, blue: 80, alpha: 1))
             candleChartSet.drawValuesEnabled = false
             
-            //ui
+            //Ui
             lineChartSet.setColor(UIColor.magenta)
             lineChartSet.setCircleColor(UIColor(hexString: "#50EBEC"))
             lineChartSet.circleRadius = 5
