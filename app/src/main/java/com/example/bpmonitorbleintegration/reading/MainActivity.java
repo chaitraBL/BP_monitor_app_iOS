@@ -47,6 +47,8 @@ import android.widget.Toast;
 
 import com.example.bpmonitorbleintegration.R;
 import com.example.bpmonitorbleintegration.home.HomePage;
+import com.example.bpmonitorbleintegration.logs.LogActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +56,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     List<BluetoothDevice> listBluetoothDevice;
     List<String> mBlE;
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     BluetoothManager bluetoothManager;
     Context context;
     HashMap<String, String> filterDevices;
+    BottomNavigationView readingBottomNavigationView;
 
     @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -93,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.blue_200));
         View decorView = getWindow().getDecorView(); //set status background black
         decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); //set status text  light
+
+        readingBottomNavigationView = findViewById(R.id.reading_bottomNavigationView);
+        readingBottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
+        readingBottomNavigationView.setSelectedItemId(R.id.reading);
 
         // Check if BLE is supported on the device.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
@@ -175,6 +182,25 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //bottom bar item
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.home:
+                startActivity(new Intent(MainActivity.this, HomePage.class));
+                break;
+            case R.id.reading:
+
+                break;
+            case R.id.logs:
+                startActivity(new Intent(MainActivity.this, LogActivity.class));
+                break;
+        }
+        return true;
+    }
+
     //Describes bluetooth device type.
     @SuppressLint("MissingPermission")
     private String getBTDevieType(BluetoothDevice d) {
@@ -209,23 +235,20 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.bluetooth_searching:
-                progressBar.setVisibility(View.VISIBLE);
-                scanLeDevice(true);
-                return true;
+        if (item.getItemId() == R.id.bluetooth_searching) {
+            progressBar.setVisibility(View.VISIBLE);
+            scanLeDevice(true);
+            return true;
 
-            case android.R.id.home:
-                //To refresh activity
-                Intent i = new Intent(this, HomePage.class);
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-//                this.finish();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+//            case android.R.id.home:
+//                //To refresh activity
+//                Intent i = new Intent(this, HomePage.class);
+////                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(i);
+////                this.finish();
+//                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @SuppressLint({"ObsoleteSdkInt", "MissingPermission"})

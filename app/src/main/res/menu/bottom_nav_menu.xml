@@ -10,9 +10,9 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/profile"
-        android:title="@string/profile"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:id="@+id/reading"
+        android:title="@string/readings_menu"
+        android:icon="@drawable/ic_blood_pressure_3"
         android:enabled="true"
         app:showAsAction="ifRoom"/>
 

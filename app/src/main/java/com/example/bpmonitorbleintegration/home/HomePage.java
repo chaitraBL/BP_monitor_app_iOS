@@ -444,8 +444,8 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
 //            case R.id.home:
 ////                startActivity(new Intent(HomePage.this, MainActivity.class));
 //                break;
-            case R.id.profile:
-//                startActivity(new Intent(HomePage.this, LogActivity.class));
+            case R.id.reading:
+                startActivity(new Intent(HomePage.this, MainActivity.class));
                 break;
             case R.id.logs:
                 startActivity(new Intent(HomePage.this, LogActivity.class));

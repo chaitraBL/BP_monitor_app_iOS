@@ -170,9 +170,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/log_list"
                     android:layout_width="397dp"
-                    android:layout_height="505dp"
+                    android:layout_height="490dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp">
 
@@ -181,12 +181,20 @@
                 </androidx.recyclerview.widget.RecyclerView>
         </RelativeLayout>
 
+<!--        <View-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/list_layout"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:id="@+id/bottom_view"-->
+<!--            android:background="@color/progress_back_color">-->
+
+<!--        </View>-->
+
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            app:layout_constraintBottom_toTopOf="@id/list_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/bottom_view"
             android:background="@color/progress_back_color">
 

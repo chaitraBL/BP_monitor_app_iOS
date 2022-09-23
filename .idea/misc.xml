@@ -3,8 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2595" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/drawable/navigation_item_color.xml" value="0.2595" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_home_page.xml" value="0.2" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_log.xml" value="0.2" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/layout/activity_reading_data1.xml" value="0.25416666666666665" />
         <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/layout/share_readings.xml" value="0.178125" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/menu/data_menu_file.xml" value="0.25416666666666665" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/menu/home_menu_file.xml" value="0.25416666666666665" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/menu/main_menu_file.xml" value="0.25416666666666665" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/menu/popup_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/mipmap-anydpi-v26/blood_pressure_reading.xml" value="0.2595" />
+        <entry key="..\:/Chaitra/BPMonitorBLEIntegration-master/app/src/main/res/mipmap-anydpi-v26/blood_pressure_reading_round.xml" value="0.2595" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/drawable/circular_shape.xml" value="0.124" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/drawable/filled_bg_circle.xml" value="0.124" />
         <entry key="..\:/Users/vinay.FABRITRONIX/Downloads/BPMonitorBLEIntegration-master/app/src/main/res/drawable/start_btn.xml" value="0.2595" />

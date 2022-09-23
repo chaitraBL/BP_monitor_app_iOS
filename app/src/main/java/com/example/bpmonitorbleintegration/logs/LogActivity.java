@@ -38,6 +38,7 @@ import com.example.bpmonitorbleintegration.R;
 import com.example.bpmonitorbleintegration.database.BloodPressureDB;
 import com.example.bpmonitorbleintegration.database.DatabaseClient;
 import com.example.bpmonitorbleintegration.home.HomePage;
+import com.example.bpmonitorbleintegration.reading.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -204,7 +205,8 @@ private  void endDateCalendar() {
             case R.id.home:
                 startActivity(new Intent(LogActivity.this, HomePage.class));
                 break;
-            case R.id.profile:
+            case R.id.reading:
+                startActivity(new Intent(LogActivity.this, MainActivity.class));
                 break;
             case R.id.logs:
                 break;
