@@ -89,6 +89,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         self.tabBarController?.tabBar.isHidden = false
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(hexString: "#162760")], for: .selected)
+    
                 
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .normal)
         
@@ -213,19 +214,19 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#90EE90")
         }
-        else if (systolic1 >= 80 && systolic1 < 120) {
+        else if (systolic1 >= 80 && systolic1 <= 120) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#008000")
         }
-        else if (systolic1 >= 120 && systolic1 < 139) {
+        else if (systolic1 > 120 && systolic1 <= 139) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FFD700")
         }
-        else if (systolic1 >= 139 && systolic1 < 159) {
+        else if (systolic1 > 139 && systolic1 <= 159) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FFA500")
         }
-        else if (systolic1 >= 159 && systolic1 < 179) {
+        else if (systolic1 > 159 && systolic1 <= 179) {
             progress1.value = Float(systolic1)
             progress1.tintColor = UIColor(hexString: "#FF8C00")
         }
@@ -240,19 +241,19 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#90EE90")
         }
-        else if (diastolic1 >= 60 && diastolic1 < 80) {
+        else if (diastolic1 >= 60 && diastolic1 <= 80) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#008000")
         }
-        else if (diastolic1 >= 80 && diastolic1 < 89) {
+        else if (diastolic1 > 80 && diastolic1 <= 89) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#FFD700")
         }
-        else if (diastolic1 >= 89 && diastolic1 < 99) {
+        else if (diastolic1 > 89 && diastolic1 <= 99) {
             progress2.value = Float(diastolic1)
             progress2.tintColor =  UIColor(hexString: "#FFA500")
         }
-        else if (diastolic1 >= 99 && diastolic1 < 109) {
+        else if (diastolic1 > 99 && diastolic1 <= 109) {
             progress2.value = Float(diastolic1)
             progress2.tintColor = UIColor(hexString: "#FF8C00")
         }
@@ -347,7 +348,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         var dataEntries1: [ChartDataEntry] = [ChartDataEntry]()
         let data = LineChartData()
         
-        if forX.count == 1 {
             for (i, v) in forY.enumerated() {
                 let dataEntry = CandleChartDataEntry(x: Double(i), shadowH: Double(v), shadowL: Double(diaList[i]), open: Double(v), close: Double(diaList[i]), data: forX as AnyObject?)
                 dataEntries.append(dataEntry)
@@ -372,33 +372,61 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             candleChartSet.drawValuesEnabled = false
             candleChartSet.barSpace = 10
             candleChartSet.shadowColor = UIColor.darkGray
-            candleChartSet.decreasingColor = UIColor(hexString: "#FFA500")
+        candleChartSet.decreasingColor = UIColor.lightGray
+//            candleChartSet.decreasingColor = UIColor(hexString: "#FFA500")
             candleChartSet.decreasingFilled = true
-            candleChartSet.increasingColor = UIColor(hexString: "#FFA500")
+        candleChartSet.increasingColor = UIColor.lightGray
             candleChartSet.increasingFilled = false
             candleChartSet.setDrawHighlightIndicators(false)
             candleChartSet.neutralColor = UIColor.blue
             candleChartSet.setColor(UIColor.init(red: 80, green: 80, blue: 80, alpha: 1))
             candleChartSet.drawValuesEnabled = false
+        
             
             //Ui
-            lineChartSet.setColor(UIColor.magenta)
-            lineChartSet.setCircleColor(UIColor(hexString: "#50EBEC"))
+//            lineChartSet.setColor(UIColor.magenta)
+        lineChartSet.setColor(UIColor.darkGray)
+//            lineChartSet.setCircleColor(UIColor(hexString: "#50EBEC"))
             lineChartSet.circleRadius = 5
-            lineChartSet1.setColor(UIColor.red)
-            lineChartSet1.setCircleColor(UIColor(hexString: "#50EBEC"))
+//            lineChartSet1.setColor(UIColor.red)
+        lineChartSet1.setColor(UIColor.darkGray)
+            lineChartSet1.setCircleColor(UIColor(hexString: "#90EE90"))
             lineChartSet1.circleRadius = 5
-            lineChartSet.lineWidth = 2
-            lineChartSet.lineDashLengths = [3]
+            lineChartSet.lineWidth = 1
+        lineChartSet.mode = .cubicBezier
+        lineChartSet1.mode = .cubicBezier
+            lineChartSet.lineDashLengths = [5]
             lineChartSet.drawCircleHoleEnabled = false
-            lineChartSet1.lineWidth = 2
-            lineChartSet1.lineDashLengths = [3]
+            lineChartSet1.lineWidth = 1
+            lineChartSet1.lineDashLengths = [5]
             lineChartSet1.drawCircleHoleEnabled = false
             lineChartSet.drawValuesEnabled = true
             lineChartSet.setDrawHighlightIndicators(false)
             lineChartSet1.drawValuesEnabled = true
             lineChartSet1.setDrawHighlightIndicators(false)
-            
+        
+        for i in 0..<forY.count{
+            if (forY[i] < 80) {
+                lineChartSet.setCircleColor(UIColor(hexString: "#90EE90"))
+            }
+            else if (forY[i] >= 80 && forY[i] <= 120) {
+                lineChartSet.setCircleColor(UIColor(hexString: "#008000"))
+            }
+            else if (forY[i] > 120 && forY[i] <= 139) {
+                lineChartSet.setCircleColor(UIColor(hexString: "#FFD700"))
+            }
+            else if (forY[i] > 139 && forY[i] <= 159) {
+                lineChartSet.setCircleColor(UIColor(hexString: "#FFA500"))
+            }
+            else if (forY[i] > 159 && forY[i] <= 179) {
+                lineChartSet.setCircleColor(UIColor(hexString: "#FF8C00"))
+            }
+            else {
+                lineChartSet.setCircleColor(UIColor(hexString: "#FF0000"))
+            }
+        }
+        
+             
     //        let comData = CombinedChartData(dataSets: [lineChartSet,lineChartSet1,candleChartSet])
             let comData = CombinedChartData()
     //        comData.barData = barChartData
@@ -440,32 +468,33 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             combinedChart.xAxis.granularityEnabled = true
             combinedChart.xAxis.setLabelCount(forX.count, force: false)
             combinedChart.xAxis.labelFont = UIFont.systemFont(ofSize: 8.0, weight: UIFont.Weight.regular)
-            combinedChart.xAxis.labelRotationAngle = -45
-            combinedChart.xAxis.labelTextColor = .black
+//            combinedChart.xAxis.labelRotationAngle = -45
+            combinedChart.xAxis.labelTextColor = .darkGray
             combinedChart.xAxis.spaceMax = 0.45
             combinedChart.xAxis.spaceMin = 0.5
             combinedChart.xAxis.axisMinimum = -0.5
-            combinedChart.xAxis.avoidFirstLastClippingEnabled = true
+//            combinedChart.xAxis.avoidFirstLastClippingEnabled = true
             combinedChart.xAxis.labelPosition = .bottom
             combinedChart.zoom(scaleX: 1.0, scaleY: 1.0, x: 0.0, y: 0.0)
-            combinedChart.xAxis.drawAxisLineEnabled = false
+            combinedChart.xAxis.drawAxisLineEnabled = true
             combinedChart.xAxis.drawGridLinesEnabled = false
-            combinedChart.xAxis.wordWrapEnabled = true
+//        combinedChart.xAxis.drawZeroLineEnabled = true
+//            combinedChart.xAxis.wordWrapEnabled = true
             combinedChart.xAxis.centerAxisLabelsEnabled = false
             
             //y axis
-            combinedChart.rightAxis.drawGridLinesEnabled = true
+            combinedChart.rightAxis.drawGridLinesEnabled = false
     //        combinedChart.rightAxis.drawGridLinesEnabled = false
             combinedChart.rightAxis.drawLabelsEnabled = false
             combinedChart.leftAxis.drawGridLinesEnabled = false
-            combinedChart.leftAxis.drawAxisLineEnabled = false
-            combinedChart.leftAxis.drawZeroLineEnabled = true
+            combinedChart.leftAxis.drawAxisLineEnabled = true
+            combinedChart.leftAxis.drawZeroLineEnabled = false
             combinedChart.leftAxis.labelCount = 5
             combinedChart.leftAxis.axisMinimum = 50
-            combinedChart.leftAxis.axisMaximum = 200
+            combinedChart.leftAxis.axisMaximum = 150
             combinedChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 8.0, weight: UIFont.Weight.regular)
             combinedChart.leftAxis.labelPosition = .outsideChart
-            combinedChart.leftAxis.labelTextColor = .black
+            combinedChart.leftAxis.labelTextColor = .darkGray
             let marker = ChartMarker()
             marker.chartView = combinedChart
             combinedChart.marker = marker
@@ -476,152 +505,10 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             combinedChart.scaleXEnabled = true
             combinedChart.scaleYEnabled = false
             
-            combinedChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInCirc)
+        combinedChart.animate(xAxisDuration: 0.5, yAxisDuration: 0.5, easingOption: .easeInCirc)
             
         }
-        else {
-            for (i, v) in forY.enumerated() {
-    //            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(v), data: forX as AnyObject?)
-                let dataEntry = CandleChartDataEntry(x: Double(i), shadowH: Double(v), shadowL: Double(diaList[i]), open: Double(v), close: Double(diaList[i]), data: forX as AnyObject?)
-                dataEntries.append(dataEntry)
-            }
-            
-            for i in 0..<forX.count{
-                let dataEntry = ChartDataEntry(x: Double(i), y: Double(forY[i]), data: forX as AnyObject?)
-                dataEntrieszor.append(dataEntry)
-                let dataEntry1 = ChartDataEntry(x: Double(i), y: Double(forZ[i]), data: forX as AnyObject?)
-                dataEntries1.append(dataEntry1)
-    //            print("entries \( dataEntrieszor) \( dataEntries1)")
-            }
-            
-            
-            let lineChartSet = LineChartDataSet(entries: dataEntrieszor)
-            data.addDataSet(lineChartSet)
-            let lineChartSet1 = LineChartDataSet(entries: dataEntries1)
-            data.addDataSet(lineChartSet1)
-     
-    //        let barChartSet = BarChartDataSet(entries: dataEntries, label: "Bar Data")
-    //        let barChartData = BarChartData(dataSets: [barChartSet])
-            let candleChartSet = CandleChartDataSet(entries: dataEntries)
-            let candleChartData = CandleChartData(dataSet: candleChartSet)
-            candleChartSet.drawValuesEnabled = false
-            candleChartSet.barSpace = 10
-            candleChartSet.shadowColor = UIColor.darkGray
-            candleChartSet.decreasingColor = UIColor(hexString: "#FFA500")
-            candleChartSet.decreasingFilled = true
-            candleChartSet.increasingColor = UIColor(hexString: "#FFA500")
-            candleChartSet.increasingFilled = false
-            candleChartSet.setDrawHighlightIndicators(false)
-            candleChartSet.neutralColor = UIColor.blue
-            candleChartSet.setColor(UIColor.init(red: 80, green: 80, blue: 80, alpha: 1))
-            candleChartSet.drawValuesEnabled = false
-            
-            //ui
-            lineChartSet.setColor(UIColor.magenta)
-            lineChartSet.setCircleColor(UIColor(hexString: "#50EBEC"))
-            lineChartSet.circleRadius = 5
-            lineChartSet1.setColor(UIColor.red)
-            lineChartSet1.setCircleColor(UIColor(hexString: "#50EBEC"))
-            lineChartSet1.circleRadius = 5
-            lineChartSet.lineWidth = 2
-            lineChartSet.lineDashLengths = [3]
-            lineChartSet.drawCircleHoleEnabled = false
-            lineChartSet1.lineWidth = 2
-            lineChartSet1.lineDashLengths = [3]
-            lineChartSet1.drawCircleHoleEnabled = false
-            lineChartSet.drawValuesEnabled = true
-            lineChartSet.setDrawHighlightIndicators(false)
-            lineChartSet1.drawValuesEnabled = true
-            lineChartSet1.setDrawHighlightIndicators(false)
-            
-    //        let comData = CombinedChartData(dataSets: [lineChartSet,lineChartSet1,candleChartSet])
-            let comData = CombinedChartData()
-    //        comData.barData = barChartData
-            comData.candleData = candleChartData
-            comData.lineData = data
-            
-    //         combinedChart.setVisibleXRangeMaximum(5)
-            if(dataEntries1.count >= 5) {
-                combinedChart.setVisibleXRangeMaximum(5)
-            }
 
-            if(dataEntrieszor.count >= 5) {
-                combinedChart.setVisibleXRangeMaximum(5)
-            }
-
-            if(dataEntries.count >= 5) {
-                combinedChart.setVisibleXRangeMaximum(5)
-            }
-
-            if dataEntries1.count > 1 {
-                combinedChart.moveViewToX(Double(datelist.count-1))
-            }
-            if dataEntries.count > 1 {
-                combinedChart.moveViewToX(Double(datelist.count-1))
-            }
-            if dataEntrieszor.count > 1 {
-                combinedChart.moveViewToX(Double(datelist.count-1))
-            }
-            
-            combinedChart.data = comData
-            combinedChart.notifyDataSetChanged()
-            
-            combinedChart.legend.enabled = false
-        
-//            print("forx \(forX.count)")
-            
-            //xAxis
-            combinedChart.xAxis.valueFormatter = IndexAxisValueFormatter(values:forX)
-            combinedChart.xAxis.granularity = 1
-            combinedChart.xAxis.granularityEnabled = true
-            combinedChart.xAxis.labelCount = forX.count
-//            combinedChart.xAxis.setLabelCount(forX.count, force: true)
-            combinedChart.xAxis.labelFont = UIFont.systemFont(ofSize: 8.0, weight: UIFont.Weight.regular)
-            combinedChart.xAxis.labelRotationAngle = -45
-            combinedChart.xAxis.labelTextColor = .black
-            combinedChart.xAxis.spaceMax = 0.45
-            combinedChart.xAxis.spaceMin = 0.5
-            combinedChart.xAxis.axisMinimum = -0.5
-            combinedChart.xAxis.avoidFirstLastClippingEnabled = true
-            combinedChart.xAxis.labelPosition = .bottom
-            combinedChart.zoom(scaleX: 1.0, scaleY: 1.0, x: 0.0, y: 0.0)
-            combinedChart.xAxis.drawAxisLineEnabled = false
-            combinedChart.xAxis.drawGridLinesEnabled = false
-            combinedChart.xAxis.wordWrapEnabled = true
-            combinedChart.xAxis.centerAxisLabelsEnabled = false
-            
-            //y axis
-            combinedChart.rightAxis.drawGridLinesEnabled = true
-    //        combinedChart.rightAxis.drawGridLinesEnabled = false
-            combinedChart.rightAxis.drawLabelsEnabled = false
-            combinedChart.leftAxis.drawGridLinesEnabled = false
-            combinedChart.leftAxis.drawAxisLineEnabled = false
-            combinedChart.leftAxis.drawZeroLineEnabled = true
-            combinedChart.leftAxis.labelCount = 5
-            combinedChart.leftAxis.axisMinimum = 50
-            combinedChart.leftAxis.axisMaximum = 200
-            combinedChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 8.0, weight: UIFont.Weight.regular)
-            combinedChart.leftAxis.labelPosition = .outsideChart
-            combinedChart.leftAxis.labelTextColor = .black
-            
-            let marker = ChartMarker()
-            marker.chartView = combinedChart
-            combinedChart.marker = marker
-            
-            let xRenderer = CustomXAxisRenderer(viewPortHandler: combinedChart.viewPortHandler, xAxis: combinedChart.xAxis,transformer: combinedChart.getTransformer(forAxis: YAxis.AxisDependency.left))
-            combinedChart.xAxisRenderer = xRenderer
-//            print("xaxis \(String(describing: xRenderer.scrollDate))")
-//            dateChangeLabel.text = xRenderer.scrollDate
-            
-            combinedChart.pinchZoomEnabled = true
-            combinedChart.dragEnabled = true
-    //        combinedChart.isMultipleTouchEnabled = true
-            combinedChart.scaleXEnabled = true
-            combinedChart.scaleYEnabled = false
-            
-            combinedChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInCirc)
-        }
-    }
     }
 
 extension UIColor {

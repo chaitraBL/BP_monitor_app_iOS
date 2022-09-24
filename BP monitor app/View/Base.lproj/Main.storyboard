@@ -84,9 +84,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="GOO-nH-9Mp">
-                                        <rect key="frame" x="151" y="160" width="15" height="15"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImg" translatesAutoresizingMaskIntoConstraints="NO" id="oAn-Pf-OvP">
                                         <rect key="frame" x="192" y="5" width="155" height="180"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -119,11 +116,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="TOP-zr-piB">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="250" translatesAutoresizingMaskIntoConstraints="NO" id="TOP-zr-piB">
                                         <rect key="frame" x="30" y="77" width="94" height="31"/>
                                         <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="sKe-Dq-PCC">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="250" translatesAutoresizingMaskIntoConstraints="NO" id="sKe-Dq-PCC">
                                         <rect key="frame" x="30" y="110" width="94" height="31"/>
                                         <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </slider>
@@ -147,15 +144,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="GOO-nH-9Mp" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.442667" id="0Wx-Bn-J6I"/>
-                                    <constraint firstItem="GOO-nH-9Mp" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="15:190" id="0k1-m2-hXx"/>
                                     <constraint firstItem="jh4-Ye-cDu" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="21:190" id="1d8-yH-CaA"/>
                                     <constraint firstItem="2gC-8l-zSG" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="21:190" id="4hT-jq-cA8"/>
                                     <constraint firstItem="nGg-sV-Ajs" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="15:190" id="6sw-et-la9"/>
                                     <constraint firstItem="kze-tL-CFx" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="32:190" id="6zK-yf-3yg"/>
                                     <constraint firstItem="73G-tD-KMJ" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.547368" id="7aC-ra-RGg"/>
                                     <constraint firstItem="TOP-zr-piB" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="90:375" id="8WM-EM-4xd"/>
-                                    <constraint firstItem="GOO-nH-9Mp" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="15:375" id="9iR-a3-Uhi"/>
                                     <constraint firstItem="jh4-Ye-cDu" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="50:375" id="9ix-4z-rXD"/>
                                     <constraint firstItem="hqm-Wm-1Ot" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.474667" id="A4A-vf-RIU"/>
                                     <constraint firstAttribute="bottom" secondItem="Uqr-Fk-UaJ" secondAttribute="bottom" constant="22" id="AXy-nf-Aj3"/>
@@ -207,7 +201,6 @@
                                     <constraint firstItem="73G-tD-KMJ" firstAttribute="height" secondItem="cRS-mF-ZIp" secondAttribute="height" multiplier="15:190" id="nQs-SW-kcG"/>
                                     <constraint firstItem="2US-xh-JYh" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="50:375" id="neP-81-xKS"/>
                                     <constraint firstItem="sKe-Dq-PCC" firstAttribute="trailing" secondItem="cRS-mF-ZIp" secondAttribute="trailing" multiplier="0.325333" id="okB-h0-b5D"/>
-                                    <constraint firstItem="GOO-nH-9Mp" firstAttribute="bottom" secondItem="cRS-mF-ZIp" secondAttribute="bottom" multiplier="0.921053" id="q2C-Co-dka"/>
                                     <constraint firstItem="nGg-sV-Ajs" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="136:375" id="t6n-bL-jcM"/>
                                     <constraint firstItem="oAn-Pf-OvP" firstAttribute="width" secondItem="cRS-mF-ZIp" secondAttribute="width" multiplier="155:375" id="uC7-TI-evB"/>
                                     <constraint firstAttribute="trailing" secondItem="Uqr-Fk-UaJ" secondAttribute="trailing" constant="166" id="uCv-Xj-zTA"/>
@@ -537,7 +530,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" red="0.089053742587566376" green="0.17141106724739075" blue="0.41999426484107971" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="O0J-Vz-Cm7" kind="relationship" relationship="viewControllers" id="i11-8u-Vfd"/>
@@ -558,7 +551,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hre-ID-cKl">
-                                <rect key="frame" x="0.0" y="53" width="375" height="433"/>
+                                <rect key="frame" x="0.0" y="52.5" width="375" height="433"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                 <prototypes>
@@ -1637,7 +1630,7 @@
         <scene sceneID="G5s-cJ-7f3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SrB-jT-Vrz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Readings" image="blood-pressure-3" id="2N3-50-bhm"/>
+                    <tabBarItem key="tabBarItem" title="Readings" image="blood-pressure-5" id="2N3-50-bhm"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="lt6-mm-hfB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EVe-u1-Mmz">
@@ -1655,15 +1648,16 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="gN6-l0-scE"/>
         <segue reference="Cw8-5M-mE5"/>
-        <segue reference="sHY-oj-f8f"/>
+        <segue reference="SZQ-0J-RU7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="backgroundImg" width="76" height="101"/>
         <image name="backgroundShape" width="122" height="29"/>
         <image name="backgroundShape1" width="182" height="28"/>
         <image name="blood-pressure" width="256" height="256"/>
-        <image name="blood-pressure-3" width="32" height="32"/>
+        <image name="blood-pressure-5" width="16" height="16"/>
         <image name="bluetoothDisable" width="24" height="24"/>
         <image name="bluetoothscan-1" width="24" height="24"/>
         <image name="calendar" width="32" height="32"/>
@@ -1672,7 +1666,6 @@
         <image name="icons8-left-50" width="25" height="25"/>
         <image name="list-2" width="16" height="16"/>
         <image name="notification" width="16" height="16"/>
-        <image name="right-arrow" width="32" height="32"/>
         <image name="user (1)" width="32" height="32"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
