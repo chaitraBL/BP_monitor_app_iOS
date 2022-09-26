@@ -204,20 +204,20 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
 //                        Log.i(TAG, "onClick: new task in next " + newTask);
                                             if (newTask.size() > 0) {
                                                 //Sort the arraylist in ascending order
-                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
-                                                    @Override
-                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
-                                                        try {
-                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))) {
-                                                                return -1;
-                                                            }
-                                                        } catch (ParseException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                        return 1;
-                                                    }
-                                                });
-                                                Collections.reverse(newTask);
+//                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
+//                                                    @Override
+//                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
+//                                                        try {
+//                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))) {
+//                                                                return -1;
+//                                                            }
+//                                                        } catch (ParseException e) {
+//                                                            e.printStackTrace();
+//                                                        }
+//                                                        return 1;
+//                                                    }
+//                                                });
+//                                                Collections.reverse(newTask);
                                                 plotForSelectedDate(newTask);
                                                 combinedChart.notifyDataSetChanged();
                                                 combinedChart.invalidate();
@@ -246,20 +246,20 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
 //                        Log.i(TAG, "onClick: new task in next " + newTask);
                                             if (newTask.size() > 0) {
                                                 //Sort the arraylist in ascending order
-                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
-                                                    @Override
-                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
-                                                        try {
-                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
-                                                                return -1;
-                                                            }
-                                                        } catch (ParseException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                        return 1;
-                                                    }
-                                                });
-                                                Collections.reverse(newTask);
+//                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
+//                                                    @Override
+//                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
+//                                                        try {
+//                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
+//                                                                return -1;
+//                                                            }
+//                                                        } catch (ParseException e) {
+//                                                            e.printStackTrace();
+//                                                        }
+//                                                        return 1;
+//                                                    }
+//                                                });
+//                                                Collections.reverse(newTask);
                                                 plotForSelectedDate(newTask);
                                                 combinedChart.notifyDataSetChanged();
                                                 combinedChart.invalidate();
@@ -292,20 +292,20 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
 //                        Log.i(TAG, "onClick: new task in next " + newTask);
                                             if (newTask.size() > 0) {
                                                 //Sort the arraylist in ascending order
-                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
-                                                    @Override
-                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
-                                                        try {
-                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
-                                                                return -1;
-                                                            }
-                                                        } catch (ParseException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                        return 1;
-                                                    }
-                                                });
-                                                Collections.reverse(newTask);
+//                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
+//                                                    @Override
+//                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
+//                                                        try {
+//                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
+//                                                                return -1;
+//                                                            }
+//                                                        } catch (ParseException e) {
+//                                                            e.printStackTrace();
+//                                                        }
+//                                                        return 1;
+//                                                    }
+//                                                });
+//                                                Collections.reverse(newTask);
                                                 plotForSelectedDate(newTask);
                                                 combinedChart.notifyDataSetChanged();
                                                 combinedChart.invalidate();
@@ -335,21 +335,21 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                                             newTask.add(i);
 //                        Log.i(TAG, "onClick: new task in next " + newTask);
                                             if (newTask.size() > 0) {
-                                                //Sort the arraylist in ascending order
-                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
-                                                    @Override
-                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
-                                                        try {
-                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
-                                                                return -1;
-                                                            }
-                                                        } catch (ParseException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                        return 1;
-                                                    }
-                                                });
-                                                Collections.reverse(newTask);
+//                                                //Sort the arraylist in ascending order
+//                                                Collections.sort(newTask, new Comparator<BloodPressureDB>() {
+//                                                    @Override
+//                                                    public int compare(BloodPressureDB bloodPressureDB, BloodPressureDB t1) {
+//                                                        try {
+//                                                            if (Objects.requireNonNull(df2.parse(bloodPressureDB.getTime())).before(df2.parse(t1.getTime()))){
+//                                                                return -1;
+//                                                            }
+//                                                        } catch (ParseException e) {
+//                                                            e.printStackTrace();
+//                                                        }
+//                                                        return 1;
+//                                                    }
+//                                                });
+//                                                Collections.reverse(newTask);
                                                 plotForSelectedDate(newTask);
                                                 combinedChart.notifyDataSetChanged();
                                                 combinedChart.invalidate();
