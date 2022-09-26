@@ -61,6 +61,7 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -147,13 +148,13 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
         calendarBtn.setBackgroundDrawable(null);
 
 //        Navigates from one activity to another through linear layout
-        LinearLayout linearLayout = findViewById(R.id.linear_bp);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomePage.this, MainActivity.class));
-            }
-        });
+//        LinearLayout linearLayout = findViewById(R.id.linear_bp);
+//        linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(HomePage.this, MainActivity.class));
+//            }
+//        });
 
         FirstFragment firstFragment = new FirstFragment();
         SecondFragment secondFragment = new SecondFragment();
@@ -580,19 +581,19 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#90EE90")));
         }
-        else if (systolic >= 80 && systolic < 120) {
+        else if (systolic >= 80 && systolic <= 120) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#008000")));
         }
-        else if (systolic >= 120 && systolic < 139) {
+        else if (systolic > 120 && systolic <= 139) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFD700")));
         }
-        else if (systolic >= 139 && systolic < 159) {
+        else if (systolic > 139 && systolic <= 159) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFA500")));
         }
-        else if (systolic >= 159 && systolic < 179) {
+        else if (systolic > 159 && systolic <= 179) {
             progressBar1.setProgress(systolic);
             progressBar1.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FF8C00")));
         }
@@ -608,19 +609,19 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#90EE90")));
         }
-        else if (diastolic >= 60 && diastolic < 80) {
+        else if (diastolic >= 60 && diastolic <= 80) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#008000")));
         }
-        else if (diastolic >= 80 && diastolic < 89) {
+        else if (diastolic > 80 && diastolic <= 89) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFD700")));
         }
-        else if (diastolic >= 89 && diastolic < 99) {
+        else if (diastolic > 89 && diastolic <= 99) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFA500")));
         }
-        else if (diastolic >= 99 && diastolic < 109) {
+        else if (diastolic > 99 && diastolic <= 109) {
             progressBar2.setProgress(diastolic);
             progressBar2.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FF8C00")));
         }
@@ -674,9 +675,9 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             xAxis.setLabelCount(timeList.size());
             xAxis.setValueFormatter(new IndexAxisValueFormatter(timeList));
             xAxis.setAvoidFirstLastClipping(false);
-            xAxis.setLabelRotationAngle(-45);
+//            xAxis.setLabelRotationAngle(-45);
             xAxis.setDrawGridLines(false);
-            xAxis.setDrawAxisLine(false);
+            xAxis.setDrawAxisLine(true);
             xAxis.setGranularity(1f);
             xAxis.setGranularityEnabled(true);
             xAxis.setCenterAxisLabels(false);
@@ -692,13 +693,14 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             yAxisRight.setEnabled(false);
             YAxis yAxisLeft = combinedChart.getAxisLeft();
             yAxisLeft.setLabelCount(6,true);
-            yAxisLeft.setDrawAxisLine(false);
+            yAxisLeft.setDrawAxisLine(true);
+            yAxisLeft.setDrawGridLines(false);
             yAxisLeft.setTextSize(8);
             yAxisLeft.setAxisMinimum(50);
-            yAxisLeft.setAxisMaximum(200);
-            xAxis.setTextColor(Color.BLACK);
-            yAxisLeft.setTextColor(Color.BLACK);
-            yAxisRight.setTextColor(Color.BLACK);
+            yAxisLeft.setAxisMaximum(150);
+            xAxis.setTextColor(Color.GRAY);
+            yAxisLeft.setTextColor(Color.GRAY);
+            yAxisRight.setTextColor(Color.GRAY);
 
             combinedChart.setDragEnabled(true);
             combinedChart.setScaleEnabled(true);
@@ -762,9 +764,9 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             xAxis.setLabelCount(timeList.size());
             xAxis.setValueFormatter(new IndexAxisValueFormatter(timeList));
             xAxis.setAvoidFirstLastClipping(false);
-            xAxis.setLabelRotationAngle(-45);
+            xAxis.setLabelRotationAngle(-15);
             xAxis.setDrawGridLines(false);
-            xAxis.setDrawAxisLine(false);
+            xAxis.setDrawAxisLine(true);
             xAxis.setGranularity(1f);
             xAxis.setGranularityEnabled(true);
             xAxis.setCenterAxisLabels(false);
@@ -783,10 +785,12 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             yAxisLeft.setDrawAxisLine(false);
             yAxisLeft.setTextSize(8);
             yAxisLeft.setAxisMinimum(50);
-            yAxisLeft.setAxisMaximum(200);
-            xAxis.setTextColor(Color.BLACK);
-            yAxisLeft.setTextColor(Color.BLACK);
-            yAxisRight.setTextColor(Color.BLACK);
+            yAxisLeft.setAxisMaximum(150);
+            yAxisLeft.setDrawGridLines(false);
+            yAxisLeft.setDrawAxisLine(true);
+            xAxis.setTextColor(Color.GRAY);
+            yAxisLeft.setTextColor(Color.GRAY);
+            yAxisRight.setTextColor(Color.GRAY);
 
             combinedChart.setDragEnabled(true);
             combinedChart.setScaleEnabled(true);
@@ -828,9 +832,11 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             cds.setColor(Color.rgb(80, 80, 80));
             cds.setShadowColor(Color.DKGRAY);
             cds.setBarSpace(1f);
-            cds.setDecreasingColor(Color.parseColor("#FFA500"));
+//            cds.setDecreasingColor(Color.parseColor("#FFA500"));
+            cds.setDecreasingColor(Color.LTGRAY);
             cds.setDecreasingPaintStyle(Paint.Style.FILL);
-            cds.setIncreasingColor(Color.parseColor("#FFA500"));
+//            cds.setIncreasingColor(Color.parseColor("#FFA500"));
+            cds.setIncreasingColor(Color.LTGRAY);
             cds.setIncreasingPaintStyle(Paint.Style.STROKE);
             cds.setDrawValues(false);
             cds.setNeutralColor(Color.BLUE);
@@ -888,14 +894,18 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             set.setDrawHorizontalHighlightIndicator(false);
             set.setDrawVerticalHighlightIndicator(false);
             set.setDrawCircles(true);
-            set.setColors(Color.MAGENTA);
-            set.setCircleColor(Color.parseColor("#50EBEC"));
-            set.setCircleRadius(5f);
+//            set.setColors(Color.MAGENTA);
+            set.setColor(Color.GRAY);
+            set.setCircleColor(Color.parseColor("#FFD700"));
+            set.setCircleRadius(4f);
             set.setDrawCircleHole(false);
-            set.enableDashedLine(10,5,0);
+            set.enableDashedLine(10,10,0);
             set.setValueTextSize(10f);
             set.setDrawValues(true);
             set.setDrawHighlightIndicators(false);
+            set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set.setValueFormatter(new DefaultValueFormatter(0));
+            set.setCubicIntensity(0.2f);
 
             Collections.sort(entries1,new EntryXComparator());
 
@@ -904,13 +914,17 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             set2.setDrawVerticalHighlightIndicator(false);
             set2.setDrawCircles(true);
             set2.setDrawCircleHole(false);
-            set2.enableDashedLine(10,5,0);
-            set2.setColors(Color.RED);
-            set2.setCircleColor(Color.parseColor("#50EBEC"));
-            set2.setCircleRadius(5f);
+            set2.enableDashedLine(10,10,0);
+//            set2.setColors(Color.RED);
+            set2.setColor(Color.GRAY);
+            set2.setCircleColor(Color.parseColor("#90EE90"));
+            set2.setCircleRadius(4f);
             set2.setValueTextSize(10f);
+            set2.setValueFormatter(new DefaultValueFormatter(0));
             set2.setDrawValues(true);
             set2.setDrawHighlightIndicators(false);
+            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set2.setCubicIntensity(0.2f);
 
             // Set color as per the mode - Dark mode/Light mode.
             switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {

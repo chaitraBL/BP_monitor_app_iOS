@@ -141,9 +141,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         ActionBar actioBar = getSupportActionBar();
         Objects.requireNonNull(actioBar).setTitle(R.string.scan_device);
-//        actioBar.setHomeAsUpIndicator(R.drawable.ic_baseline_keyboard_arrow_left_24);
-        actioBar.setDisplayHomeAsUpEnabled(true);
-        actioBar.setDisplayShowHomeEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#151B54")));
 
         bluetoothManager =

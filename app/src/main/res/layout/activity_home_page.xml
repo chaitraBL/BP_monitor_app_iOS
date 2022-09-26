@@ -134,7 +134,7 @@
                 android:fontFamily="@font/arial"
                 android:text="-"
                 android:textColor="#131313"
-                android:textSize="15sp" />
+                android:textSize="17sp" />
             <!--     android:textColor="#FFFFFF"            android:textColor="@color/black"/>-->
 
             <LinearLayout
@@ -152,7 +152,7 @@
                     android:layout_marginTop="5dp"
                     android:indeterminate="false"
                     android:progress="0"
-                    android:max="200" />
+                    android:max="250" />
 
                 <TextView
                     android:id="@+id/systa_pbText"
@@ -181,7 +181,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:indeterminate="false"
-                    android:max="200"
+                    android:max="250"
                     android:progress="0"/>
 
                 <TextView
@@ -213,12 +213,12 @@
                     android:textSize="10sp"
                     tools:ignore="SmallSp" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="35dp"
-                    android:src="@drawable/ic_baseline_arrow_forward_24"
-                    app:tint="@color/black" />
+<!--                <ImageView-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:layout_marginStart="35dp"-->
+<!--                    android:src="@drawable/ic_baseline_arrow_forward_24"-->
+<!--                    app:tint="@color/black" />-->
 
             </LinearLayout>
 
@@ -270,7 +270,7 @@
                 android:fontFamily="@font/arial"
                 android:text="-"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="17sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -378,7 +378,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="255dp"
         android:gravity="center"
         android:id="@+id/relativeLayout">
 
@@ -392,7 +392,7 @@
 
     <View
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="10dp"
         app:layout_constraintBottom_toTopOf="@id/reading_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
