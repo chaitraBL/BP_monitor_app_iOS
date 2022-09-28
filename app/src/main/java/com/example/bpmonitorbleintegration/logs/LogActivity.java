@@ -275,7 +275,6 @@ private  void endDateCalendar() {
                                 Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.select_end_date), Toast.LENGTH_SHORT).show();
                             }
                             else {
-
                                 newTask.clear();
 
                                 //Method 1: to filter the values between 2 dates.
