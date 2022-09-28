@@ -928,7 +928,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
 
         @Override
         protected void drawLabel(Canvas c, String formattedLabel, float x, float y, MPPointF anchor, float angleDegrees) {
-            String line[] = formattedLabel.split("\n");
+            String[] line = formattedLabel.split("\n");
             if (isData == true) {
                 Utils.drawXAxisValue(c, line[0], x, y, mAxisLabelPaint, anchor, angleDegrees);
                 selectedDateText.setText(line[0]);
