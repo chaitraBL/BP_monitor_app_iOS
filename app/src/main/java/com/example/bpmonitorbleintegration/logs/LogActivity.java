@@ -456,7 +456,7 @@ private  void endDateCalendar() {
             holder.textViewRate.setText(String.valueOf(t.getHeartRate()));
         }
 
-        @Overridez
+        @Override
         public int getItemCount() {
             return readingList.size();
         }
@@ -557,7 +557,7 @@ private  void endDateCalendar() {
                 else if ((systolic > 139 && systolic <= 159) || (diastolic > 89 && diastolic <= 99)) {
                     msg = getString(R.string.hypertension_stage_1);
                 }
-                else if ((systolic > 159 && systolic <= 179) || (diastolic > 99 && diastolic <= 109)) {
+                else if (systolic <= 179 || diastolic > 99 && diastolic <= 109) {
                     msg = getString(R.string.hypertension_stage_2);
                 }
                 else if ((systolic > 179 && systolic <= 189) || (diastolic > 109 && diastolic <= 119)) {
