@@ -679,7 +679,6 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
             for (BloodPressureDB list : task) {
                 changedDate = changeDateFormat(list.getDate());
                 timeList.add(changedDate+ "\n\r" +list.getTime());
-
             }
 
             // draw bars behind lines
