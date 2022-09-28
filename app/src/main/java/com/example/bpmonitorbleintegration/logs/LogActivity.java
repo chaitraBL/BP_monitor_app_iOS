@@ -456,7 +456,7 @@ private  void endDateCalendar() {
             holder.textViewRate.setText(String.valueOf(t.getHeartRate()));
         }
 
-        @Override
+        @Overridez
         public int getItemCount() {
             return readingList.size();
         }
