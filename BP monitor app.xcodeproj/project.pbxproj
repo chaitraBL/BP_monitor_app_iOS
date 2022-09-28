@@ -15,7 +15,6 @@
 		17444617286C66D400917C61 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17444616286C66D300917C61 /* DataModel.swift */; };
 		1744461A286C793800917C61 /* ShareReadingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17444619286C793800917C61 /* ShareReadingsViewController.swift */; };
 		1754FB28288A886B001DD415 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1754FB27288A8869001DD415 /* CoreBluetooth.framework */; };
-		175AF6A22872FCE600472566 /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175AF6A12872FCE600472566 /* CustomMarkerView.swift */; };
 		175C9919286AE5EA0073D324 /* ManualReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175C9918286AE5EA0073D324 /* ManualReadingViewController.swift */; };
 		175C991E286B11820073D324 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175C991D286B11820073D324 /* Decoder.swift */; };
 		175C995E286B2A920073D324 /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175C995D286B2A920073D324 /* LogTableViewCell.swift */; };
@@ -34,7 +33,6 @@
 		179F745028698F2300CE83ED /* BP_monitor_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F744F28698F2300CE83ED /* BP_monitor_appUITests.swift */; };
 		179F74602869B24800CE83ED /* ConnectedDevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F745F2869B24800CE83ED /* ConnectedDevicesViewController.swift */; };
 		17AA616A286C4A9F00B01BF5 /* CalendarSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AA6169286C4A9D00B01BF5 /* CalendarSelectViewController.swift */; };
-		17BB7BC128745E0900A2C44F /* CustomerMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17BB7BC028745E0900A2C44F /* CustomerMarkerView.xib */; };
 		2B5DBB7AED7D6BB7D81ADC85 /* Pods_BP_monitor_appTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C9392C746D1477C769F3B14 /* Pods_BP_monitor_appTests.framework */; };
 		362FE6CA18C77D45EBFC6B35 /* Pods_BP_monitor_app_BP_monitor_appUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8519355B98FEF0B08802F32D /* Pods_BP_monitor_app_BP_monitor_appUITests.framework */; };
 		69D5BCB1844CA501F59C10B1 /* Pods_BP_monitor_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2849CB2DBD3DC4ED46D40C4 /* Pods_BP_monitor_app.framework */; };
@@ -66,7 +64,6 @@
 		17444616286C66D300917C61 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		17444619286C793800917C61 /* ShareReadingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareReadingsViewController.swift; sourceTree = "<group>"; };
 		1754FB27288A8869001DD415 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		175AF6A12872FCE600472566 /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		175C9918286AE5EA0073D324 /* ManualReadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualReadingViewController.swift; sourceTree = "<group>"; };
 		175C991D286B11820073D324 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		175C995D286B2A920073D324 /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
@@ -92,7 +89,6 @@
 		179F745128698F2300CE83ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		179F745F2869B24800CE83ED /* ConnectedDevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedDevicesViewController.swift; sourceTree = "<group>"; };
 		17AA6169286C4A9D00B01BF5 /* CalendarSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSelectViewController.swift; sourceTree = "<group>"; };
-		17BB7BC028745E0900A2C44F /* CustomerMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerMarkerView.xib; sourceTree = "<group>"; };
 		3109E6974C4E0C579ABA663D /* Pods-BP monitor app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BP monitor app.release.xcconfig"; path = "Target Support Files/Pods-BP monitor app/Pods-BP monitor app.release.xcconfig"; sourceTree = "<group>"; };
 		3349C6C3F83D33CEB20F5EB2 /* Pods-BP monitor app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BP monitor app.debug.xcconfig"; path = "Target Support Files/Pods-BP monitor app/Pods-BP monitor app.debug.xcconfig"; sourceTree = "<group>"; };
 		5C9392C746D1477C769F3B14 /* Pods_BP_monitor_appTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BP_monitor_appTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,15 +140,6 @@
 			path = PopUps;
 			sourceTree = "<group>";
 		};
-		175AF69E2872FB8600472566 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				175AF6A12872FCE600472566 /* CustomMarkerView.swift */,
-				17BB7BC028745E0900A2C44F /* CustomerMarkerView.xib */,
-			);
-			path = Xibs;
-			sourceTree = "<group>";
-		};
 		175C9913286AE50D0073D324 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,7 +161,6 @@
 		175C9915286AE52D0073D324 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				175AF69E2872FB8600472566 /* Xibs */,
 				17444618286C78F200917C61 /* PopUps */,
 				175C995C286B2A780073D324 /* Cells */,
 				175C9916286AE5430073D324 /* Controllers */,
@@ -419,7 +405,6 @@
 			files = (
 				179F743A28698F2200CE83ED /* LaunchScreen.storyboard in Resources */,
 				179F743728698F2200CE83ED /* Assets.xcassets in Resources */,
-				17BB7BC128745E0900A2C44F /* CustomerMarkerView.xib in Resources */,
 				179F743228698F0400CE83ED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -557,7 +542,6 @@
 				17444615286C5F2800917C61 /* CalendarStartDateSelectViewController.swift in Sources */,
 				175C9960286B2AC60073D324 /* LogsViewController.swift in Sources */,
 				17444617286C66D400917C61 /* DataModel.swift in Sources */,
-				175AF6A22872FCE600472566 /* CustomMarkerView.swift in Sources */,
 				176ECFDD28C766A9002E7F5A /* ChartMarker.swift in Sources */,
 				1711EAC1288E63D200A001DC /* Reading+CoreDataClass.swift in Sources */,
 				179F742F28698F0300CE83ED /* ViewController.swift in Sources */,

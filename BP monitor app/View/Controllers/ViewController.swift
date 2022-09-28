@@ -19,7 +19,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
     @IBOutlet var backgroundImg: UIImageView!
     var readingsObj:[Reading] = []
     var filteredObj:[Reading] = []
-    let markerView = CustomMarkerView()
     
     @IBOutlet var bpReadings: UILabel!
     @IBOutlet var heartRateReadings: UILabel!
@@ -88,26 +87,17 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         navigationItem.setHidesBackButton(true, animated: false)
         self.tabBarController?.tabBar.isHidden = false
         
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(hexString: "#162760")], for: .selected)
-    
-                
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .normal)
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(hexString: "#162760")], for: .selected)
+//    
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .normal)
         
 //        activityView1.isHidden = false
 //        activityIndicator1.startAnimating()
         getData()
-         // Tap guesture to navigate to next vc from imageview
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
-//
-//        backgroundImg.isUserInteractionEnabled = true
-//
-//        backgroundImg.addGestureRecognizer(tapGestureRecognizer)
         
         profilePic.layer.masksToBounds = true
         profilePic.layer.cornerRadius = profilePic.bounds.width / 2
         
-//        markerView.chartView = combinedChart
-//        combinedChart.marker = markerView as! IMarker
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,15 +109,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         super.viewDidAppear(animated)
         getData()
     }
-    
-     // Navigate to next vc from imageview
-//    @objc func imageViewTapped(_ sender:AnyObject){
-//
-////        print("imageview tapped")
-//
-//        performSegue(withIdentifier: "toDeviceConnection", sender: self)
-//
-//    }
 
     // To get data from coredata and append it to model & plot the graph
     func getData() {
@@ -182,7 +163,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //                        print("dateInNewStringFormat\(dateInNewStringFormat)")
 //                        logData.date.text = dateInNewStringFormat
                          xVal = dateInNewStringFormat + "\n" + i.time!
-                        dateChangeLabel.text = "16 - Sep"
+//                        dateChangeLabel.text = "24 - Sep"
                     }
                     
 //                    print("xVal = \(xVal)")
@@ -300,7 +281,7 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
 //                    print("dateInNewStringFormat\(dateInNewStringFormat)")
 //                    logData.date.text = dateInNewStringFormat
                     xVal = dateInNewStringFormat + "\n" + i.time!
-                    dateChangeLabel.text = "16 - Sep"
+//                    dateChangeLabel.text = "24 - Sep"
                 }
                 datelist.append(xVal!)
                 sysList.append(Int(i.systolic!)!)
@@ -378,15 +359,14 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         candleChartSet.increasingColor = UIColor.lightGray
             candleChartSet.increasingFilled = false
             candleChartSet.setDrawHighlightIndicators(false)
-            candleChartSet.neutralColor = UIColor.blue
+            candleChartSet.neutralColor = UIColor.lightGray
             candleChartSet.setColor(UIColor.init(red: 80, green: 80, blue: 80, alpha: 1))
             candleChartSet.drawValuesEnabled = false
-        
             
             //Ui
 //            lineChartSet.setColor(UIColor.magenta)
         lineChartSet.setColor(UIColor.darkGray)
-//            lineChartSet.setCircleColor(UIColor(hexString: "#50EBEC"))
+            lineChartSet.setCircleColor(UIColor(hexString: "#FFD700"))
             lineChartSet.circleRadius = 5
 //            lineChartSet1.setColor(UIColor.red)
         lineChartSet1.setColor(UIColor.darkGray)
@@ -404,35 +384,23 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             lineChartSet.setDrawHighlightIndicators(false)
             lineChartSet1.drawValuesEnabled = true
             lineChartSet1.setDrawHighlightIndicators(false)
+        lineChartSet.highlightEnabled = false
+        lineChartSet1.highlightEnabled = false
+        lineChartSet.valueFormatter = DefaultValueFormatter(decimals: 0)
+        lineChartSet1.valueFormatter = DefaultValueFormatter(decimals: 0)
         
-        for i in 0..<forY.count{
-            if (forY[i] < 80) {
-                lineChartSet.setCircleColor(UIColor(hexString: "#90EE90"))
-            }
-            else if (forY[i] >= 80 && forY[i] <= 120) {
-                lineChartSet.setCircleColor(UIColor(hexString: "#008000"))
-            }
-            else if (forY[i] > 120 && forY[i] <= 139) {
-                lineChartSet.setCircleColor(UIColor(hexString: "#FFD700"))
-            }
-            else if (forY[i] > 139 && forY[i] <= 159) {
-                lineChartSet.setCircleColor(UIColor(hexString: "#FFA500"))
-            }
-            else if (forY[i] > 159 && forY[i] <= 179) {
-                lineChartSet.setCircleColor(UIColor(hexString: "#FF8C00"))
-            }
-            else {
-                lineChartSet.setCircleColor(UIColor(hexString: "#FF0000"))
-            }
-        }
+        //Formatter to remove decimal points
+//        let format = NumberFormatter()
+//        format.numberStyle = .none
+//        let formatter = DefaultValueFormatter(formatter: format)
+//        data.setValueFormatter(formatter)
         
-             
     //        let comData = CombinedChartData(dataSets: [lineChartSet,lineChartSet1,candleChartSet])
             let comData = CombinedChartData()
     //        comData.barData = barChartData
             comData.candleData = candleChartData
             comData.lineData = data
-            
+        
     //         combinedChart.setVisibleXRangeMaximum(5)
             if(dataEntries1.count >= 5) {
                 combinedChart.setVisibleXRangeMaximum(5)
@@ -484,7 +452,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             
             //y axis
             combinedChart.rightAxis.drawGridLinesEnabled = false
-    //        combinedChart.rightAxis.drawGridLinesEnabled = false
             combinedChart.rightAxis.drawLabelsEnabled = false
             combinedChart.leftAxis.drawGridLinesEnabled = false
             combinedChart.leftAxis.drawAxisLineEnabled = true
@@ -498,7 +465,11 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
             let marker = ChartMarker()
             marker.chartView = combinedChart
             combinedChart.marker = marker
-            
+//        let customXAxisRenderer = CustomXAxisRenderer(viewPortHandler: combinedChart.viewPortHandler, xAxis: combinedChart.xAxis, transformer: combinedChart.getTransformer(forAxis: YAxis.AxisDependency.left))
+//        print("xaxis \(String(describing: customXAxisRenderer.scrollDate))")
+//        self.dateChangeLabel.text = customXAxisRenderer.scrollDate
+//            combinedChart.xAxisRenderer = customXAxisRenderer
+
             combinedChart.pinchZoomEnabled = true
             combinedChart.dragEnabled = true
     //        combinedChart.isMultipleTouchEnabled = true
@@ -508,7 +479,6 @@ class ViewController: UIViewController, ChartViewDelegate, startdateSelect, UIPo
         combinedChart.animate(xAxisDuration: 0.5, yAxisDuration: 0.5, easingOption: .easeInCirc)
             
         }
-
     }
 
 extension UIColor {
@@ -539,9 +509,7 @@ extension UIColor {
         return String(format:"#%06x", rgb)
     }
 }
-
-extension ViewController {
-    
+ 
     class CustomXAxisRenderer: XAxisRenderer {
         var scrollDate:String?
         override init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?) {
@@ -552,18 +520,15 @@ extension ViewController {
             let line = formattedLabel.split(separator: "\n")
             print("formatted label \(formattedLabel) after split \(String(line[0]))")
             scrollDate = String(line[0])
-            print("scroll date \(scrollDate)")
-//            dateChangeLabel.text = String(line[0])
+            print("scroll date \(String(describing: scrollDate))")
         }
     }
-}
 
-
-extension UINavigationController {
-    var canHideBottomForNextPush:Bool {
-        guard #available(iOS 14, *) else {
-            return true
-        }
-        return viewControllers.count == 1
-    }
-}
+//extension UINavigationController {
+//    var canHideBottomForNextPush:Bool {
+//        guard #available(iOS 14, *) else {
+//            return true
+//        }
+//        return viewControllers.count == 1
+//    }
+//}

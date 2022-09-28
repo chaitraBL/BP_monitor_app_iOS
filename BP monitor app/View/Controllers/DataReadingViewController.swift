@@ -176,7 +176,8 @@ class DataReadingViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] action in
             centralManager.cancelPeripheralConnection(periperalData)
             periperalData = nil
-            performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+//            performSegue(withIdentifier: "disconnectPeripheral", sender: self)
+            self.navigationController?.popViewController(animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
@@ -184,13 +185,20 @@ class DataReadingViewController: UIViewController {
     
 //    Navigating from one vc to another
 override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if (segue.identifier == "disconnectPeripheral") {
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    else if (segue.identifier == "toHome") {
+//    if (segue.identifier == "disconnectPeripheral") {
+//        self.tabBarController?.tabBar.isHidden = false
+//        self.navigationController?.popViewController(animated: true)
+//    }
+//    else
+    if (segue.identifier == "toHome") {
         self.tabBarController?.tabBar.isHidden = false
     }
 }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+       self.tabBarController?.tabBar.isHidden = false
+   }
   
 //    Sending start command to receive readings
     @IBAction func startReading(_ sender: Any) {

@@ -32,13 +32,20 @@ class ConnectedDevicesViewController: UIViewController , UITableViewDelegate, UI
         self.navigationController?.navigationItem.hidesBackButton = true
         navigationItem.setHidesBackButton(true, animated: false)
         self.tabBarController?.tabBar.isHidden = false
-        
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(hexString: "#162760")], for: .selected)
-                
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .normal)
+        self.hidesBottomBarWhenPushed = false
+  
         cManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         
 //        centralManager.delegate = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationItem.hidesBackButton = true
+        navigationItem.setHidesBackButton(true, animated: false)
+        self.tabBarController?.tabBar.isHidden = false
+        self.hidesBottomBarWhenPushed = false
         
     }
     

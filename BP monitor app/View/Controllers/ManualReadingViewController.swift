@@ -28,6 +28,7 @@ class ManualReadingViewController: UIViewController {
         self.navigationController?.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
     }
+    
 
     @IBAction func saveToDatabse(_ sender: UIButton) {
         if systolicText.text == "" {
@@ -68,6 +69,23 @@ class ManualReadingViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func backPressed(_ sender: UIBarButtonItem) {
+//            performSegue(withIdentifier: "toScanDevices", sender: self)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+//    //    Navigating from one vc to another
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if (segue.identifier == "toScanDevices") {
+//            self.tabBarController?.tabBar.isHidden = false
+//        }
+//    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+       self.tabBarController?.tabBar.isHidden = false
+   }
     
     func alert(title:String, msg:String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)

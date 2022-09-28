@@ -16,11 +16,10 @@ class ChartMarker:  MarkerView{
     override func refreshContent(entry: ChartDataEntry, highlight: Highlight) {
            super.refreshContent(entry: entry, highlight: highlight)
         
-//        guard let e = CandleChartDataSet.self as? CandleChartDataEntry else { return }
         guard let e = entry as? CandleChartDataEntry else {return}
 //        print(e.high)
 
-        text = "Systolic " + String(e.high) + "\nDiastolic " + String(e.low)
+        text = "Systolic " + String(e.high) + " \nDiastolic " + String(e.low)
 //        text1 = String(e.x)
        }
 
