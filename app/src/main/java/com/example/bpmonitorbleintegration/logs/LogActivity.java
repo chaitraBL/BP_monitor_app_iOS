@@ -128,7 +128,7 @@ public class LogActivity extends AppCompatActivity implements BottomNavigationVi
         int month=c.get(Calendar.MONTH);
         int day=c.get(Calendar.DAY_OF_MONTH);
         int year=c.get(Calendar.YEAR);
-        DatePickerDialog datePickerDialog =new DatePickerDialog(LogActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(LogActivity.this, new DatePickerDialog.OnDateSetListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -165,7 +165,7 @@ private  void endDateCalendar() {
     int month=c.get(Calendar.MONTH);
     int day=c.get(Calendar.DAY_OF_MONTH);
     int year=c.get(Calendar.YEAR);
-    DatePickerDialog datePickerDialog =new DatePickerDialog(LogActivity.this, new DatePickerDialog.OnDateSetListener() {
+    DatePickerDialog datePickerDialog = new DatePickerDialog(LogActivity.this, new DatePickerDialog.OnDateSetListener() {
         @SuppressLint("SetTextI18n")
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
